@@ -424,5 +424,27 @@ namespace interdisciplinar2
         {
             OpenChildForm(new Queries());
         }
+
+        private void lblScheduleToday_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new SchedulesToday());
+
+            UnclickBtn();
+
+            ClickedBtn(ibSchedules);
+            ibSchedules.IconColor = RgbColors.color3;
+
+            lblFormName.Text = "Agendamentos de hoje";
+        }
+
+        private void lblScheduleToday_MouseLeave(object sender, EventArgs e)
+        {
+            lblScheduleToday.BackColor = Color.Transparent;
+        }
+
+        private void lblScheduleToday_MouseEnter(object sender, EventArgs e)
+        {
+            lblScheduleToday.BackColor = Color.FromArgb(80, 80, 80);
+        }
     }
 }

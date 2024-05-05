@@ -44,9 +44,9 @@
             // dgvQuery
             // 
             this.dgvQuery.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvQuery.Location = new System.Drawing.Point(335, 204);
+            this.dgvQuery.Location = new System.Drawing.Point(335, 34);
             this.dgvQuery.Name = "dgvQuery";
-            this.dgvQuery.Size = new System.Drawing.Size(453, 234);
+            this.dgvQuery.Size = new System.Drawing.Size(453, 300);
             this.dgvQuery.TabIndex = 1;
             // 
             // richTextBox1
@@ -68,28 +68,35 @@
             // 
             // searchClient
             // 
-            this.searchClient.Location = new System.Drawing.Point(556, 48);
+            this.searchClient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.searchClient.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.searchClient.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.searchClient.Location = new System.Drawing.Point(364, 401);
             this.searchClient.Name = "searchClient";
-            this.searchClient.Size = new System.Drawing.Size(232, 20);
+            this.searchClient.Size = new System.Drawing.Size(305, 26);
             this.searchClient.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Cascadia Code", 12F);
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(331, 45);
+            this.label1.Location = new System.Drawing.Point(360, 360);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(219, 30);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Quem atendeu o cliente: ";
+            this.label1.Text = "Que barbeiro atendeu o:";
             // 
             // ibQueryClient
             // 
-            this.ibQueryClient.Location = new System.Drawing.Point(475, 96);
+            this.ibQueryClient.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+            this.ibQueryClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibQueryClient.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.ibQueryClient.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ibQueryClient.Location = new System.Drawing.Point(364, 447);
             this.ibQueryClient.Name = "ibQueryClient";
-            this.ibQueryClient.Size = new System.Drawing.Size(188, 49);
+            this.ibQueryClient.Size = new System.Drawing.Size(305, 60);
             this.ibQueryClient.TabIndex = 5;
-            this.ibQueryClient.Text = "Procurar";
+            this.ibQueryClient.Text = "Barbeiro que atendeu o clientes";
             this.ibQueryClient.UseVisualStyleBackColor = true;
             this.ibQueryClient.Click += new System.EventHandler(this.ibQueryClient_Click);
             // 
@@ -99,7 +106,7 @@
             this.btnClientActive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClientActive.Font = new System.Drawing.Font("Cascadia Code", 12F);
             this.btnClientActive.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnClientActive.Location = new System.Drawing.Point(12, 204);
+            this.btnClientActive.Location = new System.Drawing.Point(12, 233);
             this.btnClientActive.Name = "btnClientActive";
             this.btnClientActive.Size = new System.Drawing.Size(305, 60);
             this.btnClientActive.TabIndex = 0;
@@ -113,7 +120,7 @@
             this.btnBarberActive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBarberActive.Font = new System.Drawing.Font("Cascadia Code", 12F);
             this.btnBarberActive.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnBarberActive.Location = new System.Drawing.Point(12, 287);
+            this.btnBarberActive.Location = new System.Drawing.Point(12, 340);
             this.btnBarberActive.Name = "btnBarberActive";
             this.btnBarberActive.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnBarberActive.Size = new System.Drawing.Size(305, 60);
@@ -128,7 +135,7 @@
             this.mostService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mostService.Font = new System.Drawing.Font("Cascadia Code", 12F);
             this.mostService.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.mostService.Location = new System.Drawing.Point(12, 370);
+            this.mostService.Location = new System.Drawing.Point(12, 447);
             this.mostService.Name = "mostService";
             this.mostService.Size = new System.Drawing.Size(305, 60);
             this.mostService.TabIndex = 2;
@@ -141,7 +148,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 531);
             this.Controls.Add(this.mostService);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBarberActive);

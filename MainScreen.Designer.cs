@@ -36,6 +36,7 @@
             Syncfusion.Windows.Forms.Tools.ClockRenderer clockRenderer1 = new Syncfusion.Windows.Forms.Tools.ClockRenderer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainScreen));
             this.panelLeft = new System.Windows.Forms.Panel();
+            this.lblScheduleToday = new System.Windows.Forms.Label();
             this.ibQuery = new System.Windows.Forms.Button();
             this.pnlDropDown = new System.Windows.Forms.Panel();
             this.lblHistorico = new System.Windows.Forms.Label();
@@ -58,7 +59,6 @@
             this.panelMainForms = new System.Windows.Forms.Panel();
             this.clock1 = new Syncfusion.Windows.Forms.Tools.Clock();
             this.timerToggleButton = new System.Windows.Forms.Timer(this.components);
-            this.label2 = new System.Windows.Forms.Label();
             this.panelLeft.SuspendLayout();
             this.pnlDropDown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toggleButton1)).BeginInit();
@@ -74,9 +74,8 @@
             // panelLeft
             // 
             this.panelLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(53)))), ((int)(((byte)(66)))));
-            this.panelLeft.Controls.Add(this.label2);
-            this.panelLeft.Controls.Add(this.ibQuery);
             this.panelLeft.Controls.Add(this.pnlDropDown);
+            this.panelLeft.Controls.Add(this.ibQuery);
             this.panelLeft.Controls.Add(this.label1);
             this.panelLeft.Controls.Add(this.toggleButton1);
             this.panelLeft.Controls.Add(this.panelLeftBtn);
@@ -91,6 +90,21 @@
             this.panelLeft.Size = new System.Drawing.Size(220, 600);
             this.panelLeft.TabIndex = 0;
             // 
+            // lblScheduleToday
+            // 
+            this.lblScheduleToday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.lblScheduleToday.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.lblScheduleToday.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblScheduleToday.Location = new System.Drawing.Point(0, 70);
+            this.lblScheduleToday.Name = "lblScheduleToday";
+            this.lblScheduleToday.Size = new System.Drawing.Size(220, 35);
+            this.lblScheduleToday.TabIndex = 4;
+            this.lblScheduleToday.Text = "Agendamentos de hoje";
+            this.lblScheduleToday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblScheduleToday.Click += new System.EventHandler(this.lblScheduleToday_Click);
+            this.lblScheduleToday.MouseEnter += new System.EventHandler(this.lblScheduleToday_MouseEnter);
+            this.lblScheduleToday.MouseLeave += new System.EventHandler(this.lblScheduleToday_MouseLeave);
+            // 
             // ibQuery
             // 
             this.ibQuery.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(53)))), ((int)(((byte)(66)))));
@@ -98,7 +112,7 @@
             this.ibQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ibQuery.Font = new System.Drawing.Font("Cascadia Code", 12.75F);
             this.ibQuery.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ibQuery.Location = new System.Drawing.Point(12, 278);
+            this.ibQuery.Location = new System.Drawing.Point(-3, 449);
             this.ibQuery.Name = "ibQuery";
             this.ibQuery.Size = new System.Drawing.Size(223, 58);
             this.ibQuery.TabIndex = 5;
@@ -109,11 +123,12 @@
             // pnlDropDown
             // 
             this.pnlDropDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.pnlDropDown.Controls.Add(this.lblScheduleToday);
             this.pnlDropDown.Controls.Add(this.lblHistorico);
             this.pnlDropDown.Controls.Add(this.lblAgendamentos);
-            this.pnlDropDown.Location = new System.Drawing.Point(0, 438);
+            this.pnlDropDown.Location = new System.Drawing.Point(0, 426);
             this.pnlDropDown.Name = "pnlDropDown";
-            this.pnlDropDown.Size = new System.Drawing.Size(220, 70);
+            this.pnlDropDown.Size = new System.Drawing.Size(220, 107);
             this.pnlDropDown.TabIndex = 3;
             this.pnlDropDown.Visible = false;
             // 
@@ -419,11 +434,11 @@
             this.clock1.ClockShape = Syncfusion.Windows.Forms.Tools.ClockShapes.Circle;
             this.clock1.ClockType = Syncfusion.Windows.Forms.Tools.ClockTypes.Digital;
             this.clock1.CurrentDateTime = new System.DateTime(2023, 11, 27, 0, 40, 17, 555);
-            this.clock1.CustomTime = new System.DateTime(2024, 4, 27, 3, 6, 31, 309);
+            this.clock1.CustomTime = new System.DateTime(2024, 5, 5, 12, 0, 36, 788);
             this.clock1.DigitalRenderer = digitalClockRenderer1;
             this.clock1.DisplayDates = true;
             this.clock1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
-            this.clock1.Location = new System.Drawing.Point(221, 88);
+            this.clock1.Location = new System.Drawing.Point(217, 88);
             this.clock1.MinimumSize = new System.Drawing.Size(75, 75);
             this.clock1.Name = "clock1";
             this.clock1.Now = new System.DateTime(((long)(0)));
@@ -441,18 +456,6 @@
             // 
             this.timerToggleButton.Interval = 1000;
             this.timerToggleButton.Tick += new System.EventHandler(this.timerToggleButton_Tick);
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.label2.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(0, 508);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(220, 35);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Agendamentos de hoje";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainScreen
             // 
@@ -510,6 +513,6 @@
         private System.Windows.Forms.Timer timerToggleButton;
         private Syncfusion.Windows.Forms.Tools.Clock clock1;
         private System.Windows.Forms.Button ibQuery;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblScheduleToday;
     }
 }
