@@ -20,17 +20,8 @@ namespace interdisciplinar2
         string conection = "Server=localhost;database=barber_shop2;uid=root;pwd=jhon";
         public SchedulesToday()
         {
-            InitializeComponent();
-            
+            InitializeComponent();           
         }
-
-        private Panel Card;
-
-        private TextBox txtService;
-
-        private Button btnBack;
-
-        private DataGridView dgvServices;
 
         List<Control> controlsRemove = new List<Control>();
 
@@ -38,7 +29,7 @@ namespace interdisciplinar2
 
         private void SchedulesToday_Load(object sender, EventArgs e)
         {
-            string query = "SELECT customers.full_name,schedules.service, schedules.horary FROM schedules INNER JOIN customers WHERE customers.id =1";
+            string query = "SELECT customers.full_name,schedules.service, schedules.horary, schedules.`description` as descrição FROM schedules INNER JOIN customers WHERE customers.id =1";
 
             MySqlConnection conexaoSql = new MySqlConnection(conection);
             MySqlCommand comando = new MySqlCommand(query, conexaoSql);
@@ -58,13 +49,14 @@ namespace interdisciplinar2
                 Label lblHorary = new System.Windows.Forms.Label();
                 Label lblBarber = new System.Windows.Forms.Label();
                 Label lblFunctionary = new System.Windows.Forms.Label();
-                Label lblTitle = new System.Windows.Forms.Label();
-                Button btnReject = new System.Windows.Forms.Button();
+                Label lblTitle = new System.Windows.Forms.Label();               
                 Button btnAccept = new System.Windows.Forms.Button();
+                Button btnReject = new System.Windows.Forms.Button();
                 TextBox txtFunctionary = new System.Windows.Forms.TextBox();
-                txtService = new System.Windows.Forms.TextBox();
                 Button btnEdit = new System.Windows.Forms.Button();
-                #endregion  
+                Label lblDescription = new System.Windows.Forms.Label();
+                TextBox txtDescription = new System.Windows.Forms.TextBox();
+                #endregion
 
                 #region imgUser
                 pictureUser.Image = global::interdisciplinar2.Properties.Resources.dark_human_icon;
@@ -142,19 +134,42 @@ namespace interdisciplinar2
                 lblTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
                 lblTitle.Location = new System.Drawing.Point(0, 0);
                 lblTitle.Name = "lblTitle";
-                lblTitle.Size = new System.Drawing.Size(360, 32);
+                lblTitle.Size = new System.Drawing.Size(396, 32);
                 lblTitle.TabIndex = 10;
                 lblTitle.Text = "Novo Agendamento";
                 lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+                //lblDescription
+                lblDescription.AutoSize = true;
+                lblDescription.Font = new System.Drawing.Font("Cascadia Code", 12F);
+                lblDescription.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+                lblDescription.Location = new System.Drawing.Point(9, 243);
+                lblDescription.Name = "lblDescription";
+                lblDescription.Size = new System.Drawing.Size(181, 21);
+                lblDescription.TabIndex = 13;
+                lblDescription.Text = "Descrição do corte:";
+
+                //lblBdDescription
+                txtDescription.Font = new System.Drawing.Font("Cascadia Code", 12F);
+                txtDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+                txtDescription.Location = new System.Drawing.Point(3, 267);
+                txtDescription.Name = "lblBdDescription";
+                txtDescription.Size = new System.Drawing.Size(387, 60);
+                txtDescription.TabIndex = 14;
+                txtDescription.Text = "Descrição";
+                txtDescription.Enabled = false;
+                txtDescription.Multiline = true;
+                txtDescription.BorderStyle = BorderStyle.None;
                 #endregion
 
                 #region Botões
                 //btnReject
+
                 btnReject.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
                 btnReject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
                 btnReject.Font = new System.Drawing.Font("Cascadia Code", 12F);
                 btnReject.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-                btnReject.Location = new System.Drawing.Point(217, 245);
+                btnReject.Location = new System.Drawing.Point(235, 334);
                 btnReject.Name = "btnReject";
                 btnReject.Size = new System.Drawing.Size(106, 32);
                 btnReject.TabIndex = 8;
@@ -167,12 +182,13 @@ namespace interdisciplinar2
                 btnAccept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
                 btnAccept.Font = new System.Drawing.Font("Cascadia Code", 12F);
                 btnAccept.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-                btnAccept.Location = new System.Drawing.Point(29, 245);
+                btnAccept.Location = new System.Drawing.Point(40, 334);
                 btnAccept.Name = "btnAccept";
                 btnAccept.Size = new System.Drawing.Size(106, 32);
                 btnAccept.TabIndex = 9;
                 btnAccept.Text = "Aceitar";
                 btnAccept.UseVisualStyleBackColor = true;
+                btnAccept.Click += Accept_Click;
 
                 //edit
                 btnEdit.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
@@ -197,8 +213,8 @@ namespace interdisciplinar2
                 #endregion
 
                 #region Card
-                Card = new System.Windows.Forms.Panel();
-                Card.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(53)))), ((int)(((byte)(66)))));
+                Panel Card = new System.Windows.Forms.Panel();
+                Card.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
                 Card.Controls.Add(pictureUser);
                 Card.Controls.Add(lblClientName);
                 Card.Controls.Add(lblHaircut);
@@ -208,16 +224,18 @@ namespace interdisciplinar2
                 Card.Controls.Add(lblBarber);
                 Card.Controls.Add(txtFunctionary);
                 Card.Controls.Add(btnReject);
+                Card.Controls.Add(lblDescription);
+                Card.Controls.Add(txtDescription);
                 Card.Controls.Add(btnAccept);
                 Card.Controls.Add(lblTitle);
                 Card.Controls.Add(btnEdit);
                 Card.Location = new System.Drawing.Point(3, 3);
                 Card.Name = "Card";
-                Card.Size = new System.Drawing.Size(360, 293);
+                Card.Size = new System.Drawing.Size(357, 377);
                 Card.Margin = new System.Windows.Forms.Padding(7);
+                Card.AutoSize = false;
                 Card.TabIndex = 0;
                 Card.DoubleClick += Card_DoubleClick;
-                // Card.Enabled = false;
                 #endregion
 
                 try
@@ -225,6 +243,7 @@ namespace interdisciplinar2
                     lblClientName.Text = myReader.GetString("full_name");
                     lblService.Text = myReader.GetString("service");
                     lblHorary.Text = myReader.GetDateTime("horary").ToString();
+                    txtDescription.Text = myReader.GetString("descrição");
                     this.panelCards.Controls.Add(Card);
                 }
                 catch (Exception ex)
@@ -232,17 +251,17 @@ namespace interdisciplinar2
                     if (ex is System.Data.SqlTypes.SqlNullValueException)
                     {
                         #region txtService 
-                        txtService = new System.Windows.Forms.TextBox();
+                        TextBox txtService = new System.Windows.Forms.TextBox();
                         txtService.Location = new System.Drawing.Point(78, 108);
                         txtService.Name = "txtService";
                         txtService.Size = new System.Drawing.Size(170, 26);
                         txtService.TabIndex = 12;
-                        txtService.Text = "TXTservice";
+                        txtService.Text = "";
                         #endregion
-
+                        txtDescription.Text = "Sem descrição";
                         Card.Controls.Remove(lblService);
                         Card.Controls.Add(txtService);
-
+                       
                         lblClientName.Text = myReader.GetString("full_name");
                         lblHorary.Text = myReader.GetDateTime("horary").ToString();
 
@@ -255,6 +274,7 @@ namespace interdisciplinar2
         private void btnReject_Click(object sender, EventArgs e)
         {
             int count = 0;
+           
             foreach (Control pass in this.panelCards.Controls)
             {
                 foreach (Control value in pass.Controls)
@@ -264,10 +284,9 @@ namespace interdisciplinar2
                         this.panelCards.Controls.RemoveAt(count);
                         return;
                     }
-                }
-                count++;
+                }  
+               count++;
             }
-
         }
 
         private void Card_DoubleClick(object sender, EventArgs e)
@@ -300,6 +319,8 @@ namespace interdisciplinar2
                 {
                     if (value == sender)
                     {
+                        pass.Controls[8].Enabled=false;
+                        pass.Controls[8].Visible = false;
                         stop = true;
                         break;
                     }
@@ -311,8 +332,6 @@ namespace interdisciplinar2
 
                 allCards.Add(pass);
             }
-
-            MessageBox.Show("este é o índice " + count);
 
             foreach (Control pass in this.panelCards.Controls)
             {
@@ -330,7 +349,7 @@ namespace interdisciplinar2
             }
 
             #region instânciaDGV
-            dgvServices = new System.Windows.Forms.DataGridView();
+            DataGridView dgvServices = new System.Windows.Forms.DataGridView();
             dgvServices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvServices.Location = new System.Drawing.Point(3, 3);
             dgvServices.Name = "dgvServices";
@@ -349,7 +368,7 @@ namespace interdisciplinar2
             this.panelCards.Controls.Add(dgvServices);
 
             #region btnCancelar
-            btnBack = new System.Windows.Forms.Button();
+            Button btnBack = new System.Windows.Forms.Button();
             btnBack.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
             btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnBack.Font = new System.Drawing.Font("Cascadia Code", 12F);
@@ -362,7 +381,7 @@ namespace interdisciplinar2
             btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += cancel_Click;
             this.panelCards.Controls.Add(btnBack);
-            #endregion
+            #endregion     
 
             this.panelCards.Refresh();
         }
@@ -379,10 +398,33 @@ namespace interdisciplinar2
                 {
                     this.panelCards.Controls.Add(pass);
                 }
-
                 allCards.Clear();
                 controlsRemove.Clear();
             }
+
+            foreach(Control pass in this.panelCards.Controls)
+            {
+                if (pass.Controls[8].Visible == false &&  pass.Controls[8].Enabled ==false)
+                {
+                    pass.Controls[8].Visible = true;
+                    pass.Controls[8].Enabled = true;
+                }
+            }
+            
         }
+
+       private void Accept_Click(object sender, EventArgs e)
+       {
+
+            string[] values = new string[6];
+            
+            foreach(Control pass in this.panelCards.Controls)
+            {
+
+            }
+
+            
+
+       }
     }
 }
