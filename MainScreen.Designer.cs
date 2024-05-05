@@ -36,8 +36,8 @@
             Syncfusion.Windows.Forms.Tools.ClockRenderer clockRenderer1 = new Syncfusion.Windows.Forms.Tools.ClockRenderer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainScreen));
             this.panelLeft = new System.Windows.Forms.Panel();
-            this.pnlDropDown = new System.Windows.Forms.Panel();
             this.ibQuery = new System.Windows.Forms.Button();
+            this.pnlDropDown = new System.Windows.Forms.Panel();
             this.lblHistorico = new System.Windows.Forms.Label();
             this.lblAgendamentos = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,6 +58,7 @@
             this.panelMainForms = new System.Windows.Forms.Panel();
             this.clock1 = new Syncfusion.Windows.Forms.Tools.Clock();
             this.timerToggleButton = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             this.panelLeft.SuspendLayout();
             this.pnlDropDown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toggleButton1)).BeginInit();
@@ -73,6 +74,7 @@
             // panelLeft
             // 
             this.panelLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(53)))), ((int)(((byte)(66)))));
+            this.panelLeft.Controls.Add(this.label2);
             this.panelLeft.Controls.Add(this.ibQuery);
             this.panelLeft.Controls.Add(this.pnlDropDown);
             this.panelLeft.Controls.Add(this.label1);
@@ -89,6 +91,21 @@
             this.panelLeft.Size = new System.Drawing.Size(220, 600);
             this.panelLeft.TabIndex = 0;
             // 
+            // ibQuery
+            // 
+            this.ibQuery.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(53)))), ((int)(((byte)(66)))));
+            this.ibQuery.FlatAppearance.BorderSize = 0;
+            this.ibQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibQuery.Font = new System.Drawing.Font("Cascadia Code", 12.75F);
+            this.ibQuery.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ibQuery.Location = new System.Drawing.Point(12, 278);
+            this.ibQuery.Name = "ibQuery";
+            this.ibQuery.Size = new System.Drawing.Size(223, 58);
+            this.ibQuery.TabIndex = 5;
+            this.ibQuery.Text = "Consultas";
+            this.ibQuery.UseVisualStyleBackColor = false;
+            this.ibQuery.Click += new System.EventHandler(this.ibQuery_Click);
+            // 
             // pnlDropDown
             // 
             this.pnlDropDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
@@ -99,21 +116,6 @@
             this.pnlDropDown.Size = new System.Drawing.Size(220, 70);
             this.pnlDropDown.TabIndex = 3;
             this.pnlDropDown.Visible = false;
-            // 
-            // ibQuery
-            // 
-            this.ibQuery.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(53)))), ((int)(((byte)(66)))));
-            this.ibQuery.FlatAppearance.BorderSize = 0;
-            this.ibQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ibQuery.Font = new System.Drawing.Font("Cascadia Code", 12.75F);
-            this.ibQuery.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ibQuery.Location = new System.Drawing.Point(0, 520);
-            this.ibQuery.Name = "ibQuery";
-            this.ibQuery.Size = new System.Drawing.Size(223, 58);
-            this.ibQuery.TabIndex = 5;
-            this.ibQuery.Text = "Consultas";
-            this.ibQuery.UseVisualStyleBackColor = false;
-            this.ibQuery.Click += new System.EventHandler(this.ibQuery_Click);
             // 
             // lblHistorico
             // 
@@ -417,7 +419,7 @@
             this.clock1.ClockShape = Syncfusion.Windows.Forms.Tools.ClockShapes.Circle;
             this.clock1.ClockType = Syncfusion.Windows.Forms.Tools.ClockTypes.Digital;
             this.clock1.CurrentDateTime = new System.DateTime(2023, 11, 27, 0, 40, 17, 555);
-            this.clock1.CustomTime = new System.DateTime(2024, 4, 22, 17, 6, 26, 145);
+            this.clock1.CustomTime = new System.DateTime(2024, 4, 27, 3, 6, 31, 309);
             this.clock1.DigitalRenderer = digitalClockRenderer1;
             this.clock1.DisplayDates = true;
             this.clock1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
@@ -439,6 +441,18 @@
             // 
             this.timerToggleButton.Interval = 1000;
             this.timerToggleButton.Tick += new System.EventHandler(this.timerToggleButton_Tick);
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.label2.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Location = new System.Drawing.Point(0, 508);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(220, 35);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Agendamentos de hoje";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainScreen
             // 
@@ -496,5 +510,6 @@
         private System.Windows.Forms.Timer timerToggleButton;
         private Syncfusion.Windows.Forms.Tools.Clock clock1;
         private System.Windows.Forms.Button ibQuery;
+        private System.Windows.Forms.Label label2;
     }
 }
