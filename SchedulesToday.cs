@@ -56,6 +56,7 @@ namespace interdisciplinar2
                 Button btnEdit = new System.Windows.Forms.Button();
                 Label lblDescription = new System.Windows.Forms.Label();
                 TextBox txtDescription = new System.Windows.Forms.TextBox();
+                Panel Card = new System.Windows.Forms.Panel();
                 #endregion
 
                 #region imgUser
@@ -213,7 +214,6 @@ namespace interdisciplinar2
                 #endregion
 
                 #region Card
-                Panel Card = new System.Windows.Forms.Panel();
                 Card.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
                 Card.Controls.Add(pictureUser);
                 Card.Controls.Add(lblClientName);
@@ -223,12 +223,12 @@ namespace interdisciplinar2
                 Card.Controls.Add(lblHorary);
                 Card.Controls.Add(lblBarber);
                 Card.Controls.Add(txtFunctionary);
-                Card.Controls.Add(btnReject);
-                Card.Controls.Add(lblDescription);
-                Card.Controls.Add(txtDescription);
+                Card.Controls.Add(btnReject);        
                 Card.Controls.Add(btnAccept);
                 Card.Controls.Add(lblTitle);
                 Card.Controls.Add(btnEdit);
+                Card.Controls.Add(lblDescription);
+                Card.Controls.Add(txtDescription);
                 Card.Location = new System.Drawing.Point(3, 3);
                 Card.Name = "Card";
                 Card.Size = new System.Drawing.Size(357, 377);
@@ -292,18 +292,15 @@ namespace interdisciplinar2
         private void Card_DoubleClick(object sender, EventArgs e)
         {
             int count = 0;
-
-            foreach (Control pass in panelCards.Controls)
+           foreach(Control pass in panelCards.Controls)
             {
-                if (pass == sender)
+                foreach(Control value in pass.Controls)
                 {
-                    break;
+                    MessageBox.Show(value.Text);
+                    MessageBox.Show("está no índice " + count);
+                    count++;
                 }
-
-                count++;
             }
-
-            MessageBox.Show("Esse é o índice" + count);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -321,6 +318,8 @@ namespace interdisciplinar2
                     {
                         pass.Controls[8].Enabled=false;
                         pass.Controls[8].Visible = false;
+                        pass.Controls[9].Size = new System.Drawing.Size(305, 32);
+                        pass.Controls[9].Location = new System.Drawing.Point(26, 333);
                         stop = true;
                         break;
                     }
@@ -404,10 +403,12 @@ namespace interdisciplinar2
 
             foreach(Control pass in this.panelCards.Controls)
             {
-                if (pass.Controls[8].Visible == false &&  pass.Controls[8].Enabled ==false)
+                if (pass.Controls[8].Visible == false &&  pass.Controls[8].Enabled == false)
                 {
                     pass.Controls[8].Visible = true;
                     pass.Controls[8].Enabled = true;
+                    pass.Controls[9].Size = new System.Drawing.Size(106, 32);
+                    pass.Controls[9].Location = new System.Drawing.Point(40, 334); ;    
                 }
             }
             
@@ -422,9 +423,6 @@ namespace interdisciplinar2
             {
 
             }
-
-            
-
        }
     }
 }
