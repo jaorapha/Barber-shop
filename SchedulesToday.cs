@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using K4os.Compression.LZ4.Encoders;
+using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Tls;
@@ -26,8 +27,7 @@ namespace interdisciplinar2
 
         private ComboBox dropListServices;
 
-        //private ComboBox dropListServices;
-
+        private Label lblService;
         public SchedulesToday()
         {
             InitializeComponent();
@@ -39,7 +39,7 @@ namespace interdisciplinar2
 
         private void SchedulesToday_Load(object sender, EventArgs e)
         {
-            string query = "SELECT customers.full_name,schedules.service,schedules.horary,schedules.`description` AS descrição FROM schedules INNER JOIN customers ON schedules.customer_id = customers.id WHERE DATE(schedules.horary) = CURDATE();";
+            string query = "SELECT customers.full_name,schedules.service,schedules.horary,schedules.`description` AS descrição FROM schedules  INNER JOIN customers ON schedules.customer_id = customers.id WHERE DATE(schedules.horary) = CURDATE() AND schedules.barber_id IS NULL;";
 
             MySqlConnection conexaoSql = new MySqlConnection(conection);
             MySqlCommand comando = new MySqlCommand(query, conexaoSql);
@@ -54,7 +54,7 @@ namespace interdisciplinar2
                 PictureBox pictureUser = new System.Windows.Forms.PictureBox();
                 Label lblClientName = new System.Windows.Forms.Label();
                 Label lblHaircut = new System.Windows.Forms.Label();
-                Label lblService = new System.Windows.Forms.Label();
+                lblService = new System.Windows.Forms.Label();
                 Label lblSchedule = new System.Windows.Forms.Label();
                 Label lblHorary = new System.Windows.Forms.Label();
                 Label lblBarber = new System.Windows.Forms.Label();
@@ -111,12 +111,12 @@ namespace interdisciplinar2
                 //lblService
                 lblService.AutoSize = true;
                 lblService.Font = new System.Drawing.Font("Cascadia Code", 12F);
-                lblService.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-                lblService.Location = new System.Drawing.Point(78, 108);
+                lblService.ForeColor = System.Drawing.Color.Red;
+                lblService.Location = new System.Drawing.Point(8, 137);
                 lblService.Name = "lblService";
                 lblService.Size = new System.Drawing.Size(73, 21);
                 lblService.TabIndex = 3;
-                lblService.Text = "Serviço";
+                lblService.Text = "Esse serviço não consta no catálogo";
 
                 //lblSchedule
                 lblSchedule.AutoSize = true;
@@ -168,7 +168,7 @@ namespace interdisciplinar2
                 lblDescription.TabIndex = 13;
                 lblDescription.Text = "Descrição do corte:";
 
-                //lblBdDescription
+                //txtDescription
                 txtDescription.Font = new System.Drawing.Font("Cascadia Code", 12F);
                 txtDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
                 txtDescription.Location = new System.Drawing.Point(3, 267);
@@ -207,6 +207,7 @@ namespace interdisciplinar2
                 btnAccept.TabIndex = 9;
                 btnAccept.Text = "Aceitar";
                 btnAccept.UseVisualStyleBackColor = true;
+                btnAccept.Enabled = false;
                 btnAccept.Click += Accept_Click;
 
                 //edit
@@ -277,8 +278,18 @@ namespace interdisciplinar2
 
                 try
                 {
-                    lblClientName.Text = myReader.GetString("full_name");                   
-                    dropListServices.Text = myReader.GetString("service");                       
+                    lblClientName.Text = myReader.GetString("full_name");       
+                    dropListServices.Text = myReader.GetString("service");
+                    if (!dropListServices.Items.Contains(dropListServices.Text))
+                    {
+                        Card.Controls.Add(lblService);
+                        lblSchedule.Location = new System.Drawing.Point(8, 172);
+                        lblHorary.Location = new System.Drawing.Point(150, 170);
+                        lblBarber.Location = new System.Drawing.Point(9,217); 
+                        dropListBarbers.Location = new System.Drawing.Point(106, 217);
+                        lblDescription.Location = new System.Drawing.Point(9, 262);
+                        txtDescription.Location = new System.Drawing.Point(3, 286);
+                    }
                     lblHorary.Text = myReader.GetDateTime("horary").ToString();                 
                     txtDescription.Text = myReader.GetString("descrição");  
                     this.panelCards.Controls.Add(Card);
@@ -292,6 +303,8 @@ namespace interdisciplinar2
 
                         if (myReader.IsDBNull(myReader.GetOrdinal("service")))
                         {
+                            dropListServices.Enabled = false;
+                            dropListServices.Visible = false;
                             dropListServices.Text = "Serviço não escolhido";
                         }
                         else
@@ -369,7 +382,6 @@ namespace interdisciplinar2
                 }
                 count++;
             }
-
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -381,6 +393,8 @@ namespace interdisciplinar2
 
             foreach (Control pass in this.panelCards.Controls)
             {
+                allCards.Add(pass);
+
                 foreach (Control value in pass.Controls)
                 {
                     if (value == sender)
@@ -390,7 +404,12 @@ namespace interdisciplinar2
                         pass.Controls[9].Size = new System.Drawing.Size(305, 32);
                         pass.Controls[9].Location = new System.Drawing.Point(26, 333);
                         pass.Controls[3].Enabled = true;
-                        pass.Controls[7].Enabled = true;   
+                        pass.Controls[7].Enabled = true;
+                        pass.Controls[9].Enabled = true;
+                        if (pass.Controls.Contains(lblService))
+                        {
+                            pass.Controls[14].Visible = false;
+                        }                       
                         stop = true;
                         break;
                     }
@@ -398,9 +417,7 @@ namespace interdisciplinar2
                 if (stop == false)
                 {
                     count++;
-                }
-
-                allCards.Add(pass);
+                }  
             }
 
             foreach (Control pass in this.panelCards.Controls)
@@ -482,9 +499,13 @@ namespace interdisciplinar2
                     pass.Controls[9].Location = new System.Drawing.Point(40, 334);
                     pass.Controls[3].Enabled = false;
                     pass.Controls[7].Enabled = false;
+                    pass.Controls[9].Enabled = true;
+                    if (pass.Controls.Contains(lblService))
+                    {
+                        pass.Controls[14].Visible = true;
+                    }
                 }
-            }   
-            
+            }       
         }
 
         private void Accept_Click(object sender, EventArgs e)
@@ -540,15 +561,29 @@ namespace interdisciplinar2
                 readQuery(queryTxtService, ref ids[2]);
             }
             readQuery(queryIdSchedule, ref ids[3]);
-
+            DialogResult confirm = MessageBox.Show("Deseja mesmo concluir o agendamento?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);         
 
             try
             {
-                update = "UPDATE schedules SET schedules.horary='" + Date(selectCard.Controls[5].Text) + "',schedules.service='" + selectCard.Controls[3].Text + "',schedules.`description`='" + selectCard.Controls[13].Text + "',schedules.barber_id=" + ids[0] + ",schedules.customer_id=" + ids[1] + ",schedules.service_id=" + ids[2] + " WHERE schedules.id = " + ids[3] + ";";
-                MySqlConnection MySqlConnection = new MySqlConnection(conection);
-                MySqlConnection.Open();
-                MySqlCommand comand = new MySqlCommand(update, MySqlConnection);
-                comand.ExecuteNonQuery();
+                if (confirm == DialogResult.Yes)
+                {
+                    update = "UPDATE schedules SET schedules.horary='" + Date(selectCard.Controls[5].Text) + "',schedules.service='" + selectCard.Controls[3].Text + "',schedules.`description`='" + selectCard.Controls[13].Text + "',schedules.barber_id=" + ids[0] + ",schedules.customer_id=" + ids[1] + ",schedules.service_id=" + ids[2] + " WHERE schedules.id = " + ids[3] + ";";
+                    MySqlConnection MySqlConnection = new MySqlConnection(conection);
+                    MySqlConnection.Open();
+                    MySqlCommand comand = new MySqlCommand(update, MySqlConnection);
+                    comand.ExecuteNonQuery();
+
+                    if(controlsRemove != null)
+                    {
+                        this.panelCards.Controls.Clear();
+
+                        foreach(Control pass in controlsRemove)
+                        {
+                            this.panelCards.Controls.Add(pass);
+                        }
+                    }
+                    this.panelCards.Refresh();
+                }
             }catch(Exception ex)
             {
                 MessageBox.Show("algo deu errado");
@@ -565,7 +600,7 @@ namespace interdisciplinar2
 
             while (myReader.Read())
             {
-                value = myReader.GetInt16("id");
+                value = myReader.GetInt32("id");
             }
 
             return value;
@@ -631,8 +666,9 @@ namespace interdisciplinar2
         private void btnRecharge_Click(object sender, EventArgs e)
         {
             this.panelCards.Controls.Clear();
+            lblService.Controls.Clear();  
 
-            string query = "SELECT customers.full_name,schedules.service,schedules.horary,schedules.`description` AS descrição FROM schedules INNER JOIN customers ON schedules.customer_id = customers.id WHERE DATE(schedules.horary) = CURDATE();";
+            string query = "SELECT customers.full_name,schedules.service,schedules.horary,schedules.`description` AS descrição FROM schedules INNER JOIN customers ON schedules.customer_id = customers.id WHERE DATE(schedules.horary) = CURDATE() AND  schedules.barber_id IS NULL;";
 
             MySqlConnection conexaoSql = new MySqlConnection(conection);
             MySqlCommand comando = new MySqlCommand(query, conexaoSql);
@@ -647,7 +683,7 @@ namespace interdisciplinar2
                 PictureBox pictureUser = new System.Windows.Forms.PictureBox();
                 Label lblClientName = new System.Windows.Forms.Label();
                 Label lblHaircut = new System.Windows.Forms.Label();
-                Label lblService = new System.Windows.Forms.Label();
+                lblService = new System.Windows.Forms.Label();
                 Label lblSchedule = new System.Windows.Forms.Label();
                 Label lblHorary = new System.Windows.Forms.Label();
                 Label lblBarber = new System.Windows.Forms.Label();
@@ -704,12 +740,12 @@ namespace interdisciplinar2
                 //lblService
                 lblService.AutoSize = true;
                 lblService.Font = new System.Drawing.Font("Cascadia Code", 12F);
-                lblService.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-                lblService.Location = new System.Drawing.Point(78, 108);
+                lblService.ForeColor = System.Drawing.Color.Red;
+                lblService.Location = new System.Drawing.Point(8, 137);
                 lblService.Name = "lblService";
                 lblService.Size = new System.Drawing.Size(73, 21);
                 lblService.TabIndex = 3;
-                lblService.Text = "Serviço";
+                lblService.Text = "Esse serviço não consta no catálogo";
 
                 //lblSchedule
                 lblSchedule.AutoSize = true;
@@ -872,6 +908,16 @@ namespace interdisciplinar2
                 {
                     lblClientName.Text = myReader.GetString("full_name");
                     dropListServices.Text = myReader.GetString("service");
+                    if (!dropListServices.Items.Contains(dropListServices.Text))
+                    {
+                        Card.Controls.Add(lblService);
+                        lblSchedule.Location = new System.Drawing.Point(8, 172);
+                        lblHorary.Location = new System.Drawing.Point(150, 170);
+                        lblBarber.Location = new System.Drawing.Point(9, 217);
+                        dropListBarbers.Location = new System.Drawing.Point(106, 217);
+                        lblDescription.Location = new System.Drawing.Point(9, 262);
+                        txtDescription.Location = new System.Drawing.Point(3, 286);
+                    }
                     lblHorary.Text = myReader.GetDateTime("horary").ToString();
                     txtDescription.Text = myReader.GetString("descrição");
                     this.panelCards.Controls.Add(Card);

@@ -35,10 +35,12 @@
             // panelCards
             // 
             this.panelCards.AutoScroll = true;
-            this.panelCards.Location = new System.Drawing.Point(-5, 32);
+            this.panelCards.AutoSize = true;
+            this.panelCards.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelCards.Location = new System.Drawing.Point(0, 0);
             this.panelCards.Margin = new System.Windows.Forms.Padding(23);
             this.panelCards.Name = "panelCards";
-            this.panelCards.Size = new System.Drawing.Size(808, 423);
+            this.panelCards.Size = new System.Drawing.Size(800, 450);
             this.panelCards.TabIndex = 0;
             // 
             // btnRecharge
@@ -47,9 +49,9 @@
             this.btnRecharge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRecharge.Font = new System.Drawing.Font("Cascadia Code", 12F);
             this.btnRecharge.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnRecharge.Location = new System.Drawing.Point(31, 3);
+            this.btnRecharge.Location = new System.Drawing.Point(602, 3);
             this.btnRecharge.Name = "btnRecharge";
-            this.btnRecharge.Size = new System.Drawing.Size(738, 29);
+            this.btnRecharge.Size = new System.Drawing.Size(167, 29);
             this.btnRecharge.TabIndex = 0;
             this.btnRecharge.Text = "Atualizar";
             this.btnRecharge.UseVisualStyleBackColor = false;
@@ -67,6 +69,7 @@
             this.Text = "SchedulesToday";
             this.Load += new System.EventHandler(this.SchedulesToday_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
