@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
 using System.Windows.Forms;
 
 
@@ -20,14 +21,8 @@ namespace interdisciplinar2
 {
     public partial class SchedulesToday : Form
     {
-      
-        string conection = "Server=localhost;database=barber_shop2;uid=root;pwd=jhon";
+        string conection = "Server=localhost;database=barber_shop2;uid=root;pwd=jhon";      
 
-        private ComboBox dropListBarbers;
-
-        private ComboBox dropListServices;
-
-        private Label lblService;
         public SchedulesToday()
         {
             InitializeComponent();
@@ -39,7 +34,7 @@ namespace interdisciplinar2
 
         private void SchedulesToday_Load(object sender, EventArgs e)
         {
-            string query = "SELECT customers.full_name,schedules.service,schedules.horary,schedules.`description` AS descrição FROM schedules  INNER JOIN customers ON schedules.customer_id = customers.id WHERE DATE(schedules.horary) = CURDATE() AND schedules.barber_id IS NULL;";
+            string query = "SELECT customers.full_name,schedules.service,schedules.horary,schedules.`description` AS descrição FROM schedules INNER JOIN customers ON schedules.customer_id = customers.id WHERE DATE(schedules.horary) = CURDATE() AND  schedules.barber_id IS NULL;";
 
             MySqlConnection conexaoSql = new MySqlConnection(conection);
             MySqlCommand comando = new MySqlCommand(query, conexaoSql);
@@ -54,18 +49,18 @@ namespace interdisciplinar2
                 PictureBox pictureUser = new System.Windows.Forms.PictureBox();
                 Label lblClientName = new System.Windows.Forms.Label();
                 Label lblHaircut = new System.Windows.Forms.Label();
-                lblService = new System.Windows.Forms.Label();
+                Label lblService = new System.Windows.Forms.Label();
                 Label lblSchedule = new System.Windows.Forms.Label();
                 Label lblHorary = new System.Windows.Forms.Label();
                 Label lblBarber = new System.Windows.Forms.Label();
-                Label lblTitle = new System.Windows.Forms.Label();               
+                Label lblTitle = new System.Windows.Forms.Label();
                 Button btnAccept = new System.Windows.Forms.Button();
                 Button btnReject = new System.Windows.Forms.Button();
                 Button btnEdit = new System.Windows.Forms.Button();
                 Label lblDescription = new System.Windows.Forms.Label();
                 TextBox txtDescription = new System.Windows.Forms.TextBox();
-                dropListBarbers = new System.Windows.Forms.ComboBox();
-                dropListServices = new System.Windows.Forms.ComboBox();
+                ComboBox dropListBarbers = new System.Windows.Forms.ComboBox();
+                ComboBox dropListServices = new System.Windows.Forms.ComboBox();
                 Panel Card = new System.Windows.Forms.Panel();
                 #endregion
 
@@ -73,7 +68,7 @@ namespace interdisciplinar2
                 FillDropList("SELECT barbers.full_name FROM barbers", "full_name", ref dropListBarbers);
                 #endregion
 
-                #region dropListserviços
+                #region dropListserviços              
                 FillDropList("SELECT services.`name` as Serviços FROM services", "Serviços", ref dropListServices);
                 #endregion
 
@@ -168,7 +163,7 @@ namespace interdisciplinar2
                 lblDescription.TabIndex = 13;
                 lblDescription.Text = "Descrição do corte:";
 
-                //txtDescription
+                //lblBdDescription
                 txtDescription.Font = new System.Drawing.Font("Cascadia Code", 12F);
                 txtDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
                 txtDescription.Location = new System.Drawing.Point(3, 267);
@@ -235,7 +230,6 @@ namespace interdisciplinar2
                 dropListBarbers.Size = new System.Drawing.Size(221, 25);
                 dropListBarbers.TabIndex = 0;
                 dropListBarbers.Enabled = false;
-                dropListBarbers.Click += new System.EventHandler(this.dropListBarbers_Click);
 
                 //service 
                 dropListServices.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(21)))), ((int)(((byte)(21)))));
@@ -247,8 +241,7 @@ namespace interdisciplinar2
                 dropListServices.Name = "dropListServices";
                 dropListServices.Size = new System.Drawing.Size(217, 25);
                 dropListServices.TabIndex = 1;
-                dropListServices.Enabled = false;               
-                dropListServices.Click += new System.EventHandler(this.dropListServices_Click);
+                dropListServices.Enabled = false;             
                 #endregion
 
                 #region Card
@@ -260,13 +253,13 @@ namespace interdisciplinar2
                 Card.Controls.Add(lblSchedule);
                 Card.Controls.Add(lblHorary);
                 Card.Controls.Add(lblBarber);
-                Card.Controls.Add(dropListBarbers); 
-                Card.Controls.Add(btnReject);        
+                Card.Controls.Add(dropListBarbers);
+                Card.Controls.Add(btnReject);
                 Card.Controls.Add(btnAccept);
                 Card.Controls.Add(lblTitle);
                 Card.Controls.Add(btnEdit);
                 Card.Controls.Add(lblDescription);
-                Card.Controls.Add(txtDescription);             
+                Card.Controls.Add(txtDescription);
                 Card.Location = new System.Drawing.Point(3, 3);
                 Card.Name = "Card";
                 Card.Size = new System.Drawing.Size(357, 377);
@@ -278,20 +271,20 @@ namespace interdisciplinar2
 
                 try
                 {
-                    lblClientName.Text = myReader.GetString("full_name");       
+                    lblClientName.Text = myReader.GetString("full_name");
                     dropListServices.Text = myReader.GetString("service");
                     if (!dropListServices.Items.Contains(dropListServices.Text))
                     {
                         Card.Controls.Add(lblService);
                         lblSchedule.Location = new System.Drawing.Point(8, 172);
                         lblHorary.Location = new System.Drawing.Point(150, 170);
-                        lblBarber.Location = new System.Drawing.Point(9,217); 
+                        lblBarber.Location = new System.Drawing.Point(9, 217);
                         dropListBarbers.Location = new System.Drawing.Point(106, 217);
                         lblDescription.Location = new System.Drawing.Point(9, 262);
                         txtDescription.Location = new System.Drawing.Point(3, 286);
                     }
-                    lblHorary.Text = myReader.GetDateTime("horary").ToString();                 
-                    txtDescription.Text = myReader.GetString("descrição");  
+                    lblHorary.Text = myReader.GetDateTime("horary").ToString();
+                    txtDescription.Text = myReader.GetString("descrição");
                     this.panelCards.Controls.Add(Card);
                 }
                 catch (Exception ex)
@@ -303,8 +296,6 @@ namespace interdisciplinar2
 
                         if (myReader.IsDBNull(myReader.GetOrdinal("service")))
                         {
-                            dropListServices.Enabled = false;
-                            dropListServices.Visible = false;
                             dropListServices.Text = "Serviço não escolhido";
                         }
                         else
@@ -313,7 +304,6 @@ namespace interdisciplinar2
                         }
 
                         lblHorary.Text = myReader.GetDateTime("horary").ToString();
-
 
                         if (myReader.IsDBNull(myReader.GetOrdinal("descrição")))
                         {
@@ -406,10 +396,15 @@ namespace interdisciplinar2
                         pass.Controls[3].Enabled = true;
                         pass.Controls[7].Enabled = true;
                         pass.Controls[9].Enabled = true;
-                        if (pass.Controls.Contains(lblService))
+                        pass.Controls[11].Enabled = false;
+                        if(pass.Controls.Count == 15)
                         {
                             pass.Controls[14].Visible = false;
-                        }                       
+                        }
+                        if (pass.Controls[3].Text == "Serviço não escolhido")
+                        {
+                            pass.Controls[3].Text = "";
+                        }
                         stop = true;
                         break;
                     }
@@ -433,7 +428,7 @@ namespace interdisciplinar2
             foreach (Control pass in controlsRemove)
             {
                 this.panelCards.Controls.Remove(pass);
-            }
+            }      
 
             #region instânciaDGV
             DataGridView dgvServices = new System.Windows.Forms.DataGridView();
@@ -488,10 +483,14 @@ namespace interdisciplinar2
                 allCards.Clear();
                 controlsRemove.Clear();
             }
+            else
+            {
+                return;
+            }
 
             foreach(Control pass in this.panelCards.Controls)
             {
-                if (pass.Controls[8].Visible == false &&  pass.Controls[8].Enabled == false)
+                if (pass.Controls[8].Visible == false && pass.Controls[8].Enabled == false)
                 {
                     pass.Controls[8].Visible = true;
                     pass.Controls[8].Enabled = true;
@@ -499,10 +498,15 @@ namespace interdisciplinar2
                     pass.Controls[9].Location = new System.Drawing.Point(40, 334);
                     pass.Controls[3].Enabled = false;
                     pass.Controls[7].Enabled = false;
-                    pass.Controls[9].Enabled = true;
-                    if (pass.Controls.Contains(lblService))
+                    pass.Controls[9].Enabled = false;
+                    pass.Controls[11].Enabled = true;
+                    if (pass.Controls.Count == 15)
                     {
                         pass.Controls[14].Visible = true;
+                    }
+                    if (pass.Controls[3].Text == "")
+                    {
+                        pass.Controls[3].Text = "Serviço não escolhido";
                     }
                 }
             }       
@@ -536,7 +540,7 @@ namespace interdisciplinar2
                         {
                             queryTxtService = "SELECT services.id FROM services WHERE services.`name` = '" + pass.Controls[3].Text + "';";
                         }
-                        queryIdSchedule = "SELECT schedules.id FROM schedules WHERE schedules.horary LIKE '" + Date(pass.Controls[5].Text) + "%';";                       
+                        queryIdSchedule = "SELECT schedules.id FROM schedules WHERE schedules.horary ='" + Date(pass.Controls[5].Text) + "';";                                        
                         stop = true;
                         break;                       
                     }    
@@ -572,17 +576,15 @@ namespace interdisciplinar2
                     MySqlConnection.Open();
                     MySqlCommand comand = new MySqlCommand(update, MySqlConnection);
                     comand.ExecuteNonQuery();
+                    
+                    this.panelCards.Controls.Clear();
 
-                    if(controlsRemove != null)
+                    foreach(Control pass in controlsRemove)
                     {
-                        this.panelCards.Controls.Clear();
-
-                        foreach(Control pass in controlsRemove)
-                        {
-                            this.panelCards.Controls.Add(pass);
-                        }
+                        this.panelCards.Controls.Add(pass);
                     }
-                    this.panelCards.Refresh();
+
+                    controlsRemove.Clear();
                 }
             }catch(Exception ex)
             {
@@ -602,6 +604,8 @@ namespace interdisciplinar2
             {
                 value = myReader.GetInt32("id");
             }
+
+           // MessageBox.Show(value.ToString());
 
             return value;
         }
@@ -633,13 +637,6 @@ namespace interdisciplinar2
             return date;
         }
 
-        private void dropListBarbers_Click(object sender, EventArgs e)
-        {
-            dropListBarbers.Items.Clear();
-
-            FillDropList("SELECT barbers.full_name FROM barbers", "full_name", ref dropListBarbers);
-        }
-
         private void FillDropList(string query,string field,ref ComboBox list)
         {   
            using (MySqlConnection mySqlConnection = new MySqlConnection(conection))
@@ -656,17 +653,9 @@ namespace interdisciplinar2
            }
         }
 
-        private void dropListServices_Click(object sender, EventArgs e)
-        {
-           dropListServices.Items.Clear();
-
-           FillDropList("SELECT services.`name` as Serviços FROM services", "Serviços", ref dropListServices);
-        }
-
         private void btnRecharge_Click(object sender, EventArgs e)
         {
-            this.panelCards.Controls.Clear();
-            lblService.Controls.Clear();  
+            this.panelCards.Controls.Clear();        
 
             string query = "SELECT customers.full_name,schedules.service,schedules.horary,schedules.`description` AS descrição FROM schedules INNER JOIN customers ON schedules.customer_id = customers.id WHERE DATE(schedules.horary) = CURDATE() AND  schedules.barber_id IS NULL;";
 
@@ -683,7 +672,7 @@ namespace interdisciplinar2
                 PictureBox pictureUser = new System.Windows.Forms.PictureBox();
                 Label lblClientName = new System.Windows.Forms.Label();
                 Label lblHaircut = new System.Windows.Forms.Label();
-                lblService = new System.Windows.Forms.Label();
+                Label lblService = new System.Windows.Forms.Label();
                 Label lblSchedule = new System.Windows.Forms.Label();
                 Label lblHorary = new System.Windows.Forms.Label();
                 Label lblBarber = new System.Windows.Forms.Label();
@@ -693,8 +682,8 @@ namespace interdisciplinar2
                 Button btnEdit = new System.Windows.Forms.Button();
                 Label lblDescription = new System.Windows.Forms.Label();
                 TextBox txtDescription = new System.Windows.Forms.TextBox();
-                dropListBarbers = new System.Windows.Forms.ComboBox();
-                dropListServices = new System.Windows.Forms.ComboBox();
+                ComboBox dropListBarbers = new System.Windows.Forms.ComboBox();
+                ComboBox dropListServices = new System.Windows.Forms.ComboBox();
                 Panel Card = new System.Windows.Forms.Panel();
                 #endregion
 
@@ -836,6 +825,7 @@ namespace interdisciplinar2
                 btnAccept.TabIndex = 9;
                 btnAccept.Text = "Aceitar";
                 btnAccept.UseVisualStyleBackColor = true;
+                btnAccept.Enabled = false;
                 btnAccept.Click += Accept_Click;
 
                 //edit
@@ -863,7 +853,6 @@ namespace interdisciplinar2
                 dropListBarbers.Size = new System.Drawing.Size(221, 25);
                 dropListBarbers.TabIndex = 0;
                 dropListBarbers.Enabled = false;
-                dropListBarbers.Click += new System.EventHandler(this.dropListBarbers_Click);
 
                 //service 
                 dropListServices.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(21)))), ((int)(((byte)(21)))));
@@ -876,7 +865,6 @@ namespace interdisciplinar2
                 dropListServices.Size = new System.Drawing.Size(217, 25);
                 dropListServices.TabIndex = 1;
                 dropListServices.Enabled = false;
-                dropListServices.Click += new System.EventHandler(this.dropListServices_Click);
                 #endregion
 
                 #region Card

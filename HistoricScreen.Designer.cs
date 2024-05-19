@@ -104,9 +104,9 @@
             "Horários da última semana",
             "Horários do último mês",
             "Horários antes de hoje"});
-            this.cbHistorico.Location = new System.Drawing.Point(390, 427);
+            this.cbHistorico.Location = new System.Drawing.Point(351, 429);
             this.cbHistorico.Name = "cbHistorico";
-            this.cbHistorico.Size = new System.Drawing.Size(244, 30);
+            this.cbHistorico.Size = new System.Drawing.Size(331, 30);
             this.cbHistorico.TabIndex = 4;
             this.cbHistorico.SelectedIndexChanged += new System.EventHandler(this.cbHistorico_SelectedIndexChanged);
             // 

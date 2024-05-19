@@ -144,7 +144,7 @@ namespace interdisciplinar2
         {
             txtbPassword.UseSystemPasswordChar = false;
 
-            showPasswordImage.Visible = false;
+            showPasswordImage.Visible = true;
             dontShowPasswordImage.Visible = true;
         }
 
@@ -246,6 +246,11 @@ namespace interdisciplinar2
                 panel1.BackColor = ProgramTheme.DarkThemeForeColor;
                 panel2.BackColor = ProgramTheme.DarkThemeForeColor;
             }
+        }
+
+        private void dontShowPasswordImage_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
