@@ -30,12 +30,14 @@
         {
             this.panelCards = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRecharge = new System.Windows.Forms.Button();
+            this.panelCards.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelCards
             // 
             this.panelCards.AutoScroll = true;
             this.panelCards.AutoSize = true;
+            this.panelCards.Controls.Add(this.dropListBarbers);
             this.panelCards.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCards.Location = new System.Drawing.Point(0, 0);
             this.panelCards.Margin = new System.Windows.Forms.Padding(23);
@@ -55,7 +57,7 @@
             this.btnRecharge.TabIndex = 0;
             this.btnRecharge.Text = "Atualizar";
             this.btnRecharge.UseVisualStyleBackColor = false;
-            this.btnRecharge.Click += new System.EventHandler(this.btnRecharge_Click);
+            this.btnRecharge.Click += new System.EventHandler(this.btnRecharge_Click);           
             // 
             // SchedulesToday
             // 
@@ -68,6 +70,7 @@
             this.Name = "SchedulesToday";
             this.Text = "SchedulesToday";
             this.Load += new System.EventHandler(this.SchedulesToday_Load);
+            this.panelCards.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -77,5 +80,6 @@
         
         private System.Windows.Forms.FlowLayoutPanel panelCards;
         private System.Windows.Forms.Button btnRecharge;
+        private System.Windows.Forms.ComboBox dropListBarbers;
     }
 }

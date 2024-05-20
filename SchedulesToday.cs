@@ -1,4 +1,5 @@
-﻿using K4os.Compression.LZ4.Encoders;
+﻿using interdisciplinar2.CustomMessageBoxes;
+using K4os.Compression.LZ4.Encoders;
 using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -11,6 +12,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
@@ -200,7 +202,7 @@ namespace interdisciplinar2
                 btnAccept.Name = "btnAccept";
                 btnAccept.Size = new System.Drawing.Size(106, 32);
                 btnAccept.TabIndex = 9;
-                btnAccept.Text = "Aceitar";
+                btnAccept.Text = "Concluir";
                 btnAccept.UseVisualStyleBackColor = true;
                 btnAccept.Enabled = false;
                 btnAccept.Click += Accept_Click;
@@ -378,6 +380,8 @@ namespace interdisciplinar2
         {
             int count = 0;
             bool stop = false;
+            btnRecharge.Visible = false;
+            btnRecharge.Enabled = false;
 
             string query = "SELECT services.id, services.`name` FROM services;";
 
@@ -470,7 +474,7 @@ namespace interdisciplinar2
 
         private void cancel_Click(object sender, EventArgs e)
         {
-            DialogResult back = MessageBox.Show("Você deseja mesmo cancelar? as alterações não serão salvas", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            DialogResult back = MessageBox.Show("Você deseja mesmo cancelar? as alterações não serão salvas", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);          
 
             if (back == DialogResult.Yes)
             {
@@ -482,6 +486,9 @@ namespace interdisciplinar2
                 }
                 allCards.Clear();
                 controlsRemove.Clear();
+
+                btnRecharge.Visible = true;
+                btnRecharge.Enabled = true;
             }
             else
             {
@@ -500,16 +507,14 @@ namespace interdisciplinar2
                     pass.Controls[7].Enabled = false;
                     pass.Controls[9].Enabled = false;
                     pass.Controls[11].Enabled = true;
-                    if (pass.Controls.Count == 15)
-                    {
-                        pass.Controls[14].Visible = true;
-                    }
+                    pass.Controls[3].Text = "";
+                    pass.Controls[7].Text = "";
                     if (pass.Controls[3].Text == "")
                     {
                         pass.Controls[3].Text = "Serviço não escolhido";
                     }
                 }
-            }       
+            }
         }
 
         private void Accept_Click(object sender, EventArgs e)
@@ -523,6 +528,7 @@ namespace interdisciplinar2
             string queryIdSchedule = "";
             int[] ids = new int[4];
             string update;
+            //bool validation = 
 
             foreach (Control pass in panelCards.Controls)
             {
@@ -565,30 +571,61 @@ namespace interdisciplinar2
                 readQuery(queryTxtService, ref ids[2]);
             }
             readQuery(queryIdSchedule, ref ids[3]);
-            DialogResult confirm = MessageBox.Show("Deseja mesmo concluir o agendamento?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);         
+
+            DialogResult confirm = MessageBox.Show("Deseja mesmo concluir o agendamento?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
 
             try
             {
                 if (confirm == DialogResult.Yes)
                 {
-                    update = "UPDATE schedules SET schedules.horary='" + Date(selectCard.Controls[5].Text) + "',schedules.service='" + selectCard.Controls[3].Text + "',schedules.`description`='" + selectCard.Controls[13].Text + "',schedules.barber_id=" + ids[0] + ",schedules.customer_id=" + ids[1] + ",schedules.service_id=" + ids[2] + " WHERE schedules.id = " + ids[3] + ";";
-                    MySqlConnection MySqlConnection = new MySqlConnection(conection);
-                    MySqlConnection.Open();
-                    MySqlCommand comand = new MySqlCommand(update, MySqlConnection);
-                    comand.ExecuteNonQuery();
-                    
-                    this.panelCards.Controls.Clear();
 
-                    foreach(Control pass in controlsRemove)
+                    foreach (Control pass in this.panelCards.Controls)
                     {
-                        this.panelCards.Controls.Add(pass);
-                    }
+                        if (pass.Controls[7].Text == "")
+                        {
+                            ErrorMessageBox emptyBarber = new ErrorMessageBox("O barbeiro não foi escolhido");
+                            emptyBarber.ShowDialog();
+                            return;
+                        }
+                        else if (pass.Controls[3].Text == "")
+                        {
+                            ErrorMessageBox emptyService = new ErrorMessageBox("O Serviço não foi escolhido");
+                            emptyService.ShowDialog();
+                            return;
+                        }
+                        else if (!Regex.IsMatch(pass.Controls[7].Text, "^[A-Za-zÁ-ú ]+[´^~]?$") || !Regex.IsMatch(pass.Controls[3].Text, "^[A-Za-zÁ-ú ]+[´^~]?$"))
+                        {
+                            ErrorMessageBox emptyService = new ErrorMessageBox("Preencha os campos apenas com letras por favor");
+                            emptyService.ShowDialog();
+                            return;
+                        }
+                        else
+                        {
+                            update = "UPDATE schedules SET schedules.horary='" + Date(selectCard.Controls[5].Text) + "',schedules.service='" + selectCard.Controls[3].Text + "',schedules.`description`='" + selectCard.Controls[13].Text + "',schedules.barber_id=" + ids[0] + ",schedules.customer_id=" + ids[1] + ",schedules.service_id=" + ids[2] + " WHERE schedules.id = " + ids[3] + ";";
+                            MySqlConnection MySqlConnection = new MySqlConnection(conection);
+                            MySqlConnection.Open();
+                            MySqlCommand comand = new MySqlCommand(update, MySqlConnection);
+                            comand.ExecuteNonQuery();
 
-                    controlsRemove.Clear();
+                            this.panelCards.Controls.Clear();
+
+                            foreach (Control passing in controlsRemove)
+                            {
+                                this.panelCards.Controls.Add(passing);
+                            }
+                            controlsRemove.Clear();
+
+                            break;
+                        }
+                    } 
                 }
-            }catch(Exception ex)
+                btnRecharge.Visible = true;
+                btnRecharge.Enabled = true;
+            }
+            catch(Exception ex)
             {
-                MessageBox.Show("algo deu errado");
+                MessageBox.Show("algo deu errado" + ex);
             }
        }
 
@@ -604,8 +641,6 @@ namespace interdisciplinar2
             {
                 value = myReader.GetInt32("id");
             }
-
-           // MessageBox.Show(value.ToString());
 
             return value;
         }
@@ -823,7 +858,7 @@ namespace interdisciplinar2
                 btnAccept.Name = "btnAccept";
                 btnAccept.Size = new System.Drawing.Size(106, 32);
                 btnAccept.TabIndex = 9;
-                btnAccept.Text = "Aceitar";
+                btnAccept.Text = "Concluir";
                 btnAccept.UseVisualStyleBackColor = true;
                 btnAccept.Enabled = false;
                 btnAccept.Click += Accept_Click;
