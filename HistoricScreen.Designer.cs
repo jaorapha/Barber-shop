@@ -134,7 +134,7 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.dgvHistorico);
             this.Name = "HistoricScreen";
-            this.Text = "d";
+            this.Text = "tela histórico";
             this.Load += new System.EventHandler(this.HistoricScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorico)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

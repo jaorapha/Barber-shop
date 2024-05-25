@@ -28,22 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelCards = new System.Windows.Forms.FlowLayoutPanel();
+            this.progressBar = new CircularProgressBar.CircularProgressBar();
             this.btnRecharge = new System.Windows.Forms.Button();
-            this.panelCards.SuspendLayout();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // panelCards
             // 
             this.panelCards.AutoScroll = true;
             this.panelCards.AutoSize = true;
-            this.panelCards.Controls.Add(this.dropListBarbers);
             this.panelCards.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCards.Location = new System.Drawing.Point(0, 0);
             this.panelCards.Margin = new System.Windows.Forms.Padding(23);
             this.panelCards.Name = "panelCards";
             this.panelCards.Size = new System.Drawing.Size(800, 450);
             this.panelCards.TabIndex = 0;
+            this.panelCards.Visible = false;
+            // 
+            // progressBar
+            // 
+            this.progressBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
+            this.progressBar.AnimationSpeed = 500;
+            this.progressBar.BackColor = System.Drawing.Color.Transparent;
+            this.progressBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Bold);
+            this.progressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.progressBar.InnerColor = System.Drawing.Color.Transparent;
+            this.progressBar.InnerMargin = 2;
+            this.progressBar.InnerWidth = -1;
+            this.progressBar.Location = new System.Drawing.Point(221, 51);
+            this.progressBar.MarqueeAnimationSpeed = 2000;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.OuterColor = System.Drawing.Color.Gray;
+            this.progressBar.OuterMargin = -25;
+            this.progressBar.OuterWidth = 24;
+            this.progressBar.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.progressBar.ProgressWidth = 15;
+            this.progressBar.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 36F);
+            this.progressBar.Size = new System.Drawing.Size(320, 320);
+            this.progressBar.StartAngle = 270;
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.progressBar.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
+            this.progressBar.SubscriptText = "";
+            this.progressBar.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.progressBar.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
+            this.progressBar.SuperscriptText = "";
+            this.progressBar.TabIndex = 0;
+            this.progressBar.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
+            this.progressBar.Value = 68;
             // 
             // btnRecharge
             // 
@@ -57,7 +91,13 @@
             this.btnRecharge.TabIndex = 0;
             this.btnRecharge.Text = "Atualizar";
             this.btnRecharge.UseVisualStyleBackColor = false;
-            this.btnRecharge.Click += new System.EventHandler(this.btnRecharge_Click);           
+            this.btnRecharge.Click += new System.EventHandler(this.btnRecharge_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 30;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // SchedulesToday
             // 
@@ -65,12 +105,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.btnRecharge);
             this.Controls.Add(this.panelCards);
             this.Name = "SchedulesToday";
             this.Text = "SchedulesToday";
-            this.Load += new System.EventHandler(this.SchedulesToday_Load);
-            this.panelCards.ResumeLayout(false);
+            //this.Load += new System.EventHandler(this.SchedulesToday_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -81,5 +121,7 @@
         private System.Windows.Forms.FlowLayoutPanel panelCards;
         private System.Windows.Forms.Button btnRecharge;
         private System.Windows.Forms.ComboBox dropListBarbers;
+        private CircularProgressBar.CircularProgressBar progressBar;
+        private System.Windows.Forms.Timer timer1;
     }
 }

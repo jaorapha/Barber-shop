@@ -420,11 +420,6 @@ namespace interdisciplinar2
             timerToggleButton.Stop();
         }
 
-        private void ibQuery_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new Queries());
-        }
-
         private void lblScheduleToday_Click(object sender, EventArgs e)
         {
             OpenChildForm(new SchedulesToday());
@@ -445,6 +440,11 @@ namespace interdisciplinar2
         private void lblScheduleToday_MouseEnter(object sender, EventArgs e)
         {
             lblScheduleToday.BackColor = Color.FromArgb(80, 80, 80);
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Queries());
         }
     }
 }
