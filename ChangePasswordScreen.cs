@@ -56,7 +56,7 @@ namespace interdisciplinar2
 
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
-            MySqlConnection mysql = new MySqlConnection("server=localhost;database=db_barbearia;uid=root;pwd=etec");
+            MySqlConnection mysql = new MySqlConnection("server=localhost;database=barber_shop2;uid=root;pwd=jhon");
             try
             {
                 mysql.Open();
@@ -71,13 +71,13 @@ namespace interdisciplinar2
 
                 bool isPasswordValid = false;
 
-                using (MySqlCommand command = new MySqlCommand("select senha_barbeiro from tb_barbeiro;", mysql))
+                using (MySqlCommand command = new MySqlCommand("SELECT `password` AS senha from barbers where barbers.id = 1;", mysql))
                 {
                     reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        string dbPassword = reader.GetString("senha_barbeiro");
+                        string dbPassword = reader.GetString("senha");
 
                         if (typedPassword == dbPassword)
                         {
@@ -102,7 +102,7 @@ namespace interdisciplinar2
 
                     if (isPasswordValid)
                     {
-                        using (MySqlCommand command2 = new MySqlCommand("update tb_barbeiro set senha_barbeiro = @NovaSenhaBarbeiro where senha_barbeiro = @SenhaBarbeiro;", mysql))
+                        using (MySqlCommand command2 = new MySqlCommand("update barbers set `password` = @NovaSenhaBarbeiro where `password` = @SenhaBarbeiro;", mysql))
                         {
                             command2.Parameters.AddWithValue("@NovaSenhaBarbeiro", newPassword);
                             command2.Parameters.AddWithValue("@SenhaBarbeiro", typedPassword);
@@ -111,6 +111,9 @@ namespace interdisciplinar2
 
                             DoneMessageBox dMessageBox = new DoneMessageBox("Senha alterada com sucesso!");
                             dMessageBox.ShowDialog();
+                            txtbConfirmPassword.Text = "";
+                            txtbNewPassword.Text = "";
+                            txtbPassword.Text = "";
                         }
                     }
 

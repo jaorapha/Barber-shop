@@ -54,6 +54,7 @@
             this.txtbPassword.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtbPassword.Location = new System.Drawing.Point(276, 158);
             this.txtbPassword.Name = "txtbPassword";
+            this.txtbPassword.PasswordChar = '*';
             this.txtbPassword.Size = new System.Drawing.Size(249, 23);
             this.txtbPassword.TabIndex = 1;
             // 
@@ -79,6 +80,7 @@
             this.txtbConfirmPassword.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtbConfirmPassword.Location = new System.Drawing.Point(276, 209);
             this.txtbConfirmPassword.Name = "txtbConfirmPassword";
+            this.txtbConfirmPassword.PasswordChar = '*';
             this.txtbConfirmPassword.Size = new System.Drawing.Size(249, 23);
             this.txtbConfirmPassword.TabIndex = 4;
             // 
@@ -112,7 +114,7 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Nova Senha:";
             // 
-            // AlterarSenhaScreen
+            // ChangePasswordScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -125,7 +127,7 @@
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.txtbPassword);
             this.Controls.Add(this.label1);
-            this.Name = "AlterarSenhaScreen";
+            this.Name = "ChangePasswordScreen";
             this.Text = "AlterarSenhaScreen";
             this.Load += new System.EventHandler(this.AlterarSenhaScreen_Load);
             this.ResumeLayout(false);
