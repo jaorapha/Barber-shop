@@ -116,44 +116,52 @@ namespace interdisciplinar2
             }
             else
             {
-                string conexao = "server=localhost;database=barber_shop2;uid=root;pwd=jhon;";
-                MySqlConnection conexaoMysql = new MySqlConnection(conexao);
-                conexaoMysql.Open();
-                int[] ids = new int[2];
-                readQuery("SELECT customers.id FROM customers WHERE customers.full_name LIKE '" + txtName.Text + "%';", ref ids[0]);
-                readQuery("SELECT services.id FROM services WHERE services.`name` = '" + comboCorte.Text + "';", ref ids[1]);
-                string finalDate = Date(maskeDate.Text);
-                finalDate += "" + maskeHorary.Text;
-
-                if(readField("SELECT customers.full_name FROM customers", "full_name", txtName.Text))
+                try
                 {
-                    ErrorMessageBox notFound = new ErrorMessageBox("Verifique se você escreveu nome certo ou se ele é cadastrado");
-                    notFound.ShowDialog();
-                    return;
-                }
-                else if(readField("SELECT horary FROM schedules;", "horary", finalDate))
-                {
-                    ErrorMessageBox found = new ErrorMessageBox("Já tem um agenmento neste horário,por favor escolha outro");
-                    found.ShowDialog();
-                    return;
-                }
-                else
-                {
-                    MySqlCommand comando = new MySqlCommand("INSERT INTO schedules(customer_id,schedules.service,schedules.horary,schedules.`description`,schedules.service_id) values(" + ids[0] + ",'" + comboCorte.Text + "','" + finalDate + "','" + txtDescription.Text + "'," + ids[1] + ");", conexaoMysql);
-                    comando.ExecuteNonQuery();
+                    string conexao = "server=localhost;database=barber_shop2;uid=root;pwd=jhon;";
+                    MySqlConnection conexaoMysql = new MySqlConnection(conexao);
+                    conexaoMysql.Open();
+                    int[] ids = new int[2];
+                    readQuery("SELECT customers.id FROM customers WHERE customers.full_name LIKE '" + txtName.Text + "%';", ref ids[0]);
+                    readQuery("SELECT services.id FROM services WHERE services.`name` = '" + comboCorte.Text + "';", ref ids[1]);
+                    string finalDate = Date(maskeDate.Text);
+                    finalDate += "" + maskeHorary.Text;
 
-                    DoneMessageBox dMessageBox = new DoneMessageBox("Agendamento concluído, o horário está marcado!");
-                    dMessageBox.Show();
-
-                    txtName.Text = "";
-                    comboCorte.Text = null;
-                    maskeHorary.Text = "";
-                    maskeDate.Text = "";
-                    if (txtDescription.Text != "Sem descrição")
+                    if (readField("SELECT customers.full_name FROM customers", "full_name", txtName.Text))
                     {
-                        txtDescription.Text = "Sem descrição";
+                        ErrorMessageBox notFound = new ErrorMessageBox("Verifique se você escreveu nome certo ou se ele é cadastrado");
+                        notFound.ShowDialog();
+                        return;
                     }
-                    LoadDatabaseData();
+                    else if (readField("SELECT horary FROM schedules;", "horary", finalDate))
+                    {
+                        ErrorMessageBox found = new ErrorMessageBox("Já tem um agenmento neste horário,por favor escolha outro");
+                        found.ShowDialog();
+                        return;
+                    }
+                    else
+                    {
+                        MySqlCommand comando = new MySqlCommand("INSERT INTO schedules(customer_id,schedules.service,schedules.horary,schedules.`description`,schedules.service_id) values(" + ids[0] + ",'" + comboCorte.Text + "','" + finalDate + "','" + txtDescription.Text + "'," + ids[1] + ");", conexaoMysql);
+                        comando.ExecuteNonQuery();
+
+                        DoneMessageBox dMessageBox = new DoneMessageBox("Agendamento concluído, o horário está marcado!");
+                        dMessageBox.Show();
+
+                        txtName.Text = "";
+                        comboCorte.Text = null;
+                        maskeHorary.Text = "";
+                        maskeDate.Text = "";
+                        if (txtDescription.Text != "Sem descrição")
+                        {
+                            txtDescription.Text = "Sem descrição";
+                        }
+                        LoadDatabaseData();
+                    }
+                }
+                catch (Exception)
+                {
+                    ErrorMessageBox eMessageBox = new ErrorMessageBox("Algo deu errado, verifique se os dados estão corretos!");
+                    eMessageBox.ShowDialog();
                 }
             }           
         }

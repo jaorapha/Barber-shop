@@ -57,14 +57,14 @@ namespace interdisciplinar2
                 switch (cbHistorico.SelectedIndex)
                 {
                     case 0:
-                        schedule.StartDate = DateTime.Now;
-                        schedule.EndDate = DateTime.Now.AddDays(7);
+                        schedule.StartDate = DateTime.Now.AddDays(7 - (int)DateTime.Now.DayOfWeek);
+                        schedule.EndDate = schedule.StartDate.AddDays(6);
                         schedule.GetFutureSchedulesByDate(dgvSchedules);
                         break;
 
                     case 1:
-                        schedule.StartDate = DateTime.Now;
-                        schedule.EndDate = DateTime.Now.AddMonths(1);
+                        schedule.StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1);
+                        schedule.EndDate = schedule.StartDate.AddMonths(1);
                         schedule.GetFutureSchedulesByDate(dgvSchedules);
                         break;
 
