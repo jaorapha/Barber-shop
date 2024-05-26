@@ -172,6 +172,18 @@
     <Compile Include="Queries.Designer.cs">
       <DependentUpon>Queries.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegisterBarbers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegisterBarbers.Designer.cs">
+      <DependentUpon>RegisterBarbers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegisterClients.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegisterClients.Designer.cs">
+      <DependentUpon>RegisterClients.cs</DependentUpon>
+    </Compile>
     <Compile Include="RegisterScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +221,12 @@
       <DependentUpon>MainScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ProgramTheme.cs" />
+    <Compile Include="RegisterServices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegisterServices.Designer.cs">
+      <DependentUpon>RegisterServices.cs</DependentUpon>
+    </Compile>
     <Compile Include="SchedulesScreen.cs">
       <SubType>Form</SubType>
     </Compile>

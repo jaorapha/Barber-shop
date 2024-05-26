@@ -2,6 +2,7 @@
 using interdisciplinar2.CustomMessageBoxes;
 using interdisciplinar2.Models;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -49,11 +50,11 @@ namespace interdisciplinar2
             {
                 connection.Open();
 
-                string commandString = "SELECT customers.full_name, schedules.horary FROM customers JOIN schedules ON customers.id = schedules.customer_id;;";
+                string commandString = "SELECT customers.full_name, schedules.horary FROM customers  LEFT JOIN schedules ON customers.id = schedules.customer_id ORDER BY schedules.horary;";
 
                 if (txtbSearch.Text != "")
                 {
-                    commandString = "SELECT customers.full_name, schedules.horary FROM customers JOIN schedules ON customers.id = schedules.customer_id WHERE full_name LIKE @nome";
+                    commandString = "SELECT customers.full_name, schedules.horary FROM customers JOIN schedules ON customers.id = schedules.customer_id WHERE full_name LIKE @nome ORDER BY schedules.horary";
                 }
 
                 MySqlDataAdapter adapter = null;
@@ -66,7 +67,7 @@ namespace interdisciplinar2
                     }
                     else
                     {
-                        command.CommandText = "SELECT customers.full_name, schedules.horary FROM customers JOIN schedules ON customers.id = schedules.customer_id;";
+                        command.CommandText = "SELECT customers.full_name, schedules.horary FROM customers JOIN schedules ON customers.id = schedules.customer_id ORDER BY schedules.horary;";
                     }
 
                     adapter = new MySqlDataAdapter(command);
@@ -93,16 +94,16 @@ namespace interdisciplinar2
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
             
-                string[] dados = new string[4] { txtName.Text, comboCorte.Text, maskeDate.Text, maskeHorary.Text };
-                int cont = 0;
+            string[] dados = new string[4] { txtName.Text, comboCorte.Text, maskeDate.Text, maskeHorary.Text };
+            int cont = 0;
 
-                foreach (string values in dados)
-                {
-                    if (values == "" || values == "  /  /" || values == "  :  :")
-                    {
-                        cont++;
-                    }
-                };
+            foreach (string values in dados)
+            {
+               if (values == "" || values == "  /  /" || values == "  :  :")
+               {
+                   cont++;
+               }
+            };
             if (cont >= 1)
             {
                 ErrorMessageBox eMessageBox = new ErrorMessageBox("Você deixou " + cont + " campo(s) em branco, preencha-o(s)!");
@@ -312,9 +313,14 @@ namespace interdisciplinar2
             {
                 while (myReader.Read())
                 {
-                    if (myReader.GetDateTime(field).ToString().Contains(txt))
+                    if (myReader.GetDateTime(field).ToString("yyyy-MM-dd HH:mm:ss").Contains(txt))
                     {
                         value = true;
+                        break;
+                    }
+                    else
+                    {
+                        value = false;
                     }
                 }
             }

@@ -36,8 +36,9 @@
             Syncfusion.Windows.Forms.Tools.ClockRenderer clockRenderer1 = new Syncfusion.Windows.Forms.Tools.ClockRenderer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainScreen));
             this.panelLeft = new System.Windows.Forms.Panel();
-            this.btnRegisterService = new FontAwesome.Sharp.IconButton();
-            this.btnRegisterBarber = new FontAwesome.Sharp.IconButton();
+            this.ibRegisterClient = new FontAwesome.Sharp.IconButton();
+            this.ibRegisterService = new FontAwesome.Sharp.IconButton();
+            this.ibRegisterBarber = new FontAwesome.Sharp.IconButton();
             this.ibQuery = new FontAwesome.Sharp.IconButton();
             this.label1 = new System.Windows.Forms.Label();
             this.toggleButton1 = new Syncfusion.Windows.Forms.Tools.ToggleButton();
@@ -49,8 +50,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.logo = new System.Windows.Forms.PictureBox();
             this.pnlDropDown = new System.Windows.Forms.Panel();
-            this.lblScheduleToday = new System.Windows.Forms.Label();
             this.lblHistorico = new System.Windows.Forms.Label();
+            this.lblScheduleToday = new System.Windows.Forms.Label();
             this.lblAgendamentos = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.ipbMinimize = new FontAwesome.Sharp.IconPictureBox();
@@ -77,8 +78,9 @@
             // 
             this.panelLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(53)))), ((int)(((byte)(66)))));
             this.panelLeft.Controls.Add(this.pnlDropDown);
-            this.panelLeft.Controls.Add(this.btnRegisterService);
-            this.panelLeft.Controls.Add(this.btnRegisterBarber);
+            this.panelLeft.Controls.Add(this.ibRegisterClient);
+            this.panelLeft.Controls.Add(this.ibRegisterService);
+            this.panelLeft.Controls.Add(this.ibRegisterBarber);
             this.panelLeft.Controls.Add(this.ibQuery);
             this.panelLeft.Controls.Add(this.label1);
             this.panelLeft.Controls.Add(this.toggleButton1);
@@ -91,64 +93,107 @@
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLeft.Location = new System.Drawing.Point(0, 0);
             this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(220, 691);
+            this.panelLeft.Size = new System.Drawing.Size(220, 707);
             this.panelLeft.TabIndex = 0;
             // 
-            // btnRegisterService
+            // ibRegisterClient
             // 
-            this.btnRegisterService.FlatAppearance.BorderSize = 0;
-            this.btnRegisterService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegisterService.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.btnRegisterService.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnRegisterService.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.btnRegisterService.IconColor = System.Drawing.Color.Black;
-            this.btnRegisterService.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnRegisterService.Location = new System.Drawing.Point(0, 572);
-            this.btnRegisterService.Name = "btnRegisterService";
-            this.btnRegisterService.Size = new System.Drawing.Size(220, 58);
-            this.btnRegisterService.TabIndex = 8;
-            this.btnRegisterService.Text = "Adicionar Serviço";
-            this.btnRegisterService.UseVisualStyleBackColor = true;
+            this.ibRegisterClient.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ibRegisterClient.FlatAppearance.BorderSize = 0;
+            this.ibRegisterClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibRegisterClient.Font = new System.Drawing.Font("Cascadia Code", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ibRegisterClient.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ibRegisterClient.IconChar = FontAwesome.Sharp.IconChar.PersonCirclePlus;
+            this.ibRegisterClient.IconColor = System.Drawing.Color.White;
+            this.ibRegisterClient.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibRegisterClient.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibRegisterClient.Location = new System.Drawing.Point(0, 606);
+            this.ibRegisterClient.Name = "ibRegisterClient";
+            this.ibRegisterClient.Size = new System.Drawing.Size(220, 58);
+            this.ibRegisterClient.TabIndex = 4;
+            this.ibRegisterClient.Text = "Cadastrar Clientes";
+            this.ibRegisterClient.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibRegisterClient.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ibRegisterClient.UseVisualStyleBackColor = true;
+            this.ibRegisterClient.Click += new System.EventHandler(this.ibRegisterClient_Click);
+            this.ibRegisterClient.MouseEnter += new System.EventHandler(this.ibRegisterClient_MouseEnter);
+            this.ibRegisterClient.MouseLeave += new System.EventHandler(this.ibRegisterClient_MouseLeave);
             // 
-            // btnRegisterBarber
+            // ibRegisterService
             // 
-            this.btnRegisterBarber.FlatAppearance.BorderSize = 0;
-            this.btnRegisterBarber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegisterBarber.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.btnRegisterBarber.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnRegisterBarber.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.btnRegisterBarber.IconColor = System.Drawing.Color.Black;
-            this.btnRegisterBarber.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnRegisterBarber.Location = new System.Drawing.Point(0, 510);
-            this.btnRegisterBarber.Name = "btnRegisterBarber";
-            this.btnRegisterBarber.Size = new System.Drawing.Size(220, 58);
-            this.btnRegisterBarber.TabIndex = 7;
-            this.btnRegisterBarber.Text = "Cadastrar barbeiro";
-            this.btnRegisterBarber.UseVisualStyleBackColor = true;
+            this.ibRegisterService.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ibRegisterService.FlatAppearance.BorderSize = 0;
+            this.ibRegisterService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibRegisterService.Font = new System.Drawing.Font("Cascadia Code", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ibRegisterService.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ibRegisterService.IconChar = FontAwesome.Sharp.IconChar.SquarePen;
+            this.ibRegisterService.IconColor = System.Drawing.Color.White;
+            this.ibRegisterService.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibRegisterService.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibRegisterService.Location = new System.Drawing.Point(0, 548);
+            this.ibRegisterService.Name = "ibRegisterService";
+            this.ibRegisterService.Size = new System.Drawing.Size(220, 58);
+            this.ibRegisterService.TabIndex = 8;
+            this.ibRegisterService.Text = "Adiocionar Serviço";
+            this.ibRegisterService.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibRegisterService.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ibRegisterService.UseVisualStyleBackColor = true;
+            this.ibRegisterService.Click += new System.EventHandler(this.ibRegisterService_Click);
+            this.ibRegisterService.MouseEnter += new System.EventHandler(this.ibRegisterService_MouseEnter);
+            this.ibRegisterService.MouseLeave += new System.EventHandler(this.ibRegisterService_MouseLeave);
+            // 
+            // ibRegisterBarber
+            // 
+            this.ibRegisterBarber.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ibRegisterBarber.FlatAppearance.BorderSize = 0;
+            this.ibRegisterBarber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibRegisterBarber.Font = new System.Drawing.Font("Cascadia Code", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ibRegisterBarber.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ibRegisterBarber.IconChar = FontAwesome.Sharp.IconChar.PeopleGroup;
+            this.ibRegisterBarber.IconColor = System.Drawing.Color.White;
+            this.ibRegisterBarber.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibRegisterBarber.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibRegisterBarber.Location = new System.Drawing.Point(0, 490);
+            this.ibRegisterBarber.Name = "ibRegisterBarber";
+            this.ibRegisterBarber.Size = new System.Drawing.Size(220, 58);
+            this.ibRegisterBarber.TabIndex = 7;
+            this.ibRegisterBarber.Text = "Cadastrar Barbeiro";
+            this.ibRegisterBarber.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibRegisterBarber.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ibRegisterBarber.UseVisualStyleBackColor = true;
+            this.ibRegisterBarber.Click += new System.EventHandler(this.ibRegisterBarber_Click);
+            this.ibRegisterBarber.MouseEnter += new System.EventHandler(this.ibRegisterBarber_MouseEnter);
+            this.ibRegisterBarber.MouseLeave += new System.EventHandler(this.ibRegisterBarber_MouseLeave);
             // 
             // ibQuery
             // 
+            this.ibQuery.Dock = System.Windows.Forms.DockStyle.Top;
             this.ibQuery.FlatAppearance.BorderSize = 0;
             this.ibQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ibQuery.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.ibQuery.Font = new System.Drawing.Font("Cascadia Code", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ibQuery.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ibQuery.IconChar = FontAwesome.Sharp.IconChar.MugSaucer;
-            this.ibQuery.IconColor = System.Drawing.Color.Black;
+            this.ibQuery.IconChar = FontAwesome.Sharp.IconChar.ClipboardQuestion;
+            this.ibQuery.IconColor = System.Drawing.Color.White;
             this.ibQuery.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibQuery.Location = new System.Drawing.Point(0, 446);
+            this.ibQuery.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibQuery.Location = new System.Drawing.Point(0, 432);
             this.ibQuery.Name = "ibQuery";
             this.ibQuery.Size = new System.Drawing.Size(220, 58);
-            this.ibQuery.TabIndex = 6;
+            this.ibQuery.TabIndex = 3;
             this.ibQuery.Text = "Consultas";
+            this.ibQuery.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibQuery.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ibQuery.UseVisualStyleBackColor = true;
-            this.ibQuery.Click += new System.EventHandler(this.iconButton1_Click);
+            this.ibQuery.Click += new System.EventHandler(this.ibQuery_Click);
+            this.ibQuery.MouseEnter += new System.EventHandler(this.ibQuery_MouseEnter);
+            this.ibQuery.MouseLeave += new System.EventHandler(this.ibQuery_MouseLeave);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Cascadia Code", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(12, 646);
+            this.label1.Location = new System.Drawing.Point(12, 677);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(109, 21);
             this.label1.TabIndex = 3;
@@ -162,7 +207,7 @@
             this.toggleButton1.ForeColor = System.Drawing.Color.Black;
             inactiveStateCollection1.Text = "ATIVAR";
             this.toggleButton1.InactiveState = inactiveStateCollection1;
-            this.toggleButton1.Location = new System.Drawing.Point(129, 646);
+            this.toggleButton1.Location = new System.Drawing.Point(129, 677);
             this.toggleButton1.MinimumSize = new System.Drawing.Size(52, 20);
             this.toggleButton1.Name = "toggleButton1";
             this.toggleButton1.Size = new System.Drawing.Size(75, 30);
@@ -304,29 +349,14 @@
             // pnlDropDown
             // 
             this.pnlDropDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.pnlDropDown.Controls.Add(this.lblScheduleToday);
             this.pnlDropDown.Controls.Add(this.lblHistorico);
+            this.pnlDropDown.Controls.Add(this.lblScheduleToday);
             this.pnlDropDown.Controls.Add(this.lblAgendamentos);
-            this.pnlDropDown.Location = new System.Drawing.Point(0, 428);
+            this.pnlDropDown.Location = new System.Drawing.Point(0, 435);
             this.pnlDropDown.Name = "pnlDropDown";
             this.pnlDropDown.Size = new System.Drawing.Size(220, 107);
             this.pnlDropDown.TabIndex = 3;
             this.pnlDropDown.Visible = false;
-            // 
-            // lblScheduleToday
-            // 
-            this.lblScheduleToday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.lblScheduleToday.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.lblScheduleToday.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblScheduleToday.Location = new System.Drawing.Point(0, 70);
-            this.lblScheduleToday.Name = "lblScheduleToday";
-            this.lblScheduleToday.Size = new System.Drawing.Size(220, 35);
-            this.lblScheduleToday.TabIndex = 4;
-            this.lblScheduleToday.Text = "Agendamentos de hoje";
-            this.lblScheduleToday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblScheduleToday.Click += new System.EventHandler(this.lblScheduleToday_Click);
-            this.lblScheduleToday.MouseEnter += new System.EventHandler(this.lblScheduleToday_MouseEnter);
-            this.lblScheduleToday.MouseLeave += new System.EventHandler(this.lblScheduleToday_MouseLeave);
             // 
             // lblHistorico
             // 
@@ -342,11 +372,26 @@
             this.lblHistorico.MouseEnter += new System.EventHandler(this.lblHistorico_MouseEnter);
             this.lblHistorico.MouseLeave += new System.EventHandler(this.lblHistorico_MouseLeave);
             // 
+            // lblScheduleToday
+            // 
+            this.lblScheduleToday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.lblScheduleToday.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.lblScheduleToday.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblScheduleToday.Location = new System.Drawing.Point(0, 72);
+            this.lblScheduleToday.Name = "lblScheduleToday";
+            this.lblScheduleToday.Size = new System.Drawing.Size(220, 35);
+            this.lblScheduleToday.TabIndex = 4;
+            this.lblScheduleToday.Text = "Agendamentos de hoje";
+            this.lblScheduleToday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblScheduleToday.Click += new System.EventHandler(this.lblScheduleToday_Click);
+            this.lblScheduleToday.MouseEnter += new System.EventHandler(this.lblScheduleToday_MouseEnter);
+            this.lblScheduleToday.MouseLeave += new System.EventHandler(this.lblScheduleToday_MouseLeave);
+            // 
             // lblAgendamentos
             // 
             this.lblAgendamentos.Font = new System.Drawing.Font("Cascadia Code", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAgendamentos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblAgendamentos.Location = new System.Drawing.Point(0, 0);
+            this.lblAgendamentos.Location = new System.Drawing.Point(-1, -3);
             this.lblAgendamentos.Name = "lblAgendamentos";
             this.lblAgendamentos.Size = new System.Drawing.Size(220, 35);
             this.lblAgendamentos.TabIndex = 3;
@@ -367,7 +412,7 @@
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(220, 0);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(799, 39);
+            this.panelHeader.Size = new System.Drawing.Size(843, 39);
             this.panelHeader.TabIndex = 1;
             this.panelHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseDown);
             // 
@@ -379,7 +424,7 @@
             this.ipbMinimize.IconColor = System.Drawing.Color.White;
             this.ipbMinimize.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ipbMinimize.IconSize = 41;
-            this.ipbMinimize.Location = new System.Drawing.Point(682, 0);
+            this.ipbMinimize.Location = new System.Drawing.Point(726, 0);
             this.ipbMinimize.Margin = new System.Windows.Forms.Padding(0);
             this.ipbMinimize.Name = "ipbMinimize";
             this.ipbMinimize.Size = new System.Drawing.Size(43, 41);
@@ -397,7 +442,7 @@
             this.ipbMaximize.IconColor = System.Drawing.Color.White;
             this.ipbMaximize.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ipbMaximize.IconSize = 38;
-            this.ipbMaximize.Location = new System.Drawing.Point(725, 0);
+            this.ipbMaximize.Location = new System.Drawing.Point(769, 0);
             this.ipbMaximize.Margin = new System.Windows.Forms.Padding(0);
             this.ipbMaximize.Name = "ipbMaximize";
             this.ipbMaximize.Size = new System.Drawing.Size(38, 41);
@@ -439,7 +484,7 @@
             this.lblExit.Font = new System.Drawing.Font("Cascadia Code", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblExit.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblExit.Location = new System.Drawing.Point(763, -2);
+            this.lblExit.Location = new System.Drawing.Point(807, -2);
             this.lblExit.Margin = new System.Windows.Forms.Padding(0);
             this.lblExit.Name = "lblExit";
             this.lblExit.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -458,7 +503,7 @@
             this.panelMainForms.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMainForms.Location = new System.Drawing.Point(220, 39);
             this.panelMainForms.Name = "panelMainForms";
-            this.panelMainForms.Size = new System.Drawing.Size(799, 652);
+            this.panelMainForms.Size = new System.Drawing.Size(843, 668);
             this.panelMainForms.TabIndex = 2;
             // 
             // clock1
@@ -472,11 +517,11 @@
             this.clock1.ClockShape = Syncfusion.Windows.Forms.Tools.ClockShapes.Circle;
             this.clock1.ClockType = Syncfusion.Windows.Forms.Tools.ClockTypes.Digital;
             this.clock1.CurrentDateTime = new System.DateTime(2023, 11, 27, 0, 40, 17, 555);
-            this.clock1.CustomTime = new System.DateTime(2024, 5, 23, 22, 22, 11, 154);
+            this.clock1.CustomTime = new System.DateTime(2024, 5, 26, 12, 27, 33, 63);
             this.clock1.DigitalRenderer = digitalClockRenderer1;
             this.clock1.DisplayDates = true;
             this.clock1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
-            this.clock1.Location = new System.Drawing.Point(226, 134);
+            this.clock1.Location = new System.Drawing.Point(248, 142);
             this.clock1.MinimumSize = new System.Drawing.Size(75, 75);
             this.clock1.Name = "clock1";
             this.clock1.Now = new System.DateTime(((long)(0)));
@@ -500,7 +545,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1019, 691);
+            this.ClientSize = new System.Drawing.Size(1063, 707);
             this.ControlBox = false;
             this.Controls.Add(this.panelMainForms);
             this.Controls.Add(this.panelHeader);
@@ -552,7 +597,8 @@
         private Syncfusion.Windows.Forms.Tools.Clock clock1;
         private System.Windows.Forms.Label lblScheduleToday;
         private FontAwesome.Sharp.IconButton ibQuery;
-        private FontAwesome.Sharp.IconButton btnRegisterService;
-        private FontAwesome.Sharp.IconButton btnRegisterBarber;
+        private FontAwesome.Sharp.IconButton ibRegisterService;
+        private FontAwesome.Sharp.IconButton ibRegisterBarber;
+        private FontAwesome.Sharp.IconButton ibRegisterClient;
     }
 }

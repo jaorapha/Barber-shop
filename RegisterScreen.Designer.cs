@@ -211,7 +211,7 @@ namespace interdisciplinar2
             this.maskeDate.Location = new System.Drawing.Point(43, 255);
             this.maskeDate.Mask = "00/00/0000";
             this.maskeDate.Name = "maskeDate";
-            this.maskeDate.Size = new System.Drawing.Size(87, 26);
+            this.maskeDate.Size = new System.Drawing.Size(107, 26);
             this.maskeDate.TabIndex = 15;
             this.maskeDate.ValidatingType = typeof(System.DateTime);
             this.maskeDate.Click += new System.EventHandler(this.maskeDate_Click);

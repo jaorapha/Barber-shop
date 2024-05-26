@@ -19,6 +19,7 @@ namespace interdisciplinar2
             public static readonly Color color2 = Color.FromArgb(47, 53, 66);
             public static readonly Color color3 = Color.FromArgb(253, 138, 114);
             public static readonly Color color4 = Color.FromArgb(95, 77, 221);
+
         }
 
         public MainScreen()
@@ -80,6 +81,10 @@ namespace interdisciplinar2
 
                 ibDashboard.Dock = DockStyle.Top;
                 ibChangePassword.Dock = DockStyle.Top;
+                ibRegisterBarber.Dock = DockStyle.Top;
+                ibQuery.Dock = DockStyle.Top;
+                ibRegisterClient.Dock = DockStyle.Top;
+                ibRegisterService.Dock = DockStyle.Top;
             }
 
             if (ibSchedule.TextImageRelation == TextImageRelation.TextBeforeImage)
@@ -100,13 +105,39 @@ namespace interdisciplinar2
                 ibDashboard.IconColor = Color.White;
                 panelLeftBtn.Visible = false;
             }
-            else
+            else if (ibChangePassword.TextImageRelation == TextImageRelation.TextBeforeImage)
             {
                 ibChangePassword.TextImageRelation = TextImageRelation.ImageBeforeText;
                 ibChangePassword.IconColor = Color.White;
                 panelLeftBtn.Visible = false;
             }
-        }
+            else if (ibQuery.TextImageRelation == TextImageRelation.TextBeforeImage)
+            {
+                ibQuery.TextImageRelation = TextImageRelation.ImageBeforeText;
+                ibQuery.IconColor = Color.White;
+                panelLeftBtn.Visible = false;
+            }
+            else if (ibRegisterBarber.TextImageRelation == TextImageRelation.TextBeforeImage)
+            {
+                ibRegisterBarber.TextImageRelation = TextImageRelation.ImageBeforeText;
+                ibRegisterBarber.IconColor = Color.White;
+                panelLeftBtn.Visible = false;
+            }
+            else if (ibRegisterService.TextImageRelation == TextImageRelation.TextBeforeImage)
+            {
+                ibRegisterService.TextImageRelation = TextImageRelation.ImageBeforeText;
+                ibRegisterService.IconColor = Color.White;
+                panelLeftBtn.Visible = false;
+            }
+            else
+            {
+                ibRegisterClient.TextImageRelation = TextImageRelation.ImageBeforeText;
+                ibRegisterClient.IconColor = Color.White;
+                panelLeftBtn.Visible = false;
+            }
+
+            
+            }
 
         private void IconFormName(IconButton btn)
         {
@@ -174,18 +205,27 @@ namespace interdisciplinar2
 
         private void ibSchedules_Click(object sender, EventArgs e)
         {
-            panelLeftBtn.BackColor = RgbColors.color3;
+            panelLeftBtn.BackColor = RgbColors.color1;
             ClickedBtn(ibSchedules);
-            ibSchedules.IconColor = RgbColors.color3;
+            ibSchedules.IconColor = RgbColors.color1;
 
             pnlDropDown.Visible = true;
             pnlDropDown.Location = new Point(0, ibSchedules.Location.Y + 50);
 
             ibDashboard.Dock = DockStyle.None;
             ibChangePassword.Dock = DockStyle.None;
+            ibQuery.Dock = DockStyle.None;
+            ibRegisterBarber.Dock = DockStyle.None;
+            ibRegisterService.Dock = DockStyle.None;
+            ibRegisterClient.Dock = DockStyle.None;
 
             ibDashboard.Location = new Point(0, pnlDropDown.Location.Y + 70);
             ibChangePassword.Location = new Point(0, ibDashboard.Location.Y + 70);
+            ibQuery.Location = new Point(0, ibChangePassword.Location.Y + 70);
+            ibRegisterBarber.Location = new Point(0, ibQuery.Location.Y + 70);
+            ibRegisterService.Location = new Point(0, ibRegisterBarber.Location.Y + 70);
+            ibRegisterClient.Location = new Point(0, ibRegisterService.Location.Y + 70);
+
 
             IconFormName(ibSchedules);
         }
@@ -229,9 +269,9 @@ namespace interdisciplinar2
 
         private void ibDashboard_Click(object sender, EventArgs e)
         {
-            panelLeftBtn.BackColor = ProgramTheme.YellowColor;
+            panelLeftBtn.BackColor = RgbColors.color1;
             ClickedBtn(ibDashboard);
-            ibDashboard.IconColor = ProgramTheme.YellowColor;
+            ibDashboard.IconColor = RgbColors.color1;
 
             OpenChildForm(new DashboardScreen());
 
@@ -240,9 +280,9 @@ namespace interdisciplinar2
 
         private void ibChangePassword_Click(object sender, EventArgs e)
         {
-            panelLeftBtn.BackColor = RgbColors.color4;
+            panelLeftBtn.BackColor = RgbColors.color1;
             ClickedBtn(ibChangePassword);
-            ibChangePassword.IconColor = RgbColors.color4;
+            ibChangePassword.IconColor = RgbColors.color1;
 
             OpenChildForm(new ChangePasswordScreen());
 
@@ -396,7 +436,7 @@ namespace interdisciplinar2
             UnclickBtn();
 
             ClickedBtn(ibSchedules);
-            ibSchedules.IconColor = RgbColors.color3;
+            ibSchedules.IconColor = RgbColors.color1;
 
             lblFormName.Text = "Agendamentos Futuros";
         }
@@ -408,7 +448,7 @@ namespace interdisciplinar2
             UnclickBtn();
 
             ClickedBtn(ibSchedules);
-            ibSchedules.IconColor = RgbColors.color3;
+            ibSchedules.IconColor = RgbColors.color2;
 
             lblFormName.Text = "Histórico";
         }
@@ -427,7 +467,7 @@ namespace interdisciplinar2
             UnclickBtn();
 
             ClickedBtn(ibSchedules);
-            ibSchedules.IconColor = RgbColors.color3;
+            ibSchedules.IconColor = RgbColors.color2;
 
             lblFormName.Text = "Agendamentos de hoje";
         }
@@ -442,9 +482,88 @@ namespace interdisciplinar2
             lblScheduleToday.BackColor = Color.FromArgb(80, 80, 80);
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private void ibQuery_Click(object sender, EventArgs e)
         {
+            panelLeftBtn.BackColor = RgbColors.color1;
+            ClickedBtn(ibQuery);
+            ibQuery.IconColor = RgbColors.color1;
+
             OpenChildForm(new Queries());
+
+            IconFormName(ibQuery);
+        }
+
+        private void ibQuery_MouseEnter(object sender, EventArgs e)
+        {    
+            BtnMouseEnter(ibQuery);
+        }
+
+        private void ibQuery_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMouseLeave(ibQuery);
+        }
+
+        private void ibRegisterBarber_Click(object sender, EventArgs e)
+        {
+            panelLeftBtn.BackColor = RgbColors.color1;
+            ClickedBtn(ibRegisterBarber);
+            ibRegisterBarber.IconColor = RgbColors.color1;
+
+            OpenChildForm(new RegisterBarbers());
+
+            IconFormName(ibRegisterBarber);
+        }
+
+        private void ibRegisterBarber_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMouseEnter(ibRegisterBarber);
+        }
+
+        private void ibRegisterBarber_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMouseLeave(ibRegisterBarber);
+        }
+
+        private void ibRegisterService_Click(object sender, EventArgs e)
+        {
+            panelLeftBtn.BackColor = RgbColors.color1;
+            ClickedBtn(ibRegisterService);
+            ibRegisterService.IconColor = RgbColors.color1;
+
+            OpenChildForm(new RegisterServices());
+
+            IconFormName(ibRegisterService);
+        }
+
+        private void ibRegisterService_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMouseEnter(ibRegisterService);
+        }
+
+        private void ibRegisterService_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMouseLeave(ibRegisterService);
+        }
+
+        private void ibRegisterClient_Click(object sender, EventArgs e)
+        {
+            panelLeftBtn.BackColor = RgbColors.color1;
+            ClickedBtn(ibRegisterClient);
+            ibRegisterClient.IconColor = RgbColors.color1;
+
+            OpenChildForm(new RegisterClients());
+
+            IconFormName(ibRegisterClient);
+        }
+
+        private void ibRegisterClient_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMouseEnter(ibRegisterClient);
+        }
+
+        private void ibRegisterClient_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMouseLeave(ibRegisterClient);
         }
     }
 }
