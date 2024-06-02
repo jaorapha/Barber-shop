@@ -31,7 +31,7 @@
             this.dgvQuery = new System.Windows.Forms.DataGridView();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.searchClient = new System.Windows.Forms.TextBox();
+            this.txtbSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnClientActive = new System.Windows.Forms.Button();
             this.btnBarberActive = new System.Windows.Forms.Button();
@@ -66,15 +66,15 @@
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
-            // searchClient
+            // txtbSearch
             // 
-            this.searchClient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.searchClient.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.searchClient.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.searchClient.Location = new System.Drawing.Point(364, 401);
-            this.searchClient.Name = "searchClient";
-            this.searchClient.Size = new System.Drawing.Size(305, 26);
-            this.searchClient.TabIndex = 3;
+            this.txtbSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.txtbSearch.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.txtbSearch.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtbSearch.Location = new System.Drawing.Point(364, 401);
+            this.txtbSearch.Name = "txtbSearch";
+            this.txtbSearch.Size = new System.Drawing.Size(305, 26);
+            this.txtbSearch.TabIndex = 3;
             // 
             // label1
             // 
@@ -155,12 +155,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBarberActive);
             this.Controls.Add(this.btnClientActive);
-            this.Controls.Add(this.searchClient);
+            this.Controls.Add(this.txtbSearch);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.dgvQuery);
             this.Name = "Queries";
             this.Text = "Queries";
+            this.Load += new System.EventHandler(this.Queries_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuery)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -172,7 +173,7 @@
         private System.Windows.Forms.DataGridView dgvQuery;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox searchClient;
+        private System.Windows.Forms.TextBox txtbSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnClientActive;
         private System.Windows.Forms.Button btnBarberActive;

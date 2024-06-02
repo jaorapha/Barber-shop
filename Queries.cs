@@ -1,4 +1,5 @@
-﻿using interdisciplinar2.CustomMessageBoxes;
+﻿using FontAwesome.Sharp;
+using interdisciplinar2.CustomMessageBoxes;
 using interdisciplinar2.Models;
 using K4os.Compression.LZ4.Streams.Internal;
 using MySql.Data.MySqlClient;
@@ -18,9 +19,29 @@ namespace interdisciplinar2
     public partial class Queries : Form
     {
         string conection = "Server=localhost;database=barber_shop2;uid=root;pwd=jhon";
+
+        private ProgramTheme programTheme;
+
         public Queries()
         {
             InitializeComponent();
+            List<Button> buttons = new List<Button>();
+            buttons.Add(btnBarberActive);
+            buttons.Add(btnClientActive);
+            buttons.Add(mostService);
+
+            List<Label> labels = new List<Label>();
+            labels.Add(label1);
+            
+            List<IconButton> iconButtons = new List<IconButton>();
+            iconButtons.Add(ibQueryClient);
+          
+
+            programTheme = new ProgramTheme();
+            programTheme.form = this;
+            programTheme.buttons = buttons;
+            programTheme.labels = labels;
+            programTheme.iButtons = iconButtons;
         }
 
         private void read(string query)
@@ -58,7 +79,7 @@ namespace interdisciplinar2
             MySqlCommand comand = new MySqlCommand("SELECT full_name FROM customers;", mySqlConnection);
             MySqlDataReader myReader;
             myReader = comand.ExecuteReader();
-            if (searchClient.Text == null || searchClient.Text == "")
+            if (txtbSearch.Text == null || txtbSearch.Text == "")
             {
                 ErrorMessageBox dMessageBox = new ErrorMessageBox("O campo está em branco, o preencha por favor!");
                 dMessageBox.ShowDialog();
@@ -67,7 +88,7 @@ namespace interdisciplinar2
             {
                 while (myReader.Read())
                 {
-                    if (!myReader.GetString("full_name").Contains(searchClient.Text))
+                    if (!myReader.GetString("full_name").Contains(txtbSearch.Text))
                     {
                         ErrorMessageBox notFound = new ErrorMessageBox("Esse cliente não foi cadastrado");
                         notFound.ShowDialog();
@@ -75,12 +96,17 @@ namespace interdisciplinar2
                     }
                     else
                     {
-                        string query = "SELECT customers.full_name AS Cliente,barbers.full_name AS Barbeiro FROM barbers INNER JOIN schedules ON schedules.barber_id = barbers.id INNER JOIN customers ON customers.id = schedules.customer_id WHERE customers.full_name LIKE '" + searchClient.Text + "%';";
+                        string query = "SELECT customers.full_name AS Cliente,barbers.full_name AS Barbeiro FROM barbers INNER JOIN schedules ON schedules.barber_id = barbers.id INNER JOIN customers ON customers.id = schedules.customer_id WHERE customers.full_name LIKE '" + txtbSearch.Text + "%';";
                         read(query);
                         return;
                     }
                 }
             }
+        }
+
+        private void Queries_Load(object sender, EventArgs e)
+        {
+            programTheme.LoadTheme();
         }
     }
 }
