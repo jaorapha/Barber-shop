@@ -204,6 +204,7 @@ namespace interdisciplinar2
             this.comboCorte.Name = "comboCorte";
             this.comboCorte.Size = new System.Drawing.Size(395, 29);
             this.comboCorte.TabIndex = 14;
+            this.comboCorte.Click += new System.EventHandler(this.comboCorte_Click);
             // 
             // maskeDate
             // 

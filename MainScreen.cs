@@ -406,6 +406,16 @@ namespace interdisciplinar2
                     OpenChildForm(new DashboardScreen());
                 else if (CurrentChildForm is ChangePasswordScreen)
                     OpenChildForm(new ChangePasswordScreen());
+                else if (CurrentChildForm is Queries)
+                    OpenChildForm(new Queries());
+                else if (CurrentChildForm is RegisterBarbers)
+                    OpenChildForm(new RegisterBarbers());
+                else if (CurrentChildForm is RegisterClients)
+                    OpenChildForm(new RegisterClients());
+                else if (CurrentChildForm is RegisterServices)
+                    OpenChildForm(new RegisterServices());
+                else if(CurrentChildForm is SchedulesToday)
+                    OpenChildForm(new SchedulesToday());
             }
         }
 

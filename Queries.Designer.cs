@@ -33,10 +33,10 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.searchClient = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.ibQueryClient = new System.Windows.Forms.Button();
             this.btnClientActive = new System.Windows.Forms.Button();
             this.btnBarberActive = new System.Windows.Forms.Button();
             this.mostService = new System.Windows.Forms.Button();
+            this.ibQueryClient = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuery)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -86,20 +86,6 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Que barbeiro atendeu o:";
             // 
-            // ibQueryClient
-            // 
-            this.ibQueryClient.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
-            this.ibQueryClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ibQueryClient.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.ibQueryClient.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ibQueryClient.Location = new System.Drawing.Point(364, 447);
-            this.ibQueryClient.Name = "ibQueryClient";
-            this.ibQueryClient.Size = new System.Drawing.Size(305, 60);
-            this.ibQueryClient.TabIndex = 5;
-            this.ibQueryClient.Text = "Barbeiro que atendeu o clientes";
-            this.ibQueryClient.UseVisualStyleBackColor = true;
-            this.ibQueryClient.Click += new System.EventHandler(this.ibQueryClient_Click);
-            // 
             // btnClientActive
             // 
             this.btnClientActive.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
@@ -143,16 +129,31 @@
             this.mostService.UseVisualStyleBackColor = true;
             this.mostService.Click += new System.EventHandler(this.mostService_Click);
             // 
+            // ibQueryClient
+            // 
+            this.ibQueryClient.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+            this.ibQueryClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibQueryClient.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.ibQueryClient.IconColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ibQueryClient.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibQueryClient.IconSize = 24;
+            this.ibQueryClient.Location = new System.Drawing.Point(666, 401);
+            this.ibQueryClient.Name = "ibQueryClient";
+            this.ibQueryClient.Size = new System.Drawing.Size(27, 26);
+            this.ibQueryClient.TabIndex = 6;
+            this.ibQueryClient.UseVisualStyleBackColor = true;
+            this.ibQueryClient.Click += new System.EventHandler(this.ibQueryClient_Click);
+            // 
             // Queries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(800, 531);
+            this.Controls.Add(this.ibQueryClient);
             this.Controls.Add(this.mostService);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBarberActive);
-            this.Controls.Add(this.ibQueryClient);
             this.Controls.Add(this.btnClientActive);
             this.Controls.Add(this.searchClient);
             this.Controls.Add(this.pictureBox1);
@@ -173,9 +174,9 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox searchClient;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button ibQueryClient;
         private System.Windows.Forms.Button btnClientActive;
         private System.Windows.Forms.Button btnBarberActive;
         private System.Windows.Forms.Button mostService;
+        private FontAwesome.Sharp.IconButton ibQueryClient;
     }
 }

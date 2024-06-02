@@ -31,6 +31,8 @@ namespace interdisciplinar2
             labels.Add(label2);
             labels.Add(label3);
             labels.Add(label4);
+            labels.Add(lblHorary);
+            labels.Add(lblDescription);
 
             List<IconButton> iconButtons = new List<IconButton>();
             iconButtons.Add(ibSearch);
@@ -325,6 +327,13 @@ namespace interdisciplinar2
                 }
             }
             return value;
+        }
+
+        private void comboCorte_Click(object sender, EventArgs e)
+        {
+            comboCorte.Items.Clear();
+
+            FillDropList("SELECT services.`name` as Serviços FROM services", "Serviços", ref comboCorte);
         }
     }
 }

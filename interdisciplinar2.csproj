@@ -284,6 +284,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RegisterServices.resx">
+      <DependentUpon>RegisterServices.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SchedulesScreen.resx">
       <DependentUpon>SchedulesScreen.cs</DependentUpon>
     </EmbeddedResource>
