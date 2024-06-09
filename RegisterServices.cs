@@ -121,7 +121,17 @@ namespace interdisciplinar2
             }
             else if (!Regex.IsMatch(txtPrice.Text, "^[1-9][0-9]{0,2},[0-9]{2}$"))
             {
-                ErrorMessageBox errorValue = new ErrorMessageBox("Valor inválido");
+                ErrorMessageBox errorValue = new ErrorMessageBox("Preço inválido");
+                errorValue.ShowDialog();
+            }
+            else if (Regex.IsMatch(txtCategory.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtName.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtDescription.Text, "^[ ]|[ ]$") ||  Regex.IsMatch(txtDescription.Text, "^[ ]|[ ]$"))
+            {
+                ErrorMessageBox errorValue = new ErrorMessageBox("O campo não pode começar/terminar com um espaço em branco");
+                errorValue.ShowDialog();
+            }
+            else if(!Regex.IsMatch(maskDuration.Text, "^(?:(?!00:00)([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d))$"))
+            {
+                ErrorMessageBox errorValue = new ErrorMessageBox("Horário inválido");
                 errorValue.ShowDialog();
             }
             else
@@ -154,7 +164,7 @@ namespace interdisciplinar2
                         while (myReader.Read())
                         {
                             if (myReader.GetDecimal("price").Equals(price))
-                            {                         
+                            {
                                 idBank = myReader.GetInt32("id");
                                 MySqlConnection.Close();
                                 MySqlConnection.Open();
@@ -170,7 +180,7 @@ namespace interdisciplinar2
                             }
                         }
                     }
-                   
+
                     string priceFormatted = price.ToString(CultureInfo.InvariantCulture);
 
                     using (MySqlCommand comandoNotFound = new MySqlCommand("INSERT INTO service_prices (price) VALUES(@price);", MySqlConnection))
@@ -201,12 +211,13 @@ namespace interdisciplinar2
                             LoadDatabaseData();
                         }
 
-                    }catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         ErrorMessageBox error = new ErrorMessageBox("Algo deu errado,tente novamente");
                         error.ShowDialog();
-                    }                     
-                }   
+                    }
+                }
             }
         }
 
@@ -228,14 +239,41 @@ namespace interdisciplinar2
 
         private void ibSearch_Click(object sender, EventArgs e)
         {
-            LoadDatabaseData();
+            if (txtbSearch.Text == null || txtbSearch.Text == "")
+            {
+                LoadDatabaseData();
+            }
+            else if (!Regex.IsMatch(txtbSearch.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ  ]+$"))
+            {
+                ErrorMessageBox errorValeu = new ErrorMessageBox("Apenas letras neste campo");
+                errorValeu.ShowDialog();
+            }
+            else if (Regex.IsMatch(txtbSearch.Text, "[ ]$") || Regex.IsMatch(txtbSearch.Text, "^[ ]"))
+            {
+                ErrorMessageBox errorValue = new ErrorMessageBox("O campo não pode começar/terminar com um espaço em branco");
+                errorValue.ShowDialog();
+            }
+            else
+            {
+                LoadDatabaseData();
+            }
         }
 
         private void ibDelete_Click(object sender, EventArgs e)
         {
-            if (Regex.IsMatch(txtDelete.Text, "[0-9]") || !Regex.IsMatch(txtDelete.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ,. ]+$"))
+            if (txtDelete.Text == "" || txtDelete.Text == null || txtDelete.Text == "Insira o nome do serviço")
+            {
+                ErrorMessageBox errorValue = new ErrorMessageBox("Digite o nome do barbeiro");
+                errorValue.ShowDialog();
+            }
+            else if (!Regex.IsMatch(txtDelete.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ ]+$"))
             {
                 ErrorMessageBox errorValue = new ErrorMessageBox("Apenas letras neste campo");
+                errorValue.ShowDialog();
+            }
+            else if (Regex.IsMatch(txtDelete.Text, "[ ]$") || Regex.IsMatch(txtDelete.Text, "^[ ]"))
+            {
+                ErrorMessageBox errorValue = new ErrorMessageBox("O campo não pode começar/terminar com um espaço em branco");
                 errorValue.ShowDialog();
             }
             else 
@@ -275,6 +313,16 @@ namespace interdisciplinar2
                 ErrorMessageBox errorNotFound = new ErrorMessageBox("Serviço não cadastrado");
                 errorNotFound.ShowDialog();
             }
+        }
+
+        private void txtDelete_Click(object sender, EventArgs e)
+        {
+            txtDelete.Text = "";
+        }
+
+        private void RegisterServices_Click(object sender, EventArgs e)
+        {
+            txtDelete.Text = "Insira o nome do serviço";
         }
     }
 }

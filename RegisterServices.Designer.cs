@@ -231,6 +231,8 @@
             this.txtDelete.Name = "txtDelete";
             this.txtDelete.Size = new System.Drawing.Size(261, 26);
             this.txtDelete.TabIndex = 19;
+            this.txtDelete.Text = "Insira o nome do serviço";
+            this.txtDelete.Click += new System.EventHandler(this.txtDelete_Click);
             // 
             // ibDelete
             // 
@@ -275,6 +277,7 @@
             this.Name = "RegisterServices";
             this.Text = "RegisterServices";
             this.Load += new System.EventHandler(this.RegisterServices_Load);
+            this.Click += new System.EventHandler(this.RegisterServices_Click);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
