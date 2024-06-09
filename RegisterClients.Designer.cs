@@ -39,14 +39,14 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnRegister = new System.Windows.Forms.Button();
             this.lblSearch = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
-            this.iconButton2 = new FontAwesome.Sharp.IconButton();
+            this.txtbSearch = new System.Windows.Forms.TextBox();
+            this.ibSearch = new FontAwesome.Sharp.IconButton();
+            this.ibDelete = new FontAwesome.Sharp.IconButton();
             this.lblDelete = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.ibDontShowPasswordImage = new FontAwesome.Sharp.IconButton();
-            this.ibShowPasswordImage = new FontAwesome.Sharp.IconButton();
-            this.maskPhone = new System.Windows.Forms.TextBox();
+            this.txtDelete = new System.Windows.Forms.TextBox();
+            this.txtPhone = new System.Windows.Forms.TextBox();
+            this.txtConfirm = new System.Windows.Forms.TextBox();
+            this.lblConfirm = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,6 +128,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(252, 26);
             this.txtPassword.TabIndex = 0;
+            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // dataGridView1
             // 
@@ -143,7 +144,7 @@
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegister.Font = new System.Drawing.Font("Cascadia Code", 12F);
             this.btnRegister.ForeColor = System.Drawing.Color.Snow;
-            this.btnRegister.Location = new System.Drawing.Point(53, 372);
+            this.btnRegister.Location = new System.Drawing.Point(53, 419);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(263, 52);
             this.btnRegister.TabIndex = 8;
@@ -162,43 +163,45 @@
             this.lblSearch.TabIndex = 9;
             this.lblSearch.Text = "Procurar Cliente";
             // 
-            // textBox5
+            // txtbSearch
             // 
-            this.textBox5.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.textBox5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textBox5.Location = new System.Drawing.Point(420, 377);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(280, 26);
-            this.textBox5.TabIndex = 10;
+            this.txtbSearch.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.txtbSearch.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.txtbSearch.Location = new System.Drawing.Point(420, 377);
+            this.txtbSearch.Name = "txtbSearch";
+            this.txtbSearch.Size = new System.Drawing.Size(280, 26);
+            this.txtbSearch.TabIndex = 10;
             // 
-            // iconButton1
+            // ibSearch
             // 
-            this.iconButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
-            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            this.iconButton1.IconColor = System.Drawing.Color.Black;
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton1.IconSize = 20;
-            this.iconButton1.Location = new System.Drawing.Point(696, 377);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(31, 26);
-            this.iconButton1.TabIndex = 11;
-            this.iconButton1.UseVisualStyleBackColor = true;
+            this.ibSearch.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+            this.ibSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibSearch.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.ibSearch.IconColor = System.Drawing.Color.Black;
+            this.ibSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibSearch.IconSize = 20;
+            this.ibSearch.Location = new System.Drawing.Point(696, 377);
+            this.ibSearch.Name = "ibSearch";
+            this.ibSearch.Size = new System.Drawing.Size(31, 26);
+            this.ibSearch.TabIndex = 11;
+            this.ibSearch.UseVisualStyleBackColor = true;
+            this.ibSearch.Click += new System.EventHandler(this.ibSearch_Click);
             // 
-            // iconButton2
+            // ibDelete
             // 
-            this.iconButton2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
-            this.iconButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton2.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.Xmark;
-            this.iconButton2.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton2.IconSize = 20;
-            this.iconButton2.Location = new System.Drawing.Point(696, 470);
-            this.iconButton2.Name = "iconButton2";
-            this.iconButton2.Size = new System.Drawing.Size(31, 26);
-            this.iconButton2.TabIndex = 12;
-            this.iconButton2.UseVisualStyleBackColor = true;
+            this.ibDelete.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+            this.ibDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibDelete.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.ibDelete.IconChar = FontAwesome.Sharp.IconChar.Xmark;
+            this.ibDelete.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.ibDelete.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibDelete.IconSize = 20;
+            this.ibDelete.Location = new System.Drawing.Point(696, 470);
+            this.ibDelete.Name = "ibDelete";
+            this.ibDelete.Size = new System.Drawing.Size(31, 26);
+            this.ibDelete.TabIndex = 12;
+            this.ibDelete.UseVisualStyleBackColor = true;
+            this.ibDelete.Click += new System.EventHandler(this.ibDelete_Click);
             // 
             // lblDelete
             // 
@@ -211,53 +214,43 @@
             this.lblDelete.TabIndex = 13;
             this.lblDelete.Text = "Excluir Cliente";
             // 
-            // textBox6
+            // txtDelete
             // 
-            this.textBox6.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.textBox6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textBox6.Location = new System.Drawing.Point(420, 470);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(280, 26);
-            this.textBox6.TabIndex = 14;
-            this.textBox6.Text = "Insira o nome de usuário";
+            this.txtDelete.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.txtDelete.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.txtDelete.Location = new System.Drawing.Point(420, 470);
+            this.txtDelete.Name = "txtDelete";
+            this.txtDelete.Size = new System.Drawing.Size(280, 26);
+            this.txtDelete.TabIndex = 14;
+            this.txtDelete.Text = "Insira o nome de usuário";
             // 
-            // ibDontShowPasswordImage
+            // txtPhone
             // 
-            this.ibDontShowPasswordImage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
-            this.ibDontShowPasswordImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ibDontShowPasswordImage.IconChar = FontAwesome.Sharp.IconChar.EyeSlash;
-            this.ibDontShowPasswordImage.IconColor = System.Drawing.Color.Black;
-            this.ibDontShowPasswordImage.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibDontShowPasswordImage.IconSize = 35;
-            this.ibDontShowPasswordImage.Location = new System.Drawing.Point(302, 300);
-            this.ibDontShowPasswordImage.Name = "ibDontShowPasswordImage";
-            this.ibDontShowPasswordImage.Size = new System.Drawing.Size(31, 26);
-            this.ibDontShowPasswordImage.TabIndex = 18;
-            this.ibDontShowPasswordImage.UseVisualStyleBackColor = true;
-            this.ibDontShowPasswordImage.Click += new System.EventHandler(this.ibDontShowPasswordImage_Click_1);
+            this.txtPhone.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.txtPhone.Location = new System.Drawing.Point(53, 237);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(252, 26);
+            this.txtPhone.TabIndex = 20;
             // 
-            // ibShowPasswordImage
+            // txtConfirm
             // 
-            this.ibShowPasswordImage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
-            this.ibShowPasswordImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ibShowPasswordImage.IconChar = FontAwesome.Sharp.IconChar.Eye;
-            this.ibShowPasswordImage.IconColor = System.Drawing.Color.Black;
-            this.ibShowPasswordImage.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibShowPasswordImage.IconSize = 35;
-            this.ibShowPasswordImage.Location = new System.Drawing.Point(302, 300);
-            this.ibShowPasswordImage.Name = "ibShowPasswordImage";
-            this.ibShowPasswordImage.Size = new System.Drawing.Size(31, 26);
-            this.ibShowPasswordImage.TabIndex = 19;
-            this.ibShowPasswordImage.UseVisualStyleBackColor = true;
-            this.ibShowPasswordImage.Click += new System.EventHandler(this.ibShowPasswordImage_Click_1);
+            this.txtConfirm.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.txtConfirm.Location = new System.Drawing.Point(53, 363);
+            this.txtConfirm.Name = "txtConfirm";
+            this.txtConfirm.Size = new System.Drawing.Size(252, 26);
+            this.txtConfirm.TabIndex = 21;
+            this.txtConfirm.UseSystemPasswordChar = true;
             // 
-            // maskPhone
+            // lblConfirm
             // 
-            this.maskPhone.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.maskPhone.Location = new System.Drawing.Point(53, 242);
-            this.maskPhone.Name = "maskPhone";
-            this.maskPhone.Size = new System.Drawing.Size(252, 26);
-            this.maskPhone.TabIndex = 20;
+            this.lblConfirm.AutoSize = true;
+            this.lblConfirm.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.lblConfirm.ForeColor = System.Drawing.Color.Snow;
+            this.lblConfirm.Location = new System.Drawing.Point(50, 334);
+            this.lblConfirm.Name = "lblConfirm";
+            this.lblConfirm.Size = new System.Drawing.Size(145, 21);
+            this.lblConfirm.TabIndex = 22;
+            this.lblConfirm.Text = "Confirmar Senha";
             // 
             // RegisterClients
             // 
@@ -265,14 +258,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(850, 527);
-            this.Controls.Add(this.maskPhone);
-            this.Controls.Add(this.ibDontShowPasswordImage);
-            this.Controls.Add(this.ibShowPasswordImage);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.lblConfirm);
+            this.Controls.Add(this.txtConfirm);
+            this.Controls.Add(this.txtPhone);
+            this.Controls.Add(this.txtDelete);
             this.Controls.Add(this.lblDelete);
-            this.Controls.Add(this.iconButton2);
-            this.Controls.Add(this.iconButton1);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.ibDelete);
+            this.Controls.Add(this.ibSearch);
+            this.Controls.Add(this.txtbSearch);
             this.Controls.Add(this.lblSearch);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.dataGridView1);
@@ -286,6 +279,7 @@
             this.Controls.Add(this.lblTitle);
             this.Name = "RegisterClients";
             this.Text = "RegisterClients";
+            this.Load += new System.EventHandler(this.RegisterClients_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -305,13 +299,13 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.Label lblSearch;
-        private System.Windows.Forms.TextBox textBox5;
-        private FontAwesome.Sharp.IconButton iconButton1;
-        private FontAwesome.Sharp.IconButton iconButton2;
+        private System.Windows.Forms.TextBox txtbSearch;
+        private FontAwesome.Sharp.IconButton ibSearch;
+        private FontAwesome.Sharp.IconButton ibDelete;
         private System.Windows.Forms.Label lblDelete;
-        private System.Windows.Forms.TextBox textBox6;
-        private FontAwesome.Sharp.IconButton ibDontShowPasswordImage;
-        private FontAwesome.Sharp.IconButton ibShowPasswordImage;
-        private System.Windows.Forms.TextBox maskPhone;
+        private System.Windows.Forms.TextBox txtDelete;
+        private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.TextBox txtConfirm;
+        private System.Windows.Forms.Label lblConfirm;
     }
 }
