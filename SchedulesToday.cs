@@ -16,6 +16,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
@@ -34,19 +35,7 @@ namespace interdisciplinar2
         {
             InitializeComponent();
             progressBar.Value = 0;
-            LoadDbData();
-            List<Button> buttons = new List<Button>();
-            buttons.Add(btnRecharge);     
-
-            List<Label> labels = new List<Label>();         
-
-            List<IconButton> iconButtons = new List<IconButton>();      
-
-            programTheme = new ProgramTheme();
-            programTheme.form = this;
-            programTheme.buttons = buttons;
-            programTheme.labels = labels;
-            programTheme.iButtons = iconButtons;
+            LoadDbData();         
         }
 
         List<Control> controlsRemove = new List<Control>();
@@ -574,6 +563,7 @@ namespace interdisciplinar2
                         {
                             queryTxtService = "SELECT services.id FROM services WHERE services.`name` = '" + pass.Controls[3].Text + "';";
                         }
+                       
                         queryIdSchedule = "SELECT schedules.id FROM schedules WHERE schedules.horary ='" + Date(pass.Controls[5].Text) + "';";
                         stop = true;
                         break;
@@ -683,18 +673,7 @@ namespace interdisciplinar2
             year = value.Substring(6, 4);
             string horary = value.Substring(11, 8);
 
-            string[] newDate = { year, month, day };
-
-            foreach (string pass in newDate)
-            {
-                date += pass;
-                if (pass == day)
-                {
-                    date += " ";
-                    break;
-                }
-                date += "-";
-            }
+            date = year + "-" + month + "-" + day +" ";
             date += horary;
 
             return date;

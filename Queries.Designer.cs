@@ -79,7 +79,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label1.ForeColor = System.Drawing.Color.Snow;
             this.label1.Location = new System.Drawing.Point(360, 360);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(219, 30);
@@ -91,7 +91,7 @@
             this.btnClientActive.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
             this.btnClientActive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClientActive.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.btnClientActive.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnClientActive.ForeColor = System.Drawing.Color.Snow;
             this.btnClientActive.Location = new System.Drawing.Point(12, 233);
             this.btnClientActive.Name = "btnClientActive";
             this.btnClientActive.Size = new System.Drawing.Size(305, 60);
@@ -105,7 +105,7 @@
             this.btnBarberActive.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
             this.btnBarberActive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBarberActive.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.btnBarberActive.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnBarberActive.ForeColor = System.Drawing.Color.Snow;
             this.btnBarberActive.Location = new System.Drawing.Point(12, 340);
             this.btnBarberActive.Name = "btnBarberActive";
             this.btnBarberActive.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -120,7 +120,7 @@
             this.mostService.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
             this.mostService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mostService.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.mostService.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.mostService.ForeColor = System.Drawing.Color.Snow;
             this.mostService.Location = new System.Drawing.Point(12, 447);
             this.mostService.Name = "mostService";
             this.mostService.Size = new System.Drawing.Size(305, 60);

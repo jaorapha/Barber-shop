@@ -56,7 +56,7 @@ namespace interdisciplinar2
             this.btnCadastrar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
             this.btnCadastrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCadastrar.Font = new System.Drawing.Font("Cascadia Code", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCadastrar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnCadastrar.ForeColor = System.Drawing.Color.Snow;
             this.btnCadastrar.Location = new System.Drawing.Point(65, 387);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(356, 67);
@@ -77,7 +77,6 @@ namespace interdisciplinar2
             this.label1.Size = new System.Drawing.Size(228, 43);
             this.label1.TabIndex = 2;
             this.label1.Text = "Agendamento";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtName
             // 
@@ -215,7 +214,6 @@ namespace interdisciplinar2
             this.maskeDate.Size = new System.Drawing.Size(107, 26);
             this.maskeDate.TabIndex = 15;
             this.maskeDate.ValidatingType = typeof(System.DateTime);
-            this.maskeDate.Click += new System.EventHandler(this.maskeDate_Click);
             // 
             // maskeHorary
             // 
@@ -230,7 +228,7 @@ namespace interdisciplinar2
             // 
             this.lblHorary.AutoSize = true;
             this.lblHorary.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.lblHorary.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblHorary.ForeColor = System.Drawing.Color.Snow;
             this.lblHorary.Location = new System.Drawing.Point(252, 221);
             this.lblHorary.Name = "lblHorary";
             this.lblHorary.Size = new System.Drawing.Size(73, 21);

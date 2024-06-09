@@ -228,7 +228,6 @@
             this.dontShowPasswordImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.dontShowPasswordImage.TabIndex = 13;
             this.dontShowPasswordImage.TabStop = false;
-            this.dontShowPasswordImage.Click += new System.EventHandler(this.dontShowPasswordImage_Click);
             this.dontShowPasswordImage.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dontShowPasswordImage_MouseClick);
             // 
             // showPasswordImage

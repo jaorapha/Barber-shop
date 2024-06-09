@@ -119,9 +119,9 @@ namespace interdisciplinar2
                 ErrorMessageBox errorValue = new ErrorMessageBox("Utilize apenas letras nos campos, exceto no campo preço");
                 errorValue.ShowDialog();
             }
-            else if (!Regex.IsMatch(txtPrice.Text, "[0-9]+[,]?"))
+            else if (!Regex.IsMatch(txtPrice.Text, "^[1-9][0-9]{0,2},[0-9]{2}$"))
             {
-                ErrorMessageBox errorValue = new ErrorMessageBox("Utilize somente números");
+                ErrorMessageBox errorValue = new ErrorMessageBox("Valor inválido");
                 errorValue.ShowDialog();
             }
             else
@@ -170,6 +170,7 @@ namespace interdisciplinar2
                             }
                         }
                     }
+                   
                     string priceFormatted = price.ToString(CultureInfo.InvariantCulture);
 
                     using (MySqlCommand comandoNotFound = new MySqlCommand("INSERT INTO service_prices (price) VALUES(@price);", MySqlConnection))

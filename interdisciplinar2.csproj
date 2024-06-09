@@ -256,6 +256,12 @@
     <EmbeddedResource Include="Queries.resx">
       <DependentUpon>Queries.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RegisterBarbers.resx">
+      <DependentUpon>RegisterBarbers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegisterClients.resx">
+      <DependentUpon>RegisterClients.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RegisterScreen.resx">
       <DependentUpon>RegisterScreen.cs</DependentUpon>
     </EmbeddedResource>

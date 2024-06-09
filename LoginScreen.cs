@@ -247,10 +247,5 @@ namespace interdisciplinar2
                 panel2.BackColor = ProgramTheme.DarkThemeForeColor;
             }
         }
-
-        private void dontShowPasswordImage_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

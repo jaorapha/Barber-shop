@@ -275,18 +275,6 @@ namespace interdisciplinar2
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {    
-            string finalDate = Date(maskeDate.Text);
-            finalDate += "" + maskeHorary.Text;
-            MessageBox.Show(finalDate);
-        }
-
-        private void maskeDate_Click(object sender, EventArgs e)
-        {
-           
-        }
-
         private void txtDescription_Click(object sender, EventArgs e)
         {
             txtDescription.Text = "";
@@ -335,5 +323,7 @@ namespace interdisciplinar2
 
             FillDropList("SELECT services.`name` as Serviços FROM services", "Serviços", ref comboCorte);
         }
+
+        
     }
 }

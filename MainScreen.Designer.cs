@@ -36,6 +36,10 @@
             Syncfusion.Windows.Forms.Tools.ClockRenderer clockRenderer1 = new Syncfusion.Windows.Forms.Tools.ClockRenderer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainScreen));
             this.panelLeft = new System.Windows.Forms.Panel();
+            this.pnlDropDown = new System.Windows.Forms.Panel();
+            this.lblHistorico = new System.Windows.Forms.Label();
+            this.lblScheduleToday = new System.Windows.Forms.Label();
+            this.lblAgendamentos = new System.Windows.Forms.Label();
             this.ibRegisterClient = new FontAwesome.Sharp.IconButton();
             this.ibRegisterService = new FontAwesome.Sharp.IconButton();
             this.ibRegisterBarber = new FontAwesome.Sharp.IconButton();
@@ -49,10 +53,6 @@
             this.ibSchedule = new FontAwesome.Sharp.IconButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.logo = new System.Windows.Forms.PictureBox();
-            this.pnlDropDown = new System.Windows.Forms.Panel();
-            this.lblHistorico = new System.Windows.Forms.Label();
-            this.lblScheduleToday = new System.Windows.Forms.Label();
-            this.lblAgendamentos = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.ipbMinimize = new FontAwesome.Sharp.IconPictureBox();
             this.ipbMaximize = new FontAwesome.Sharp.IconPictureBox();
@@ -63,10 +63,10 @@
             this.clock1 = new Syncfusion.Windows.Forms.Tools.Clock();
             this.timerToggleButton = new System.Windows.Forms.Timer(this.components);
             this.panelLeft.SuspendLayout();
+            this.pnlDropDown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toggleButton1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
-            this.pnlDropDown.SuspendLayout();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ipbMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ipbMaximize)).BeginInit();
@@ -95,6 +95,61 @@
             this.panelLeft.Name = "panelLeft";
             this.panelLeft.Size = new System.Drawing.Size(220, 707);
             this.panelLeft.TabIndex = 0;
+            // 
+            // pnlDropDown
+            // 
+            this.pnlDropDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.pnlDropDown.Controls.Add(this.lblHistorico);
+            this.pnlDropDown.Controls.Add(this.lblScheduleToday);
+            this.pnlDropDown.Controls.Add(this.lblAgendamentos);
+            this.pnlDropDown.Location = new System.Drawing.Point(0, 435);
+            this.pnlDropDown.Name = "pnlDropDown";
+            this.pnlDropDown.Size = new System.Drawing.Size(220, 107);
+            this.pnlDropDown.TabIndex = 3;
+            this.pnlDropDown.Visible = false;
+            // 
+            // lblHistorico
+            // 
+            this.lblHistorico.Font = new System.Drawing.Font("Cascadia Code", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHistorico.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblHistorico.Location = new System.Drawing.Point(0, 35);
+            this.lblHistorico.Name = "lblHistorico";
+            this.lblHistorico.Size = new System.Drawing.Size(220, 35);
+            this.lblHistorico.TabIndex = 4;
+            this.lblHistorico.Text = "Histórico";
+            this.lblHistorico.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblHistorico.Click += new System.EventHandler(this.lblHistorico_Click);
+            this.lblHistorico.MouseEnter += new System.EventHandler(this.lblHistorico_MouseEnter);
+            this.lblHistorico.MouseLeave += new System.EventHandler(this.lblHistorico_MouseLeave);
+            // 
+            // lblScheduleToday
+            // 
+            this.lblScheduleToday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.lblScheduleToday.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.lblScheduleToday.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblScheduleToday.Location = new System.Drawing.Point(0, 72);
+            this.lblScheduleToday.Name = "lblScheduleToday";
+            this.lblScheduleToday.Size = new System.Drawing.Size(220, 35);
+            this.lblScheduleToday.TabIndex = 4;
+            this.lblScheduleToday.Text = "Agendamentos de hoje";
+            this.lblScheduleToday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblScheduleToday.Click += new System.EventHandler(this.lblScheduleToday_Click);
+            this.lblScheduleToday.MouseEnter += new System.EventHandler(this.lblScheduleToday_MouseEnter);
+            this.lblScheduleToday.MouseLeave += new System.EventHandler(this.lblScheduleToday_MouseLeave);
+            // 
+            // lblAgendamentos
+            // 
+            this.lblAgendamentos.Font = new System.Drawing.Font("Cascadia Code", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAgendamentos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblAgendamentos.Location = new System.Drawing.Point(-1, -3);
+            this.lblAgendamentos.Name = "lblAgendamentos";
+            this.lblAgendamentos.Size = new System.Drawing.Size(220, 35);
+            this.lblAgendamentos.TabIndex = 3;
+            this.lblAgendamentos.Text = "Agendamentos Futuros";
+            this.lblAgendamentos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblAgendamentos.Click += new System.EventHandler(this.lblAgendamentos_Click);
+            this.lblAgendamentos.MouseEnter += new System.EventHandler(this.lblAgendamentos_MouseEnter);
+            this.lblAgendamentos.MouseLeave += new System.EventHandler(this.lblAgendamentos_MouseLeave);
             // 
             // ibRegisterClient
             // 
@@ -346,61 +401,6 @@
             this.logo.TabStop = false;
             this.logo.Click += new System.EventHandler(this.logo_Click);
             // 
-            // pnlDropDown
-            // 
-            this.pnlDropDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.pnlDropDown.Controls.Add(this.lblHistorico);
-            this.pnlDropDown.Controls.Add(this.lblScheduleToday);
-            this.pnlDropDown.Controls.Add(this.lblAgendamentos);
-            this.pnlDropDown.Location = new System.Drawing.Point(0, 435);
-            this.pnlDropDown.Name = "pnlDropDown";
-            this.pnlDropDown.Size = new System.Drawing.Size(220, 107);
-            this.pnlDropDown.TabIndex = 3;
-            this.pnlDropDown.Visible = false;
-            // 
-            // lblHistorico
-            // 
-            this.lblHistorico.Font = new System.Drawing.Font("Cascadia Code", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHistorico.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblHistorico.Location = new System.Drawing.Point(0, 35);
-            this.lblHistorico.Name = "lblHistorico";
-            this.lblHistorico.Size = new System.Drawing.Size(220, 35);
-            this.lblHistorico.TabIndex = 4;
-            this.lblHistorico.Text = "Histórico";
-            this.lblHistorico.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblHistorico.Click += new System.EventHandler(this.lblHistorico_Click);
-            this.lblHistorico.MouseEnter += new System.EventHandler(this.lblHistorico_MouseEnter);
-            this.lblHistorico.MouseLeave += new System.EventHandler(this.lblHistorico_MouseLeave);
-            // 
-            // lblScheduleToday
-            // 
-            this.lblScheduleToday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.lblScheduleToday.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.lblScheduleToday.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblScheduleToday.Location = new System.Drawing.Point(0, 72);
-            this.lblScheduleToday.Name = "lblScheduleToday";
-            this.lblScheduleToday.Size = new System.Drawing.Size(220, 35);
-            this.lblScheduleToday.TabIndex = 4;
-            this.lblScheduleToday.Text = "Agendamentos de hoje";
-            this.lblScheduleToday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblScheduleToday.Click += new System.EventHandler(this.lblScheduleToday_Click);
-            this.lblScheduleToday.MouseEnter += new System.EventHandler(this.lblScheduleToday_MouseEnter);
-            this.lblScheduleToday.MouseLeave += new System.EventHandler(this.lblScheduleToday_MouseLeave);
-            // 
-            // lblAgendamentos
-            // 
-            this.lblAgendamentos.Font = new System.Drawing.Font("Cascadia Code", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAgendamentos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblAgendamentos.Location = new System.Drawing.Point(-1, -3);
-            this.lblAgendamentos.Name = "lblAgendamentos";
-            this.lblAgendamentos.Size = new System.Drawing.Size(220, 35);
-            this.lblAgendamentos.TabIndex = 3;
-            this.lblAgendamentos.Text = "Agendamentos Futuros";
-            this.lblAgendamentos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblAgendamentos.Click += new System.EventHandler(this.lblAgendamentos_Click);
-            this.lblAgendamentos.MouseEnter += new System.EventHandler(this.lblAgendamentos_MouseEnter);
-            this.lblAgendamentos.MouseLeave += new System.EventHandler(this.lblAgendamentos_MouseLeave);
-            // 
             // panelHeader
             // 
             this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(49)))), ((int)(((byte)(51)))));
@@ -517,7 +517,7 @@
             this.clock1.ClockShape = Syncfusion.Windows.Forms.Tools.ClockShapes.Circle;
             this.clock1.ClockType = Syncfusion.Windows.Forms.Tools.ClockTypes.Digital;
             this.clock1.CurrentDateTime = new System.DateTime(2023, 11, 27, 0, 40, 17, 555);
-            this.clock1.CustomTime = new System.DateTime(2024, 5, 26, 12, 27, 33, 63);
+            this.clock1.CustomTime = new System.DateTime(2024, 6, 6, 14, 9, 40, 235);
             this.clock1.DigitalRenderer = digitalClockRenderer1;
             this.clock1.DisplayDates = true;
             this.clock1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
@@ -557,10 +557,10 @@
             this.Load += new System.EventHandler(this.MainScreen_Load);
             this.panelLeft.ResumeLayout(false);
             this.panelLeft.PerformLayout();
+            this.pnlDropDown.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.toggleButton1)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
-            this.pnlDropDown.ResumeLayout(false);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ipbMinimize)).EndInit();
