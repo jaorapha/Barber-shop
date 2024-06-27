@@ -1,4 +1,6 @@
-﻿using interdisciplinar2.CustomMessageBoxes;
+﻿using FontAwesome.Sharp;
+using interdisciplinar2.CustomMessageBoxes;
+using interdisciplinar2.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -16,9 +18,35 @@ namespace interdisciplinar2
 {
     public partial class RegisterClients : Form
     {
+
+        private ProgramTheme programTheme;
+
         public RegisterClients()
         {
             InitializeComponent();
+
+            List<Button> buttons = new List<Button>();
+            buttons.Add(btnRegister);
+
+            List<Label> labels = new List<Label>();
+            labels.Add(lblDelete);
+            labels.Add(lblSearch);
+            labels.Add(lblTitle);
+            labels.Add(lblName);
+            labels.Add(lblpassword);
+            labels.Add(lblEmail);
+            labels.Add(lblPhone);
+            labels.Add(lblConfirm);
+
+
+            List<IconButton> iconButtons = new List<IconButton>();
+            iconButtons.Add(ibSearch);
+
+            programTheme = new ProgramTheme();
+            programTheme.form = this;
+            programTheme.buttons = buttons;
+            programTheme.labels = labels;
+            programTheme.iButtons = iconButtons;
         }
         string conection = "server=localhost;database=barber_shop2;uid=root;pwd=jhon";
 
@@ -29,11 +57,11 @@ namespace interdisciplinar2
             {
                 connection.Open();
 
-                string commandString = "SELECT full_name,user_name FROM customers ORDER BY full_name;";
+                string commandString = "SELECT id,full_name as nome,email FROM customers ORDER BY full_name;";
 
                 if (txtbSearch.Text != "")
                 {
-                    commandString = "SELECT full_name,user_name FROM customers WHERE full_name LIKE @nome ORDER BY full_name";
+                    commandString = "SELECT id,full_name as nome,email FROM customers WHERE full_name LIKE @nome ORDER BY full_name";
                 }
 
                 MySqlDataAdapter adapter = null;
@@ -46,7 +74,7 @@ namespace interdisciplinar2
                     }
                     else
                     {
-                        command.CommandText = "SELECT full_name,user_name FROM customers ORDER BY full_name;";
+                        command.CommandText = "SELECT id,full_name as nome,email FROM customers ORDER BY full_name;";
                     }
 
                     adapter = new MySqlDataAdapter(command);
@@ -77,7 +105,7 @@ namespace interdisciplinar2
 
             string validNumber = @"^119\d{8}$";
 
-            string[] fieldsNUll = new string[] { txtName.Text, txtPassword.Text, txtPhone.Text, txtUser.Text };
+            string[] fieldsNUll = new string[] { txtName.Text, txtPassword.Text, txtPhone.Text,txtEmail.Text };
             int count = 0;
 
             foreach (string pass in fieldsNUll)
@@ -97,12 +125,12 @@ namespace interdisciplinar2
                 ErrorMessageBox errorValue = new ErrorMessageBox("Este campo não permite números");
                 errorValue.ShowDialog();
             }
-            else if (!Regex.IsMatch(txtUser.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ,.0-9 ]+$") || !Regex.IsMatch(txtName.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ ]+$"))
+            else if (!Regex.IsMatch(txtName.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ ]+$"))
             {
-                ErrorMessageBox errorValue = new ErrorMessageBox("Não utilize símbolos nos campos usuário e nome");
+                ErrorMessageBox errorValue = new ErrorMessageBox("Não utilize símbolos nos campos nome");
                 errorValue.ShowDialog();
             }
-            else if (Regex.IsMatch(txtName.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtPhone.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtUser.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtPassword.Text, "^[ ]|[ ]$") )
+            else if (Regex.IsMatch(txtName.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtPhone.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtPassword.Text, "^[ ]|[ ]$") )
             {
                 ErrorMessageBox errorValue = new ErrorMessageBox("O campo não pode começar/terminar com espaço");
                 errorValue.ShowDialog();
@@ -128,21 +156,21 @@ namespace interdisciplinar2
                 {
                     mySqlConnection.Open();
 
-                    using (MySqlCommand command = new MySqlCommand("SELECT user_name,tel FROM customers", mySqlConnection))
+                    using (MySqlCommand command = new MySqlCommand("SELECT email,tel,email FROM customers", mySqlConnection))
                     {
                         using (MySqlDataReader myReader = command.ExecuteReader())
                         {
                             while (myReader.Read())
                             {
-                                if (myReader.GetString("user_name").Contains(txtUser.Text))
+                                if (myReader.GetString("tel").Contains(txtPhone.Text))
                                 {
-                                    ErrorMessageBox erroFind = new ErrorMessageBox("nome de usuário em uso");
+                                    ErrorMessageBox erroFind = new ErrorMessageBox("um usuário já cadastrou esse número");
                                     erroFind.ShowDialog();
                                     return;
                                 }
-                                else if (myReader.GetString("tel").Contains(txtPhone.Text))
+                                else if (myReader.GetString("email").Contains(txtEmail.Text))
                                 {
-                                    ErrorMessageBox erroFind = new ErrorMessageBox("um usuário já cadastrou esse número");
+                                    ErrorMessageBox erroFind = new ErrorMessageBox("um usuário já cadastrou esse Email");
                                     erroFind.ShowDialog();
                                     return;
                                 }
@@ -150,13 +178,13 @@ namespace interdisciplinar2
                         }
                     }
 
-                    using (MySqlCommand insertCommand = new MySqlCommand("INSERT INTO customers(full_name, user_name, tel, `password`) VALUES ('"+ txtName.Text +"','"+ txtUser.Text +"','"+ txtPhone.Text +"','"+ txtPassword.Text +"')", mySqlConnection))
+                    using (MySqlCommand insertCommand = new MySqlCommand("INSERT INTO customers(full_name, email, tel, `password`) VALUES ('"+ txtName.Text +"','"+ txtEmail.Text +"','"+ txtPhone.Text +"','"+ txtPassword.Text +"')", mySqlConnection))
                     {
                         insertCommand.ExecuteNonQuery();
                         DoneMessageBox doneBox = new DoneMessageBox("Cliente cadastrado com sucesso");
                         doneBox.ShowDialog();
                         txtPassword.Text = "";
-                        txtUser.Text = "";
+                        txtEmail.Text = "";
                         txtName.Text = "";
                         txtPhone.Text = "";
                         txtConfirm.Text = "";
@@ -190,57 +218,27 @@ namespace interdisciplinar2
 
         private void ibDelete_Click(object sender, EventArgs e)
         {
-            if (txtDelete.Text == "" || txtDelete.Text == null || txtDelete.Text == "Insira o nome de usuário")
+            try
             {
-                ErrorMessageBox errorValue = new ErrorMessageBox("Digite o nome de usuário");
-                errorValue.ShowDialog();
-            }
-            else if (!Regex.IsMatch(txtDelete.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ ]+$"))
-            {
-                ErrorMessageBox errorValue = new ErrorMessageBox("Apenas letras neste campo");
-                errorValue.ShowDialog();
-            }
-            else if (Regex.IsMatch(txtDelete.Text, "[ ]$") || Regex.IsMatch(txtDelete.Text, "^[ ]"))
-            {
-                ErrorMessageBox errorValue = new ErrorMessageBox("O campo não pode começar/terminar com um espaço em branco");
-                errorValue.ShowDialog();
-            }
-            else
-            {
-                int id = 0;
                 MySqlConnection MySqlConnection = new MySqlConnection(conection);
                 MySqlConnection.Open();
-                MySqlCommand comand = new MySqlCommand("SELECT id,user_name FROM customers", MySqlConnection);
-                MySqlDataReader myReader = comand.ExecuteReader();
 
-                while (myReader.Read())
-                {
-                    if (myReader.GetString("user_name").Contains(txtDelete.Text))
-                    {
-                        id = myReader.GetInt32("id");
-                        MySqlConnection.Close();
-                        MySqlConnection.Open();
-                        try
-                        {
-                            using (MySqlCommand comandoNew = new MySqlCommand("DELETE FROM customers WHERE id = " + id + ";", MySqlConnection))
-                            {
-                                comandoNew.ExecuteNonQuery();
-                                DoneMessageBox doneBox = new DoneMessageBox("Clinte Apagado com sucesso");
-                                doneBox.ShowDialog();
-                                LoadDatabaseData();
-                                txtDelete.Text = "";
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            ErrorMessageBox error = new ErrorMessageBox("Algo deu errado");
-                            error.ShowDialog();
-                        }
-                        return;
-                    }
-                }
+                MySqlCommand comando1 = new MySqlCommand("DELETE FROM schedules WHERE customer_id = " + int.Parse(txtDelete.Text) + ";", MySqlConnection);
+                comando1.ExecuteNonQuery();
 
-                ErrorMessageBox errorNotFound = new ErrorMessageBox("Cliente não cadastrado");
+                MySqlCommand comando2 = new MySqlCommand("DELETE FROM customers WHERE id = " + int.Parse(txtDelete.Text) + ";", MySqlConnection);
+                comando2.ExecuteNonQuery();
+                MySqlConnection.Close();
+                DoneMessageBox doneMessage = new DoneMessageBox("Cliente apagado com sucesso");
+                doneMessage.ShowDialog();
+
+                LoadDatabaseData();
+
+                txtDelete.Text = " ";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox errorNotFound = new ErrorMessageBox("Algo deu errado, tente novamente");
                 errorNotFound.ShowDialog();
             }
         }
@@ -248,6 +246,23 @@ namespace interdisciplinar2
         private void RegisterClients_Load(object sender, EventArgs e)
         {
             LoadDatabaseData();
+            dataGridView1.Columns[0].Width = 50;
+            dataGridView1.Columns[1].Width = 100;
+            dataGridView1.Columns[2].Width = 200;
+            programTheme.LoadTheme();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                txtDelete.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox errorNotFound = new ErrorMessageBox("Algo deu errado, tente novamente");
+                errorNotFound.ShowDialog();
+            }
         }
     }
 }

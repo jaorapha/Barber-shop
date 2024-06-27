@@ -250,7 +250,7 @@ namespace interdisciplinar2
             //    iconPictureBox2.IconColor = Color.Black;
             //    iconPictureBox3.IconColor = Color.Black;
             //}
-
+            LoadFormData();
             programTheme.LoadTheme();
         }
     }

@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvQuery = new System.Windows.Forms.DataGridView();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -43,9 +46,35 @@
             // 
             // dgvQuery
             // 
+            this.dgvQuery.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.dgvQuery.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvQuery.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvQuery.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvQuery.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvQuery.EnableHeadersVisualStyles = false;
             this.dgvQuery.Location = new System.Drawing.Point(335, 34);
             this.dgvQuery.Name = "dgvQuery";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvQuery.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Snow;
+            this.dgvQuery.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvQuery.Size = new System.Drawing.Size(453, 300);
             this.dgvQuery.TabIndex = 1;
             // 
@@ -68,9 +97,9 @@
             // 
             // txtbSearch
             // 
-            this.txtbSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.txtbSearch.BackColor = System.Drawing.Color.White;
             this.txtbSearch.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.txtbSearch.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtbSearch.ForeColor = System.Drawing.SystemColors.ControlText;
             this.txtbSearch.Location = new System.Drawing.Point(364, 401);
             this.txtbSearch.Name = "txtbSearch";
             this.txtbSearch.Size = new System.Drawing.Size(305, 26);

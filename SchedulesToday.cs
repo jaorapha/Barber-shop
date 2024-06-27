@@ -34,8 +34,13 @@ namespace interdisciplinar2
         public SchedulesToday()
         {
             InitializeComponent();
-            progressBar.Value = 0;
-            LoadDbData();         
+
+            List<Button> buttons = new List<Button>();
+            buttons.Add(btnRecharge);
+
+            programTheme = new ProgramTheme();
+            programTheme.form = this;
+            programTheme.buttons = buttons;
         }
 
         List<Control> controlsRemove = new List<Control>();
@@ -43,9 +48,11 @@ namespace interdisciplinar2
         List<Control> allCards = new List<Control>();
 
         private void LoadDbData()
-        {         
+        {
 
-            string query = "SELECT customers.full_name,schedules.service,schedules.horary,schedules.`description` AS descrição FROM schedules INNER JOIN customers ON schedules.customer_id = customers.id WHERE DATE(schedules.horary) = CURDATE() AND  schedules.barber_id IS NULL ORDER BY horary;";
+            this.panelCards.Controls.Add(this.panel1);  
+
+            string query = "SELECT barbers.full_name as  barber,customers.full_name,schedules.service as service,schedules.horary,schedules.`description` AS descrição FROM schedules INNER JOIN customers ON schedules.customer_id = customers.id LEFT JOIN barbers ON barbers.id = schedules.barber_id WHERE DATE(schedules.horary) = CURDATE() AND schedules.created_at = schedules.updated_at  ORDER BY horary";
 
             MySqlConnection conexaoSql = new MySqlConnection(conection);
             MySqlCommand comando = new MySqlCommand(query, conexaoSql);
@@ -74,8 +81,8 @@ namespace interdisciplinar2
                 Button btnEdit = new System.Windows.Forms.Button();
                 Label lblDescription = new System.Windows.Forms.Label();
                 TextBox txtDescription = new System.Windows.Forms.TextBox();
-                ComboBox dropListBarbers = new System.Windows.Forms.ComboBox();
-                ComboBox dropListServices = new System.Windows.Forms.ComboBox();
+                this.dropListBarbers = new System.Windows.Forms.ComboBox();
+                this.dropListServices = new System.Windows.Forms.ComboBox();
                 Panel Card = new System.Windows.Forms.Panel();
                 #endregion
 
@@ -107,6 +114,16 @@ namespace interdisciplinar2
                 lblClientName.Size = new System.Drawing.Size(145, 21);
                 lblClientName.TabIndex = 1;
                 lblClientName.Text = "Nome do cliente";
+                lblClientName.Text = "Nome do cliente";
+                int maxLength = 15; 
+                lblClientName.TextChanged += (sender, e) =>
+                {
+                    if (lblClientName.Text.Length > maxLength)
+                    {
+                        lblClientName.Text = lblClientName.Text.Substring(0, maxLength) + "...";
+                    }
+                };
+
 
                 //lblHaircut
                 lblHaircut.AutoSize = true;
@@ -217,12 +234,13 @@ namespace interdisciplinar2
                 btnAccept.TabIndex = 9;
                 btnAccept.Text = "Concluir";
                 btnAccept.UseVisualStyleBackColor = true;
-                btnAccept.Enabled = false;
                 btnAccept.Click += Accept_Click;
 
                 //edit
                 btnEdit.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+                btnEdit.ForeColor = System.Drawing.Color.Snow;
                 btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                btnAccept.ForeColor = System.Drawing.SystemColors.ControlLightLight;
                 btnEdit.Font = new System.Drawing.Font("Cascadia Code", 12F);
                 btnEdit.Location = new System.Drawing.Point(283, 45);
                 btnEdit.Name = "btnEdit";
@@ -236,19 +254,22 @@ namespace interdisciplinar2
                 #region Combobox
                 //barber
                 dropListBarbers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(21)))), ((int)(((byte)(21)))));
-                dropListBarbers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
                 dropListBarbers.Font = new System.Drawing.Font("Cascadia Code", 10F);
+                dropListBarbers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
                 dropListBarbers.ForeColor = System.Drawing.SystemColors.ControlLightLight;
                 dropListBarbers.FormattingEnabled = true;
                 dropListBarbers.Location = new System.Drawing.Point(106, 198);
                 dropListBarbers.Name = "dropListBarbers";
                 dropListBarbers.Size = new System.Drawing.Size(221, 25);
                 dropListBarbers.TabIndex = 0;
+                dropListBarbers.Text = "Barbeiro não escolhido";
                 dropListBarbers.Enabled = false;
+                
+                dropListBarbers.Click += dropListBarbers_Click;
+               
 
                 //service 
                 dropListServices.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(21)))), ((int)(((byte)(21)))));
-                dropListServices.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
                 dropListServices.Font = new System.Drawing.Font("Cascadia Code", 10F);
                 dropListServices.ForeColor = System.Drawing.SystemColors.ControlLightLight;
                 dropListServices.FormattingEnabled = true;
@@ -257,6 +278,7 @@ namespace interdisciplinar2
                 dropListServices.Size = new System.Drawing.Size(217, 25);
                 dropListServices.TabIndex = 1;
                 dropListServices.Enabled = false;
+                dropListServices.Click += dropListServices_Click;
                 #endregion
 
                 #region Card
@@ -281,13 +303,13 @@ namespace interdisciplinar2
                 Card.Margin = new System.Windows.Forms.Padding(7);
                 Card.AutoSize = false;
                 Card.TabIndex = 0;
-                Card.DoubleClick += Card_DoubleClick;
                 #endregion
 
                 try
                 {
                     lblClientName.Text = myReader.GetString("full_name");
                     dropListServices.Text = myReader.GetString("service");
+                    dropListBarbers.Text = myReader.GetString("barber");
                     if (!dropListServices.Items.Contains(dropListServices.Text))
                     {
                         Card.Controls.Add(lblService);
@@ -304,7 +326,6 @@ namespace interdisciplinar2
                 }
                 catch (Exception ex)
                 {
-
                     if (ex is System.Data.SqlTypes.SqlNullValueException)
                     {
                         lblClientName.Text = myReader.GetString("full_name");
@@ -328,6 +349,8 @@ namespace interdisciplinar2
                         {
                             txtDescription.Text = myReader.GetString("descrição");
                         }
+
+
                         this.panelCards.Controls.Add(Card);
                     }
                 }
@@ -336,6 +359,8 @@ namespace interdisciplinar2
 
         private void SchedulesToday_Load(object sender, EventArgs e)
         {
+            LoadDbData();
+
             programTheme.LoadTheme();
         }
 
@@ -373,25 +398,6 @@ namespace interdisciplinar2
             mySqlconnection.Open();
             MySqlCommand comand = new MySqlCommand(query, mySqlconnection);
             comand.ExecuteNonQuery();
-        }
-
-        private void Card_DoubleClick(object sender, EventArgs e)
-        {
-            int count = 0;
-            int valor = 0;
-
-            foreach (Control pass in panelCards.Controls)
-            {
-                if (pass == sender)
-                {
-                    foreach (Control value in pass.Controls)
-                    {
-                        MessageBox.Show(value.ToString() + "está no índice " + valor);
-                        valor++;
-                    }
-                }
-                count++;
-            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -492,6 +498,7 @@ namespace interdisciplinar2
 
         private void cancel_Click(object sender, EventArgs e)
         {
+            int count = 0;
             DialogResult back = MessageBox.Show("Você deseja mesmo cancelar? as alterações não serão salvas", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
             if (back == DialogResult.Yes)
@@ -512,27 +519,8 @@ namespace interdisciplinar2
             {
                 return;
             }
-
-            foreach (Control pass in this.panelCards.Controls)
-            {
-                if (pass.Controls[8].Visible == false && pass.Controls[8].Enabled == false)
-                {
-                    pass.Controls[8].Visible = true;
-                    pass.Controls[8].Enabled = true;
-                    pass.Controls[9].Size = new System.Drawing.Size(106, 32);
-                    pass.Controls[9].Location = new System.Drawing.Point(40, 334);
-                    pass.Controls[3].Enabled = false;
-                    pass.Controls[7].Enabled = false;
-                    pass.Controls[9].Enabled = false;
-                    pass.Controls[11].Enabled = true;
-                    pass.Controls[3].Text = "";
-                    pass.Controls[7].Text = "";
-                    if (pass.Controls[3].Text == "")
-                    {
-                        pass.Controls[3].Text = "Serviço não escolhido";
-                    }
-                }
-            }
+            panelCards.Controls.Clear();
+            LoadDbData();
         }
 
         private void Accept_Click(object sender, EventArgs e)
@@ -592,12 +580,10 @@ namespace interdisciplinar2
 
             DialogResult confirm = MessageBox.Show("Deseja mesmo concluir o agendamento?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-
             try
             {
                 if (confirm == DialogResult.Yes)
                 {
-
                     foreach (Control pass in this.panelCards.Controls)
                     {
                         if (pass.Controls[7].Text == "")
@@ -620,7 +606,7 @@ namespace interdisciplinar2
                         }
                         else
                         {
-                            update = "UPDATE schedules SET schedules.horary='" + Date(selectCard.Controls[5].Text) + "',schedules.service='" + selectCard.Controls[3].Text + "',schedules.`description`='" + selectCard.Controls[13].Text + "',schedules.barber_id=" + ids[0] + ",schedules.customer_id=" + ids[1] + ",schedules.service_id=" + ids[2] + " WHERE schedules.id = " + ids[3] + ";";
+                            update = "UPDATE schedules SET schedules.horary='" + Date(selectCard.Controls[5].Text) + "',schedules.service='" + selectCard.Controls[3].Text + "',schedules.`description`='" + selectCard.Controls[13].Text + "',schedules.barber_id=" + ids[0] + ",schedules.customer_id=" + ids[1] + ",schedules.service_id=" + ids[2] + ",schedules.updated_at = '"+ Date(DateTime.Now.ToString()) +"' WHERE schedules.id = " + ids[3] + ";";
                             MySqlConnection MySqlConnection = new MySqlConnection(conection);
                             MySqlConnection.Open();
                             MySqlCommand comand = new MySqlCommand(update, MySqlConnection);
@@ -702,22 +688,22 @@ namespace interdisciplinar2
             LoadDbData();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void dropListServices_Click(object sender, EventArgs e)
         {
-            progressBar.Value += 1;
-
-            progressBar.Text = progressBar.Value.ToString() + "%";
-
-            if (progressBar.Value == 100)
-            {
-                timer1.Stop();
-
-                //progressBar.Visible = false;
-                progressBar.Hide();
-
-                panelCards.Show();
-                
-            }
+            dropListServices.Items.Clear();
+            
+            FillDropList("SELECT services.`name` as Serviços FROM services", "Serviços", ref dropListServices);
         }
+
+        private void dropListBarbers_Click(object sender, EventArgs e)
+        {
+            dropListBarbers.Items.Clear();
+            
+            FillDropList("SELECT barbers.full_name FROM barbers", "full_name", ref dropListBarbers);
+        }
+
     }
 }
+
+
+

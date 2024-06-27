@@ -27,15 +27,16 @@ namespace interdisciplinar2
             InitializeComponent();
 
             List<Button> buttons = new List<Button>();
-
+            buttons.Add(btnRegister);
 
             List<Label> labels = new List<Label>();
             labels.Add(lblNameDelete);
-      
+            labels.Add(lblSearch);
+            labels.Add(lblTitle);
+            labels.Add(lblName);
 
             List<IconButton> iconButtons = new List<IconButton>();
             iconButtons.Add(ibSearch);
-
 
             programTheme = new ProgramTheme();
             programTheme.form = this;
@@ -51,11 +52,11 @@ namespace interdisciplinar2
             {
                 connection.Open();
 
-                string commandString = "SELECT full_name FROM barbers ORDER BY full_name";
+                string commandString = "SELECT id,full_name as nome FROM barbers ORDER BY full_name";
 
                 if (txtbSearch.Text != "")
                 {
-                    commandString = "SELECT full_name FROM barbers WHERE full_name LIKE @nome ORDER BY full_name";
+                    commandString = "SELECT id,full_name as nome FROM barbers WHERE full_name LIKE @nome ORDER BY full_name";
                 }
 
                 MySqlDataAdapter adapter = null;
@@ -68,7 +69,7 @@ namespace interdisciplinar2
                     }
                     else
                     {
-                        command.CommandText = "SELECT full_name FROM barbers ORDER BY full_name";
+                        command.CommandText = "SELECT id,full_name as nome FROM barbers ORDER BY full_name";
                     }
 
                     adapter = new MySqlDataAdapter(command);
@@ -159,75 +160,49 @@ namespace interdisciplinar2
         private void RegisterBarbers_Load(object sender, EventArgs e)
         {
             programTheme.LoadTheme();
-
             LoadDatabaseData();
+            dataGridView1.Columns[0].Width = 100;
+            dataGridView1.Columns[1].Width = 214;
         }
 
         private void ibDelete_Click(object sender, EventArgs e)
         {
-            if (txtDelete.Text == ""|| txtDelete.Text ==null || txtDelete.Text == "Insira o nome do barbeiro")
+            try
             {
-                ErrorMessageBox errorValue = new ErrorMessageBox("Digite o nome do barbeiro");
-                errorValue.ShowDialog();
-            }
-            else if(!Regex.IsMatch(txtDelete.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ ]+$"))
-            {
-                ErrorMessageBox errorValue = new ErrorMessageBox("Apenas letras neste campo");
-                errorValue.ShowDialog();
-            }
-            else if(Regex.IsMatch(txtDelete.Text, "[ ]$") || Regex.IsMatch(txtDelete.Text, "^[ ]"))
-            {
-                ErrorMessageBox errorValue = new ErrorMessageBox("O campo não pode começar/terminar com um espaço em branco");
-                errorValue.ShowDialog();
-            }
-            else
-            {
-                int id = 0;
                 MySqlConnection MySqlConnection = new MySqlConnection(conection);
                 MySqlConnection.Open();
-                MySqlCommand comand = new MySqlCommand("SELECT id,full_name FROM barbers", MySqlConnection);
-                MySqlDataReader myReader = comand.ExecuteReader();
+                MySqlCommand comando = new MySqlCommand("DELETE FROM barbers WHERE id = " + int.Parse(txtDelete.Text) + ";", MySqlConnection);
+                comando.ExecuteNonQuery();
+                DoneMessageBox doneMessage = new DoneMessageBox("Barbeiro apagado com sucesso");
+                doneMessage.ShowDialog();
+                LoadDatabaseData();
+                txtDelete.Text = " ";
 
-                while (myReader.Read())
-                {
-                    if (myReader.GetString("full_name").Contains(txtDelete.Text))
-                    {
-                        id = myReader.GetInt32("id");
-                        MySqlConnection.Close();
-                        MySqlConnection.Open();
-                        try
-                        {
-                            using (MySqlCommand comandoNew = new MySqlCommand("DELETE FROM barbers WHERE id = " + id + ";", MySqlConnection))
-                            {
-                                comandoNew.ExecuteNonQuery();
-                                DoneMessageBox doneBox = new DoneMessageBox("Barbeiro Apagado com sucesso");
-                                doneBox.ShowDialog();
-                                LoadDatabaseData();
-                                txtDelete.Text = "";
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            ErrorMessageBox error = new ErrorMessageBox("Algo deu errado");
-                            error.ShowDialog();
-                        }
-                        return;
-                    }
-                }
-
-                ErrorMessageBox errorNotFound = new ErrorMessageBox("Barbeiro não cadastrado");
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox errorNotFound = new ErrorMessageBox("Algo deu errado, tente novamente");
                 errorNotFound.ShowDialog();
             }
-        }
-
-        private void txtDelete_Click(object sender, EventArgs e)
-        {
-            txtDelete.Text = "";
+           
         }
 
         private void RegisterBarbers_Click(object sender, EventArgs e)
         {
             txtDelete.Text = "Insira o nome do barbeiro";
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                txtDelete.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            }catch(Exception ex) 
+            {
+                ErrorMessageBox errorNotFound = new ErrorMessageBox("Algo deu errado, tente novamente");
+                errorNotFound.ShowDialog();
+            }
+           
         }
     }
 }

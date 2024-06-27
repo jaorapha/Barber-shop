@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace interdisciplinar2
@@ -57,82 +58,91 @@ namespace interdisciplinar2
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
             MySqlConnection mysql = new MySqlConnection("server=localhost;database=barber_shop2;uid=root;pwd=jhon");
-            try
+            if (!Regex.IsMatch(txtbNewPassword.Text, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*º<>,^.'\"ª´`|\\#?&])[A-Za-z\\d@$!#º¨°<^>,.'\"ª´`|\\%*?&]{8,}$"))
             {
-                mysql.Open();
-
-                this.Cursor = Cursors.WaitCursor;
-
-                MySqlDataReader reader = null;
-
-                string typedPassword = txtbPassword.Text;
-                string confirmPassword = txtbConfirmPassword.Text;
-                string newPassword = txtbNewPassword.Text;
-
-                bool isPasswordValid = false;
-
-                using (MySqlCommand command = new MySqlCommand("SELECT `password` AS senha from barbers where barbers.id = 1;", mysql))
+                ErrorMessageBox passwordWeak = new ErrorMessageBox("O mínimo de caracteres é 8 a senha deve conter letra maiúscula,símbolos e números");
+                passwordWeak.ShowDialog();
+            }
+            else
+            {
+                try
                 {
-                    reader = command.ExecuteReader();
+                    mysql.Open();
 
-                    while (reader.Read())
+                    this.Cursor = Cursors.WaitCursor;
+
+                    MySqlDataReader reader = null;
+
+                    string typedPassword = txtbPassword.Text;
+                    string confirmPassword = txtbConfirmPassword.Text;
+                    string newPassword = txtbNewPassword.Text;
+
+                    bool isPasswordValid = false;
+
+                    using (MySqlCommand command = new MySqlCommand("SELECT `password` AS senha from barbers where barbers.id = 1;", mysql))
                     {
-                        string dbPassword = reader.GetString("senha");
+                        reader = command.ExecuteReader();
 
-                        if (typedPassword == dbPassword)
+                        while (reader.Read())
                         {
-                            if (typedPassword == confirmPassword)
+                            string dbPassword = reader.GetString("senha");
+
+                            if (typedPassword == dbPassword)
                             {
-                                isPasswordValid = true;
+                                if (typedPassword == confirmPassword)
+                                {
+                                    isPasswordValid = true;
+                                }
+                                else
+                                {
+                                    ErrorMessageBox eMessageBox = new ErrorMessageBox("As senhas não coincidem!");
+                                    eMessageBox.ShowDialog();
+                                }
                             }
                             else
                             {
-                                ErrorMessageBox eMessageBox = new ErrorMessageBox("As senhas não coincidem!");
+                                ErrorMessageBox eMessageBox = new ErrorMessageBox("Senha atual incorreta!");
                                 eMessageBox.ShowDialog();
                             }
                         }
-                        else
+
+                        reader.Close();
+
+                        if (isPasswordValid)
                         {
-                            ErrorMessageBox eMessageBox = new ErrorMessageBox("Senha atual incorreta!");
-                            eMessageBox.ShowDialog();
+                            using (MySqlCommand command2 = new MySqlCommand("update barbers set `password` = @NovaSenhaBarbeiro where `password` = @SenhaBarbeiro;", mysql))
+                            {
+                                command2.Parameters.AddWithValue("@NovaSenhaBarbeiro", newPassword);
+                                command2.Parameters.AddWithValue("@SenhaBarbeiro", typedPassword);
+
+                                command2.ExecuteNonQuery();
+
+                                DoneMessageBox dMessageBox = new DoneMessageBox("Senha alterada com sucesso!");
+                                dMessageBox.ShowDialog();
+                                txtbConfirmPassword.Text = "";
+                                txtbNewPassword.Text = "";
+                                txtbPassword.Text = "";
+                            }
                         }
+
+                        this.Cursor = Cursors.Default;
                     }
-
-                    reader.Close();
-
-                    if (isPasswordValid)
-                    {
-                        using (MySqlCommand command2 = new MySqlCommand("update barbers set `password` = @NovaSenhaBarbeiro where `password` = @SenhaBarbeiro;", mysql))
-                        {
-                            command2.Parameters.AddWithValue("@NovaSenhaBarbeiro", newPassword);
-                            command2.Parameters.AddWithValue("@SenhaBarbeiro", typedPassword);
-
-                            command2.ExecuteNonQuery();
-
-                            DoneMessageBox dMessageBox = new DoneMessageBox("Senha alterada com sucesso!");
-                            dMessageBox.ShowDialog();
-                            txtbConfirmPassword.Text = "";
-                            txtbNewPassword.Text = "";
-                            txtbPassword.Text = "";
-                        }
-                    }
-
-                    this.Cursor = Cursors.Default;
                 }
-            }
-            catch (Exception ex)
-            {
-                ErrorMessageBox eMessageBox = new ErrorMessageBox(ex.Message);
-                eMessageBox.ShowDialog();
-            }
-            finally
-            {
-                if (mysql.State == System.Data.ConnectionState.Open)
+                catch (Exception ex)
                 {
-                    mysql.Close();
+                    ErrorMessageBox eMessageBox = new ErrorMessageBox(ex.Message);
+                    eMessageBox.ShowDialog();
                 }
-                mysql.Dispose();
+                finally
+                {
+                    if (mysql.State == System.Data.ConnectionState.Open)
+                    {
+                        mysql.Close();
+                    }
+                    mysql.Dispose();
+                }
             }
+           
         }
     }
 }

@@ -189,7 +189,7 @@
             this.ibRegisterService.Name = "ibRegisterService";
             this.ibRegisterService.Size = new System.Drawing.Size(220, 58);
             this.ibRegisterService.TabIndex = 8;
-            this.ibRegisterService.Text = "Adiocionar Serviço";
+            this.ibRegisterService.Text = "Adicionar Serviço";
             this.ibRegisterService.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ibRegisterService.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ibRegisterService.UseVisualStyleBackColor = true;
@@ -517,7 +517,7 @@
             this.clock1.ClockShape = Syncfusion.Windows.Forms.Tools.ClockShapes.Circle;
             this.clock1.ClockType = Syncfusion.Windows.Forms.Tools.ClockTypes.Digital;
             this.clock1.CurrentDateTime = new System.DateTime(2023, 11, 27, 0, 40, 17, 555);
-            this.clock1.CustomTime = new System.DateTime(2024, 6, 6, 14, 9, 40, 235);
+            this.clock1.CustomTime = new System.DateTime(2024, 6, 26, 21, 37, 15, 595);
             this.clock1.DigitalRenderer = digitalClockRenderer1;
             this.clock1.DisplayDates = true;
             this.clock1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));

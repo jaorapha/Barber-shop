@@ -52,24 +52,31 @@ namespace interdisciplinar2
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             dgvQuery.DataSource = dt;
+            conexaoSql.Close();
         }
 
         private void btnClientActive_Click(object sender, EventArgs e)
         {
             string query = "SELECT barbers.full_name AS Barbeiros,COUNT(schedules.barber_id) AS Atendimentos  FROM barbers INNER JOIN schedules ON barbers.id = schedules.barber_id GROUP BY schedules.barber_id ORDER BY COUNT(schedules.barber_id) DESC;";
             read(query);
+            dgvQuery.Columns[0].Width = 200;
+            dgvQuery.Columns[1].Width = 200;
         }
     
         private void btnBarberActive_Click(object sender, EventArgs e)
         {
             string query = "SELECT customers.full_name AS Cliente, COUNT(schedules.customer_id) AS Agendamentos FROM customers INNER JOIN schedules ON customers.id = schedules.customer_id GROUP BY schedules.customer_id;";
             read(query);
+            dgvQuery.Columns[0].Width = 200;
+            dgvQuery.Columns[1].Width = 200;
         }
 
         private void mostService_Click(object sender, EventArgs e)
         {
             string query = "SELECT services.`name` AS Serviço, COUNT(service) AS Requisições  FROM services INNER JOIN schedules ON schedules.service_id = services.id GROUP BY services.`name` ORDER BY COUNT(service) DESC;";
             read(query);
+            dgvQuery.Columns[0].Width = 200;
+            dgvQuery.Columns[1].Width = 200;
         }
 
         private void ibQueryClient_Click(object sender, EventArgs e)
@@ -96,12 +103,16 @@ namespace interdisciplinar2
                     }
                     else
                     {
-                        string query = "SELECT customers.full_name AS Cliente,barbers.full_name AS Barbeiro FROM barbers INNER JOIN schedules ON schedules.barber_id = barbers.id INNER JOIN customers ON customers.id = schedules.customer_id WHERE customers.full_name LIKE '" + txtbSearch.Text + "%';";
+                        string query = "SELECT customers.full_name AS Cliente,barbers.full_name AS Barbeiro, schedules.horary FROM barbers INNER JOIN schedules ON schedules.barber_id = barbers.id INNER JOIN customers ON customers.id = schedules.customer_id WHERE customers.full_name LIKE '" + txtbSearch.Text + "%';";
                         read(query);
+                        dgvQuery.Columns[0].Width = 80;
+                        dgvQuery.Columns[1].Width = 96;
+                        dgvQuery.Columns[2].Width = 200;
                         return;
                     }
                 }
             }
+            mySqlConnection.Close();
         }
 
         private void Queries_Load(object sender, EventArgs e)

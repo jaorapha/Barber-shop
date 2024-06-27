@@ -32,6 +32,7 @@ namespace interdisciplinar2
             labels.Add(lblPrice);
             labels.Add(lblSearch);
             labels.Add(lblTitle);
+            labels.Add(label1);
 
             List<IconButton> iconButtons = new List<IconButton>();
             iconButtons.Add(ibSearch);
@@ -51,11 +52,11 @@ namespace interdisciplinar2
             {
                 connection.Open();
 
-                string commandString = "SELECT services.`name` AS nome, service_prices.price AS preço FROM services LEFT JOIN service_prices ON service_prices.id = price_id ORDER BY services.category;";
+                string commandString = "SELECT services.id,services.`name` AS nome,duration as duração ,service_prices.price AS preço FROM services LEFT JOIN service_prices ON service_prices.id = price_id ORDER BY id;";
 
                 if (txtbSearch.Text != "")
                 {
-                    commandString = "SELECT services.`name` AS nome, service_prices.price FROM services LEFT JOIN service_prices ON service_prices.id = price_id WHERE services.`name` LIKE @nome ORDER BY services.category";
+                    commandString = "SELECT services.id,services.`name` AS nome,duration as duração,service_prices.price as preço FROM services LEFT JOIN service_prices ON service_prices.id = price_id WHERE services.`name` LIKE @nome ORDER BY id";
                 }
 
                 MySqlDataAdapter adapter = null;
@@ -68,7 +69,7 @@ namespace interdisciplinar2
                     }
                     else
                     {
-                        command.CommandText = "SELECT services.`name` AS nome, service_prices.price AS preço FROM services LEFT JOIN service_prices ON service_prices.id = price_id ORDER BY services.category;";
+                        command.CommandText = "SELECT services.id,services.`name` AS nome,duration as duração,service_prices.price AS preço FROM services LEFT JOIN service_prices ON service_prices.id = price_id ORDER BY id;";
                     }
 
                     adapter = new MySqlDataAdapter(command);
@@ -94,7 +95,7 @@ namespace interdisciplinar2
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            string[] fieldsNUll = new string[] { txtName.Text, maskDuration.Text, txtDescription.Text, txtPrice.Text, txtCategory.Text };
+            string[] fieldsNUll = new string[] { txtName.Text, maskDuration.Text, txtDescription.Text, txtPrice.Text, cboxCategory.Text };
             int count = 0;
 
             foreach (string pass in fieldsNUll)
@@ -109,12 +110,12 @@ namespace interdisciplinar2
                 ErrorMessageBox fieldNull = new ErrorMessageBox("Tem " + count + " campos vazios, os preencha por favor");
                 fieldNull.ShowDialog();
             }
-            else if (Regex.IsMatch(txtName.Text, "[0-9]") || Regex.IsMatch(txtDescription.Text, "[0-9]") || Regex.IsMatch(txtCategory.Text, "[0-9]"))
+            else if (Regex.IsMatch(txtName.Text, "[0-9]") || Regex.IsMatch(txtDescription.Text, "[0-9]") || Regex.IsMatch(cboxCategory.Text, "[0-9]"))
             {
                 ErrorMessageBox errorValue = new ErrorMessageBox("Somente o Campo preço pode conter Números");
                 errorValue.ShowDialog();
             }
-            else if (!Regex.IsMatch(txtCategory.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ,. ]+$") || !Regex.IsMatch(txtDescription.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ,. ]+$") || !Regex.IsMatch(txtName.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ,. ]+$"))
+            else if (!Regex.IsMatch(cboxCategory.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ,. ]+$") || !Regex.IsMatch(txtDescription.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ,. ]+$") || !Regex.IsMatch(txtName.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ,. ]+$"))
             {
                 ErrorMessageBox errorValue = new ErrorMessageBox("Utilize apenas letras nos campos, exceto no campo preço");
                 errorValue.ShowDialog();
@@ -124,7 +125,7 @@ namespace interdisciplinar2
                 ErrorMessageBox errorValue = new ErrorMessageBox("Preço inválido");
                 errorValue.ShowDialog();
             }
-            else if (Regex.IsMatch(txtCategory.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtName.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtDescription.Text, "^[ ]|[ ]$") ||  Regex.IsMatch(txtDescription.Text, "^[ ]|[ ]$"))
+            else if (Regex.IsMatch(cboxCategory.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtName.Text, "^[ ]|[ ]$") || Regex.IsMatch(txtDescription.Text, "^[ ]|[ ]$") ||  Regex.IsMatch(txtDescription.Text, "^[ ]|[ ]$"))
             {
                 ErrorMessageBox errorValue = new ErrorMessageBox("O campo não pode começar/terminar com um espaço em branco");
                 errorValue.ShowDialog();
@@ -168,7 +169,7 @@ namespace interdisciplinar2
                                 idBank = myReader.GetInt32("id");
                                 MySqlConnection.Close();
                                 MySqlConnection.Open();
-                                using (MySqlCommand comandoNew = new MySqlCommand("INSERT INTO services (category, `name`, `description`, duration, price_id) VALUES('" + txtCategory.Text + "','" + txtName.Text + "','" + txtDescription.Text + "','" + maskDuration.Text + "', " + idBank + ");", MySqlConnection))
+                                using (MySqlCommand comandoNew = new MySqlCommand("INSERT INTO services (category, `name`, `description`, duration, price_id) VALUES('" + cboxCategory.Text + "','" + txtName.Text + "','" + txtDescription.Text + "','" + maskDuration.Text + "', " + idBank + ");", MySqlConnection))
                                 {
                                     comandoNew.ExecuteNonQuery();
                                     DoneMessageBox doneBox = new DoneMessageBox("Serviço registrado com sucesso");
@@ -202,7 +203,7 @@ namespace interdisciplinar2
                     }
                     try
                     {
-                        using (MySqlCommand comando = new MySqlCommand("INSERT INTO services (category, `name`, `description`, duration, price_id) VALUES('" + txtCategory.Text + "','" + txtName.Text + "','" + txtDescription.Text + "','" + maskDuration.Text + "', " + idBank + ");", MySqlConnection))
+                        using (MySqlCommand comando = new MySqlCommand("INSERT INTO services (category, `name`, `description`, duration, price_id) VALUES('" + cboxCategory.Text + "','" + txtName.Text + "','" + txtDescription.Text + "','" + maskDuration.Text + "', " + idBank + ");", MySqlConnection))
                         {
                             comando.ExecuteNonQuery();
                             DoneMessageBox doneBox = new DoneMessageBox("Serviço registrado com sucesso");
@@ -223,7 +224,7 @@ namespace interdisciplinar2
 
         private void clearFields()
         {
-            txtCategory.Text = "";
+            cboxCategory.Text = "";
             txtDescription.Text = "";
             txtName.Text = "";
             txtPrice.Text = "";
@@ -235,6 +236,10 @@ namespace interdisciplinar2
             programTheme.LoadTheme();
 
             LoadDatabaseData();
+            dataGridView1.Columns[0].Width = 50;
+            dataGridView1.Columns[1].Width = 150;
+            dataGridView1.Columns[2].Width = 90;
+            dataGridView1.Columns[3].Width = 70;
         }
 
         private void ibSearch_Click(object sender, EventArgs e)
@@ -261,56 +266,21 @@ namespace interdisciplinar2
 
         private void ibDelete_Click(object sender, EventArgs e)
         {
-            if (txtDelete.Text == "" || txtDelete.Text == null || txtDelete.Text == "Insira o nome do serviço")
+            try
             {
-                ErrorMessageBox errorValue = new ErrorMessageBox("Digite o nome do barbeiro");
-                errorValue.ShowDialog();
-            }
-            else if (!Regex.IsMatch(txtDelete.Text, "^[A-Za-zÁ-Úá-úÀ-Ùà-ùâ-ûÂ-Ûã-õÃ-Õ ]+$"))
-            {
-                ErrorMessageBox errorValue = new ErrorMessageBox("Apenas letras neste campo");
-                errorValue.ShowDialog();
-            }
-            else if (Regex.IsMatch(txtDelete.Text, "[ ]$") || Regex.IsMatch(txtDelete.Text, "^[ ]"))
-            {
-                ErrorMessageBox errorValue = new ErrorMessageBox("O campo não pode começar/terminar com um espaço em branco");
-                errorValue.ShowDialog();
-            }
-            else 
-            {
-                int id = 0;
                 MySqlConnection MySqlConnection = new MySqlConnection(conection);
                 MySqlConnection.Open();
-                MySqlCommand comand = new MySqlCommand("SELECT services.id,services.`name` AS nome FROM services", MySqlConnection);
-                MySqlDataReader myReader = comand.ExecuteReader();
+                MySqlCommand comando = new MySqlCommand("DELETE FROM services WHERE id = " + int.Parse(txtDelete.Text) + ";", MySqlConnection);
+                comando.ExecuteNonQuery();
+                DoneMessageBox doneMessage = new DoneMessageBox("Serviço apagado com sucesso");
+                doneMessage.ShowDialog();
+                LoadDatabaseData();
+                txtDelete.Text = " ";
 
-                while (myReader.Read())
-                {
-                    if (myReader.GetString("nome").Contains(txtDelete.Text))
-                    {
-                       id =  myReader.GetInt32("id");
-                       MySqlConnection.Close();
-                       MySqlConnection.Open();
-                        try
-                        {
-                            using (MySqlCommand comandoNew = new MySqlCommand("DELETE FROM services WHERE id = " + id + ";", MySqlConnection))
-                            {
-                                comandoNew.ExecuteNonQuery();
-                                DoneMessageBox doneBox = new DoneMessageBox("Serviço Apagado com sucesso");
-                                doneBox.ShowDialog();
-                                LoadDatabaseData();
-                                txtDelete.Text = "";
-                            }
-                        }catch(Exception ex)
-                        {
-                            ErrorMessageBox error = new ErrorMessageBox("Algo deu errado");
-                            error.ShowDialog();
-                        }
-                        return;
-                    }
-                }
-
-                ErrorMessageBox errorNotFound = new ErrorMessageBox("Serviço não cadastrado");
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox errorNotFound = new ErrorMessageBox("Algo deu errado, tente novamente");
                 errorNotFound.ShowDialog();
             }
         }
@@ -323,6 +293,19 @@ namespace interdisciplinar2
         private void RegisterServices_Click(object sender, EventArgs e)
         {
             txtDelete.Text = "Insira o nome do serviço";
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                txtDelete.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox errorNotFound = new ErrorMessageBox("Algo deu errado, tente novamente");
+                errorNotFound.ShowDialog();
+            }
         }
     }
 }

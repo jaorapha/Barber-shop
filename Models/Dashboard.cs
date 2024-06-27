@@ -40,25 +40,38 @@ namespace interdisciplinar2.Models
                     {
                         command.Connection = connection;
 
-                        command.CommandText = @"SELECT COUNT(schedules.id) FROM schedules WHERE horary BETWEEN @fromDate AND @toDate;";
 
+                        command.CommandText = @"SELECT COUNT(schedules.id) 
+                                       FROM schedules 
+                                       WHERE horary BETWEEN @fromDate AND @toDate AND schedules.updated_at <> schedules.created_at;";
                         command.Parameters.Add("@fromDate", MySqlDbType.DateTime).Value = startDate;
                         command.Parameters.Add("@toDate", MySqlDbType.DateTime).Value = endDate;
+                        numberOfSchedules = Convert.ToInt32(command.ExecuteScalar());
 
-                        numberOfSchedules = int.Parse(command.ExecuteScalar().ToString());
 
-                        command.CommandText = "SELECT customers.full_name FROM customers INNER JOIN schedules ON customers.id = schedules.customer_id GROUP BY customers.full_name;";
+                        command.CommandText = @"SELECT customers.full_name 
+                                       FROM customers 
+                                       INNER JOIN schedules ON customers.id = schedules.customer_id 
+                                       WHERE schedules.horary BETWEEN @fromDate AND @toDate 
+                                       AND schedules.updated_at <> schedules.created_at
+                                       GROUP BY customers.full_name 
+                                       ORDER BY COUNT(schedules.id) DESC 
+                                       LIMIT 1;";
 
-                        ClientWithMostSchedules = (string)command.ExecuteScalar();
+                        command.Parameters.Clear();
+                        command.Parameters.Add("@fromDate", MySqlDbType.DateTime).Value = startDate;
+                        command.Parameters.Add("@toDate", MySqlDbType.DateTime).Value = endDate;
+                        ClientWithMostSchedules = command.ExecuteScalar() as string;
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception erro)
             {
-                ErrorMessageBox eMessageBox = new ErrorMessageBox(ex.Message);
-                eMessageBox.ShowDialog();
+                Console.WriteLine("Algo deu errado, tente novamente");
+                Console.WriteLine(erro.Message);
             }
         }
+
 
         private void GetResultGraphic()
         {
@@ -75,7 +88,13 @@ namespace interdisciplinar2.Models
                     {
                         command.Connection = connection;
 
-                        command.CommandText = @"SELECT schedules.horary, COUNT(schedules.id) FROM schedules WHERE schedules.horary BETWEEN @fromDate AND @toDate  GROUP BY schedules.horary;";
+                        command.CommandText = @"SELECT schedules.horary, COUNT(schedules.id), services.price_id 
+                                        FROM schedules 
+                                        INNER JOIN services ON schedules.service_id = services.id 
+                                        INNER JOIN service_prices ON services.price_id = service_prices.id
+                                        WHERE schedules.horary BETWEEN @fromDate AND @toDate 
+                                        AND schedules.updated_at <> schedules.created_at
+                                        GROUP BY schedules.horary, services.price_id;";
 
                         command.Parameters.Add("@fromDate", MySqlDbType.DateTime).Value = startDate;
                         command.Parameters.Add("@toDate", MySqlDbType.DateTime).Value = endDate;
@@ -86,29 +105,36 @@ namespace interdisciplinar2.Models
 
                         while (reader.Read())
                         {
-                            resultTable.Add(new KeyValuePair<DateTime, decimal>(reader.GetDateTime(0), reader.GetDecimal(1)));
-                            totalRevenue += reader.GetDecimal(1) * 20;
+                            var horary = reader.GetDateTime(0);
+                            var count = reader.GetDecimal(1);
+                            var priceId = reader.GetInt32(2);
+
+                            decimal price = GetServicePrice(priceId);
+
+                            resultTable.Add(new KeyValuePair<DateTime, decimal>(horary, count * price));
+                            totalRevenue += count * price;
                         }
                         reader.Close();
 
                         if (numberOfDays < 1)
                         {
-                            RevenueByDateList = (from list in resultTable
-                                                 group list by list.Key.ToString("HH:MM") into grouped
+                            RevenueByDateList = (from pair in resultTable
+                                                 group pair by pair.Key.ToString("yyyy-MM-dd HH:00") into grouped
                                                  select new RevenueByDate()
                                                  {
-                                                     Date = grouped.Key + "h",
-                                                     totalAmount = grouped.Sum(amount => amount.Value) * 20
+                                                     Date = grouped.Key.Substring(11, 5), // Apenas a hora e minutos
+                                                     totalAmount = grouped.Sum(pair => pair.Value)
                                                  }).ToList();
                         }
                         else if (numberOfDays < 30)
                         {
+
                             RevenueByDateList = (from list in resultTable
                                                  group list by list.Key.ToString("dd MMM") into grouped
                                                  select new RevenueByDate()
                                                  {
                                                      Date = grouped.Key,
-                                                     totalAmount = grouped.Sum(amount => amount.Value) * 20
+                                                     totalAmount = grouped.Sum(amount => amount.Value)
                                                  }).ToList();
                         }
                         else if (numberOfDays < 92)
@@ -118,7 +144,7 @@ namespace interdisciplinar2.Models
                                                  select new RevenueByDate()
                                                  {
                                                      Date = "Semana " + grouped.Key.ToString(),
-                                                     totalAmount = grouped.Sum(amount => amount.Value) * 20
+                                                     totalAmount = grouped.Sum(amount => amount.Value)
                                                  }).ToList();
                         }
                         else if (numberOfDays < (365 * 2))
@@ -130,10 +156,11 @@ namespace interdisciplinar2.Models
                                                  select new RevenueByDate()
                                                  {
                                                      Date = isYear ? grouped.Key.Substring(0, grouped.Key.IndexOf(" ")) : grouped.Key,
-                                                     totalAmount = grouped.Sum(amount => amount.Value) * 20
+                                                     totalAmount = grouped.Sum(amount => amount.Value)
                                                  }).ToList();
                         }
                     }
+                    connection.Close();
                 }
             }
             catch (Exception ex)
@@ -143,22 +170,37 @@ namespace interdisciplinar2.Models
             }
         }
 
+
+        private decimal GetServicePrice(int priceId)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand("SELECT price FROM service_prices WHERE id = @priceId", connection))
+                {
+                    command.Parameters.Add("@priceId", MySqlDbType.Int32).Value = priceId;
+                    return Convert.ToDecimal(command.ExecuteScalar());
+                }
+                connection.Close();
+            }
+        }
+
         public bool LoadData(DateTime startDate, DateTime endDate)
         {
             endDate = new DateTime(endDate.Year, endDate.Month, endDate.Day, endDate.Hour, endDate.Minute, 59);
 
-            if (this.startDate != startDate || this.endDate != endDate)
-            {
-                this.startDate = startDate;
-                this.endDate = endDate;
-                this.numberOfDays = (endDate - startDate).Days;
 
-                GetNumberOfSchedules();
-                GetResultGraphic();
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.numberOfDays = (endDate - startDate).Days;
 
-                return true;
-            }
-            else return false;
+            GetNumberOfSchedules();
+            GetResultGraphic();
+
+            return true;
+
+            
         }
     }
+
 }

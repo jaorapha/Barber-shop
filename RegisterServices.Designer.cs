@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblCategory = new System.Windows.Forms.Label();
             this.lblDescripton = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.lblDuration = new System.Windows.Forms.Label();
             this.lblPrice = new System.Windows.Forms.Label();
-            this.txtCategory = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtPrice = new System.Windows.Forms.TextBox();
@@ -47,6 +49,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtDelete = new System.Windows.Forms.TextBox();
             this.ibDelete = new FontAwesome.Sharp.IconButton();
+            this.cboxCategory = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,14 +119,6 @@
             this.lblPrice.TabIndex = 6;
             this.lblPrice.Text = "Preço";
             // 
-            // txtCategory
-            // 
-            this.txtCategory.Font = new System.Drawing.Font("Cascadia Code", 12F);
-            this.txtCategory.Location = new System.Drawing.Point(41, 130);
-            this.txtCategory.Name = "txtCategory";
-            this.txtCategory.Size = new System.Drawing.Size(338, 26);
-            this.txtCategory.TabIndex = 7;
-            // 
             // txtName
             // 
             this.txtName.Font = new System.Drawing.Font("Cascadia Code", 12F);
@@ -150,11 +145,38 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(451, 56);
             this.dataGridView1.Name = "dataGridView1";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(44)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Snow;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.Size = new System.Drawing.Size(376, 292);
             this.dataGridView1.TabIndex = 12;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // btnCadastrar
             // 
@@ -226,13 +248,12 @@
             // 
             // txtDelete
             // 
+            this.txtDelete.Enabled = false;
             this.txtDelete.Font = new System.Drawing.Font("Cascadia Code", 12F);
             this.txtDelete.Location = new System.Drawing.Point(451, 492);
             this.txtDelete.Name = "txtDelete";
-            this.txtDelete.Size = new System.Drawing.Size(261, 26);
+            this.txtDelete.Size = new System.Drawing.Size(68, 26);
             this.txtDelete.TabIndex = 19;
-            this.txtDelete.Text = "Insira o nome do serviço";
-            this.txtDelete.Click += new System.EventHandler(this.txtDelete_Click);
             // 
             // ibDelete
             // 
@@ -242,12 +263,25 @@
             this.ibDelete.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
             this.ibDelete.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ibDelete.IconSize = 20;
-            this.ibDelete.Location = new System.Drawing.Point(705, 492);
+            this.ibDelete.Location = new System.Drawing.Point(515, 492);
             this.ibDelete.Name = "ibDelete";
             this.ibDelete.Size = new System.Drawing.Size(31, 26);
             this.ibDelete.TabIndex = 20;
             this.ibDelete.UseVisualStyleBackColor = true;
             this.ibDelete.Click += new System.EventHandler(this.ibDelete_Click);
+            // 
+            // cboxCategory
+            // 
+            this.cboxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxCategory.Font = new System.Drawing.Font("Cascadia Code", 12F);
+            this.cboxCategory.FormattingEnabled = true;
+            this.cboxCategory.Items.AddRange(new object[] {
+            "Corte de cabelo",
+            "Corte de Barba"});
+            this.cboxCategory.Location = new System.Drawing.Point(41, 130);
+            this.cboxCategory.Name = "cboxCategory";
+            this.cboxCategory.Size = new System.Drawing.Size(338, 29);
+            this.cboxCategory.TabIndex = 21;
             // 
             // RegisterServices
             // 
@@ -255,6 +289,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(869, 560);
+            this.Controls.Add(this.cboxCategory);
             this.Controls.Add(this.ibDelete);
             this.Controls.Add(this.txtDelete);
             this.Controls.Add(this.label1);
@@ -267,7 +302,6 @@
             this.Controls.Add(this.txtPrice);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtName);
-            this.Controls.Add(this.txtCategory);
             this.Controls.Add(this.lblPrice);
             this.Controls.Add(this.lblDuration);
             this.Controls.Add(this.lblName);
@@ -277,7 +311,6 @@
             this.Name = "RegisterServices";
             this.Text = "RegisterServices";
             this.Load += new System.EventHandler(this.RegisterServices_Load);
-            this.Click += new System.EventHandler(this.RegisterServices_Click);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -291,7 +324,6 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblDuration;
         private System.Windows.Forms.Label lblPrice;
-        private System.Windows.Forms.TextBox txtCategory;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.TextBox txtPrice;
@@ -304,5 +336,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtDelete;
         private FontAwesome.Sharp.IconButton ibDelete;
+        private System.Windows.Forms.ComboBox cboxCategory;
     }
 }
